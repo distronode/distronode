@@ -77,7 +77,7 @@ The [Distronode Roadmap page](https://distronode.github.io/docs/devel/roadmap/) 
 
 ## Authors
 
-Distronode was created by [Michael DeHaan](https://github.com/mpdehaan)
+Distronode was created by [GitWorkflows](https://github.com/gitworkflows)
 and has contributions from over 5000 users (and growing). Thanks everyone!
 
 [Distronode](https://www.distronode.github.io) is sponsored by [Red Hat, Inc.](https://www.redhat.com)
