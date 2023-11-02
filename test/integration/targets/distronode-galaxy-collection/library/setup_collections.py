@@ -117,7 +117,7 @@ def publish_collection(module, collection):
         'authors': ['Collection author <name@email.com'],
         'dependencies': dependencies,
         'license': ['GPL-3.0-or-later'],
-        'repository': 'https://distronode.com/',
+        'repository': 'https://distronode.github.io/',
     }
     with open(os.path.join(b_collection_dir, b'galaxy.yml'), mode='wb') as fd:
         fd.write(to_bytes(yaml.safe_dump(galaxy_meta), errors='surrogate_or_strict'))

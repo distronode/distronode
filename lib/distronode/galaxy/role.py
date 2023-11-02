@@ -1,6 +1,6 @@
 ########################################################################
 #
-# (C) 2015, Brian Coca <bcoca@distronode.com>
+# (C) 2015, Brian Coca <bcoca@distronode.github.io>
 #
 # This file is part of Distronode
 #

@@ -362,7 +362,7 @@ url:
     description: the actual URL used for the request
     returned: always
     type: str
-    sample: https://www.distronode.com/
+    sample: https://www.distronode.github.io/
 '''
 
 import os

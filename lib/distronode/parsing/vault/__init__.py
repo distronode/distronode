@@ -1,6 +1,6 @@
 # (c) 2014, James Tanner <tanner.jc@gmail.com>
 # (c) 2016, Adrian Likins <alikins@redhat.com>
-# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # Distronode is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

@@ -1,7 +1,7 @@
 # (c) 2013-2016, Michael DeHaan <michael.dehaan@gmail.com>
 #           Stephen Fromm <sfromm@gmail.com>
 #           Brian Coca  <briancoca+dev@gmail.com>
-#           Toshio Kuratomi  <tkuratomi@distronode.com>
+#           Toshio Kuratomi  <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #

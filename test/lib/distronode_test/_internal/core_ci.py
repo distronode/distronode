@@ -115,7 +115,7 @@ class CloudResource(Resource):
 class DistronodeCoreCI:
     """Client for Distronode Core CI services."""
 
-    DEFAULT_ENDPOINT = 'https://distronode-core-ci.testing.distronode.com'
+    DEFAULT_ENDPOINT = 'https://distronode-core-ci.testing.distronode.github.io'
 
     def __init__(
         self,

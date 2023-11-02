@@ -9,7 +9,7 @@ from distronode.module_utils.six.moves.urllib.parse import urlparse, urlunparse
 
 
 def test_generic_urlparse():
-    url = 'https://distronode.com/blog'
+    url = 'https://distronode.github.io/blog'
     parts = urlparse(url)
     generic_parts = generic_urlparse(parts)
     assert generic_parts.as_list() == list(parts)
@@ -18,10 +18,10 @@ def test_generic_urlparse():
 
 
 def test_generic_urlparse_netloc():
-    url = 'https://distronode.com:443/blog'
+    url = 'https://distronode.github.io:443/blog'
     parts = urlparse(url)
     generic_parts = generic_urlparse(parts)
     assert generic_parts.hostname == parts.hostname
-    assert generic_parts.hostname == 'distronode.com'
+    assert generic_parts.hostname == 'distronode.github.io'
     assert generic_parts.port == 443
     assert urlunparse(generic_parts.as_list()) == url

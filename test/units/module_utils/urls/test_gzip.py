@@ -64,7 +64,7 @@ def test_Request_open_gzip(urlopen_mock):
 
     urlopen_mock.return_value = h
 
-    r = Request().open('GET', 'https://distronode.com/')
+    r = Request().open('GET', 'https://distronode.github.io/')
     assert isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 
@@ -78,7 +78,7 @@ def test_Request_open_not_gzip(urlopen_mock):
 
     urlopen_mock.return_value = h
 
-    r = Request().open('GET', 'https://distronode.com/')
+    r = Request().open('GET', 'https://distronode.github.io/')
     assert not isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 
@@ -92,7 +92,7 @@ def test_Request_open_decompress_false(urlopen_mock):
 
     urlopen_mock.return_value = h
 
-    r = Request().open('GET', 'https://distronode.com/', decompress=False)
+    r = Request().open('GET', 'https://distronode.github.io/', decompress=False)
     assert not isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 

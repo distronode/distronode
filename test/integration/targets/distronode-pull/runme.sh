@@ -21,7 +21,7 @@ cp -av "pull-integration-test" "${repo_dir}"
 cd "${repo_dir}"
 (
     git init
-    git config user.email "distronode@distronode.com"
+    git config user.email "distronode@distronode.github.io"
     git config user.name  "Distronode Test Runner"
     git add .
     git commit -m "Initial commit."

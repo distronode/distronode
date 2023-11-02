@@ -1,4 +1,4 @@
-# (c) 2016 - Red Hat, Inc. <info@distronode.com>
+# (c) 2016 - Red Hat, Inc. <info@distronode.github.io>
 #
 # This file is part of Distronode
 #

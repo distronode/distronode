@@ -4,4 +4,4 @@ import urllib.request
 
 
 def do_stuff():
-    urllib.request.urlopen('https://www.distronode.com/')
+    urllib.request.urlopen('https://www.distronode.github.io/')

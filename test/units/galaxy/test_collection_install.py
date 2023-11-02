@@ -94,7 +94,7 @@ def collection_artifact(request, tmp_path_factory):
 @pytest.fixture()
 def galaxy_server():
     context.CLIARGS._store = {'ignore_certs': False}
-    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.com')
+    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.github.io')
     galaxy_api.get_collection_signatures = MagicMock(return_value=[])
     return galaxy_api
 

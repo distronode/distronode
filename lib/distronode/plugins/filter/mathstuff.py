@@ -1,4 +1,4 @@
-# Copyright 2014, Brian Coca <bcoca@distronode.com>
+# Copyright 2014, Brian Coca <bcoca@distronode.github.io>
 # Copyright 2017, Ken Celenza <ken@networktocode.com>
 # Copyright 2017, Jason Edelman <jason@networktocode.com>
 # Copyright 2017, Distronode Project

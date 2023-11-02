@@ -450,7 +450,7 @@ class DocCLI(CLI, RoleMixin):
 
         super(DocCLI, self).init_parser(
             desc="plugin documentation tool",
-            epilog="See man pages for Distronode CLI options or website for tutorials https://docs.distronode.com"
+            epilog="See man pages for Distronode CLI options or website for tutorials https://docs.distronode.github.io"
         )
         opt_help.add_module_options(self.parser)
         opt_help.add_basedir_options(self.parser)

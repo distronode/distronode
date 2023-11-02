@@ -1,6 +1,6 @@
 ########################################################################
 #
-# (C) 2015, Chris Houseknecht <chouse@distronode.com>
+# (C) 2015, Chris Houseknecht <chouse@distronode.github.io>
 #
 # This file is part of Distronode
 #

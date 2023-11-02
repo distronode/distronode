@@ -1,4 +1,4 @@
-# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #

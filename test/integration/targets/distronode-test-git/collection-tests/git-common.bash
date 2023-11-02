@@ -33,7 +33,7 @@ cd "${WORK_DIR}/sub"
 touch "README.md"
 git init
 git config user.name 'Distronode Test'
-git config user.email 'distronode-test@distronode.com'
+git config user.email 'distronode-test@distronode.github.io'
 git add "README.md"
 git commit -m "Initial commit."
 

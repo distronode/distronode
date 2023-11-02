@@ -54,11 +54,11 @@ class FakeDistronodeModule:
 
 
 def test_fetch_url(open_url_mock, fake_distronode_module):
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     dummy, kwargs = open_url_mock.call_args
 
-    open_url_mock.assert_called_once_with('http://distronode.com/', client_cert=None, client_key=None, cookies=kwargs['cookies'], data=None,
+    open_url_mock.assert_called_once_with('http://distronode.github.io/', client_cert=None, client_key=None, cookies=kwargs['cookies'], data=None,
                                           follow_redirects='urllib2', force=False, force_basic_auth='', headers=None,
                                           http_agent='distronode-httpget', last_mod_time=None, method=None, timeout=10, url_password='', url_username='',
                                           use_proxy=True, validate_certs=True, use_gssapi=False, unix_socket=None, ca_path=None, unredirected_headers=None,
@@ -77,11 +77,11 @@ def test_fetch_url_params(open_url_mock, fake_distronode_module):
         'client_key': 'client.key',
     }
 
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     dummy, kwargs = open_url_mock.call_args
 
-    open_url_mock.assert_called_once_with('http://distronode.com/', client_cert='client.pem', client_key='client.key', cookies=kwargs['cookies'], data=None,
+    open_url_mock.assert_called_once_with('http://distronode.github.io/', client_cert='client.pem', client_key='client.key', cookies=kwargs['cookies'], data=None,
                                           follow_redirects='all', force=False, force_basic_auth=True, headers=None,
                                           http_agent='distronode-test', last_mod_time=None, method=None, timeout=10, url_password='passwd', url_username='user',
                                           use_proxy=True, validate_certs=False, use_gssapi=False, unix_socket=None, ca_path=None, unredirected_headers=None,
@@ -102,7 +102,7 @@ def test_fetch_url_cookies(mocker, fake_distronode_module):
                 value=value,
                 port=None,
                 port_specified=False,
-                domain="distronode.com",
+                domain="distronode.github.io",
                 domain_specified=True,
                 domain_initial_dot=False,
                 path="/",
@@ -121,7 +121,7 @@ def test_fetch_url_cookies(mocker, fake_distronode_module):
 
     mocker = mocker.patch('distronode.module_utils.urls.open_url', new=make_cookies)
 
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     assert info['cookies'] == {'Baz': 'qux', 'Foo': 'bar'}
 
@@ -142,57 +142,57 @@ def test_fetch_url_cookies(mocker, fake_distronode_module):
 def test_fetch_url_connectionerror(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = ConnectionError('TESTS')
     with pytest.raises(FailJson) as excinfo:
-        fetch_url(fake_distronode_module, 'http://distronode.com/')
+        fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     assert excinfo.value.kwargs['msg'] == 'TESTS'
-    assert 'http://distronode.com/' == excinfo.value.kwargs['url']
+    assert 'http://distronode.github.io/' == excinfo.value.kwargs['url']
     assert excinfo.value.kwargs['status'] == -1
 
     open_url_mock.side_effect = ValueError('TESTS')
     with pytest.raises(FailJson) as excinfo:
-        fetch_url(fake_distronode_module, 'http://distronode.com/')
+        fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     assert excinfo.value.kwargs['msg'] == 'TESTS'
-    assert 'http://distronode.com/' == excinfo.value.kwargs['url']
+    assert 'http://distronode.github.io/' == excinfo.value.kwargs['url']
     assert excinfo.value.kwargs['status'] == -1
 
 
 def test_fetch_url_httperror(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = urllib.error.HTTPError(
-        'http://distronode.com/',
+        'http://distronode.github.io/',
         500,
         'Internal Server Error',
         {'Content-Type': 'application/json'},
         io.StringIO('TESTS')
     )
 
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
 
     assert info == {'msg': 'HTTP Error 500: Internal Server Error', 'body': 'TESTS',
-                    'status': 500, 'url': 'http://distronode.com/', 'content-type': 'application/json'}
+                    'status': 500, 'url': 'http://distronode.github.io/', 'content-type': 'application/json'}
 
 
 def test_fetch_url_urlerror(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = urllib.error.URLError('TESTS')
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
-    assert info == {'msg': 'Request failed: <urlopen error TESTS>', 'status': -1, 'url': 'http://distronode.com/'}
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
+    assert info == {'msg': 'Request failed: <urlopen error TESTS>', 'status': -1, 'url': 'http://distronode.github.io/'}
 
 
 def test_fetch_url_socketerror(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = socket.error('TESTS')
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
-    assert info == {'msg': 'Connection failure: TESTS', 'status': -1, 'url': 'http://distronode.com/'}
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
+    assert info == {'msg': 'Connection failure: TESTS', 'status': -1, 'url': 'http://distronode.github.io/'}
 
 
 def test_fetch_url_exception(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = Exception('TESTS')
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
     exception = info.pop('exception')
-    assert info == {'msg': 'An unknown error occurred: TESTS', 'status': -1, 'url': 'http://distronode.com/'}
+    assert info == {'msg': 'An unknown error occurred: TESTS', 'status': -1, 'url': 'http://distronode.github.io/'}
     assert "Exception: TESTS" in exception
 
 
 def test_fetch_url_badstatusline(open_url_mock, fake_distronode_module):
     open_url_mock.side_effect = http.client.BadStatusLine('TESTS')
-    r, info = fetch_url(fake_distronode_module, 'http://distronode.com/')
-    assert info == {'msg': 'Connection failure: connection was closed before a valid response was received: TESTS', 'status': -1, 'url': 'http://distronode.com/'}
+    r, info = fetch_url(fake_distronode_module, 'http://distronode.github.io/')
+    assert info == {'msg': 'Connection failure: connection was closed before a valid response was received: TESTS', 'status': -1, 'url': 'http://distronode.github.io/'}

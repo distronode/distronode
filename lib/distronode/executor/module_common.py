@@ -1,5 +1,5 @@
 # (c) 2013-2014, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2015 Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2015 Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #

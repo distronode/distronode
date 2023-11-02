@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2015, Peter Sprygada <psprygada@distronode.com>
+# Copyright: (c) 2015, Peter Sprygada <psprygada@distronode.github.io>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 from __future__ import annotations
 
@@ -78,5 +78,5 @@ notes:
 - For more information on using Distronode to manage network devices see the :ref:`Distronode
   Network Guide <network_guide>`
 - For more information on using Distronode to manage Cisco devices see the `Cisco integration
-  page <https://www.distronode.com/integrations/networks/cisco>`_.
+  page <https://www.distronode.github.io/integrations/networks/cisco>`_.
 """

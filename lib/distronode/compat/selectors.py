@@ -1,4 +1,4 @@
-# (c) 2014, 2017 Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2014, 2017 Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #
@@ -23,7 +23,7 @@ import selectors
 from distronode.module_utils.common.warnings import deprecate
 
 
-sys.modules['distronode.compat.selectors'] = selectors
+sys.modules['distronode.github.iopat.selectors'] = selectors
 
 
 deprecate(

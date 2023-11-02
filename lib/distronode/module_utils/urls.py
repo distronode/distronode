@@ -6,7 +6,7 @@
 # to the complete work.
 #
 # Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2012-2013
-# Copyright (c), Toshio Kuratomi <tkuratomi@distronode.com>, 2015
+# Copyright (c), Toshio Kuratomi <tkuratomi@distronode.github.io>, 2015
 # Copyright: Contributors to the Distronode project
 #
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)

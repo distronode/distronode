@@ -11,6 +11,6 @@ The mailing list and irc are great ways to ask questions, or post if you don't t
 
 See  this page for a complete list of communication channels and their purposes:
 
-* https://docs.distronode.com/distronode/latest/community/communication.html
+* https://docs.distronode.github.io/distronode/latest/community/communication.html
 
 Thank you!

@@ -126,7 +126,7 @@ url:
   description: The Target URL.
   returned: always
   type: str
-  sample: https://www.distronode.com
+  sample: https://www.distronode.github.io
 status_code:
   description: The HTTP Status Code of the response.
   returned: success
