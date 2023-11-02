@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>, and others
-# Copyright: (c) 2016, Toshio Kuratomi <tkuratomi@distronode.com>
+# Copyright: (c) 2016, Toshio Kuratomi <tkuratomi@distronode.github.io>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ description:
        like C("*"), C("<"), C(">"), C("|"), C(";") and C("&") will not work.
        Use the M(distronode.builtin.shell) module if you need these features.
      - To create C(command) tasks that are easier to read than the ones using space-delimited
-       arguments, pass parameters using the C(args) L(task keyword,https://docs.distronode.com/distronode/latest/reference_appendices/playbooks_keywords.html#task)
+       arguments, pass parameters using the C(args) L(task keyword,https://docs.distronode.github.io/distronode/latest/reference_appendices/playbooks_keywords.html#task)
        or use O(cmd) parameter.
      - Either a free form command or O(cmd) parameter is required, see the examples.
      - For Windows targets, use the M(distronode.windows.win_command) module instead.

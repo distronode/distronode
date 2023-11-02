@@ -102,7 +102,7 @@ class ActionModule(ActionNetworkModule):
                 return {
                     "failed": True,
                     "msg": "unable to open shell. Please see: "
-                    + "https://docs.distronode.com/distronode/latest/network/user_guide/network_debug_troubleshooting.html#category-unable-to-open-shell",
+                    + "https://docs.distronode.github.io/distronode/latest/network/user_guide/network_debug_troubleshooting.html#category-unable-to-open-shell",
                 }
 
             task_vars["distronode_socket"] = socket_path

@@ -1,5 +1,5 @@
 # (c) 2014, James Tanner <tanner.jc@gmail.com>
-# (c) 2014, James Cammarata, <jcammarata@distronode.com>
+# (c) 2014, James Cammarata, <jcammarata@distronode.github.io>
 #
 # This file is part of Distronode
 #

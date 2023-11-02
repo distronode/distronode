@@ -1,6 +1,6 @@
 # (c) 2012, Daniel Hokka Zakrisson <daniel@hozac.com>
 # (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com> and others
-# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #

@@ -14,8 +14,8 @@ TTY_IFY_DATA = {
     'I(italic)': "`italic'",
     'B(bold)': '*bold*',
     'M(distronode.builtin.module)': '[distronode.builtin.module]',
-    'U(https://docs.distronode.com)': 'https://docs.distronode.com',
-    'L(the user guide,https://docs.distronode.com/user-guide.html)': 'the user guide <https://docs.distronode.com/user-guide.html>',
+    'U(https://docs.distronode.github.io)': 'https://docs.distronode.github.io',
+    'L(the user guide,https://docs.distronode.github.io/user-guide.html)': 'the user guide <https://docs.distronode.github.io/user-guide.html>',
     'R(the user guide,user-guide)': 'the user guide',
     'C(/usr/bin/file)': "`/usr/bin/file'",
     'HORIZONTALLINE': '\n{0}\n'.format('-' * 13),
@@ -24,7 +24,7 @@ TTY_IFY_DATA = {
     "The [distronode.builtin.yum] module *MUST* be given the `package' parameter.  See the looping docs for more info",
     # Problem cases
     'IBM(International Business Machines)': 'IBM(International Business Machines)',
-    'L(the user guide, https://docs.distronode.com/)': 'the user guide <https://docs.distronode.com/>',
+    'L(the user guide, https://docs.distronode.github.io/)': 'the user guide <https://docs.distronode.github.io/>',
     'R(the user guide, user-guide)': 'the user guide',
     # de-rsty refs and anchors
     'yolo :ref:`my boy` does stuff': 'yolo `my boy` does stuff',

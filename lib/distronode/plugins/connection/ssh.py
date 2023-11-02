@@ -1,6 +1,6 @@
 # Copyright (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
 # Copyright 2015 Abhijit Menon-Sen <ams@2ndQuadrant.com>
-# Copyright 2017 Toshio Kuratomi <tkuratomi@distronode.com>
+# Copyright 2017 Toshio Kuratomi <tkuratomi@distronode.github.io>
 # Copyright (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 

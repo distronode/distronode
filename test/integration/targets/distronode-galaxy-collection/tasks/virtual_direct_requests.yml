@@ -32,7 +32,7 @@
       command: 'git init {{ scm_path }}/test_prereleases'
 
     - name: Configure commiter for the repo
-      shell: git config user.email distronode-test@distronode.com && git config user.name distronode-test
+      shell: git config user.email distronode-test@distronode.github.io && git config user.name distronode-test
       args:
         chdir: "{{ scm_path }}/test_prereleases"
 

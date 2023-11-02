@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright: (c) 2012, Stephen Fromm <sfromm@gmail.com>
-# Copyright: (c) 2016, Toshio Kuratomi <tkuratomi@distronode.com>
+# Copyright: (c) 2016, Toshio Kuratomi <tkuratomi@distronode.github.io>
 # Copyright: (c) 2017, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 

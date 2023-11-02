@@ -1,4 +1,4 @@
-# Copyright (c), Toshio Kuratomi <tkuratomi@distronode.com> 2016
+# Copyright (c), Toshio Kuratomi <tkuratomi@distronode.github.io> 2016
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
 """

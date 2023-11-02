@@ -13,7 +13,7 @@ def test_basic_auth_header():
 
 
 def test_ParseResultDottedDict():
-    url = 'https://distronode.com/blog'
+    url = 'https://distronode.github.io/blog'
     parts = urls.urlparse(url)
     dotted_parts = urls.ParseResultDottedDict(parts._asdict())
     assert parts[0] == dotted_parts.scheme
@@ -23,7 +23,7 @@ def test_ParseResultDottedDict():
 
 def test_unix_socket_patch_httpconnection_connect(mocker):
     unix_conn = mocker.patch.object(urls.UnixHTTPConnection, 'connect')
-    conn = urls.http.client.HTTPConnection('distronode.com')
+    conn = urls.http.client.HTTPConnection('distronode.github.io')
     with urls.unix_socket_patch_httpconnection_connect():
         conn.connect()
     assert unix_conn.call_count == 1

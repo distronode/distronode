@@ -83,7 +83,7 @@ if t.TYPE_CHECKING:
     FilesManifestType = t.Dict[t.Literal['files', 'format'], t.Union[t.List[FileManifestEntryType], int]]
 
 import distronode.constants as C
-from distronode.compat.importlib_resources import files
+from distronode.github.iopat.importlib_resources import files
 from distronode.errors import DistronodeError
 from distronode.galaxy.api import GalaxyAPI
 from distronode.galaxy.collection.concrete_artifact_manager import (
@@ -616,7 +616,7 @@ def publish_collection(collection_path, api, wait, timeout):
     if wait:
         # Galaxy returns a url fragment which differs between v2 and v3.  The second to last entry is
         # always the task_id, though.
-        # v2: {"task": "https://galaxy-dev.distronode.com/api/v2/collection-imports/35573/"}
+        # v2: {"task": "https://galaxy-dev.distronode.github.io/api/v2/collection-imports/35573/"}
         # v3: {"task": "/api/automation-hub/v3/imports/collections/838d1308-a8f4-402c-95cb-7823f3806cd8/"}
         task_id = None
         for path_segment in reversed(import_uri.split('/')):

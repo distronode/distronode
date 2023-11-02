@@ -89,7 +89,7 @@ options:
         description:
             - If provided, set the user's password to the provided encrypted hash (Linux) or plain text password (macOS).
             - B(Linux/Unix/POSIX:) Enter the hashed password as the value.
-            - See L(FAQ entry,https://docs.distronode.com/distronode/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
+            - See L(FAQ entry,https://docs.distronode.github.io/distronode/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
               for details on various ways to generate the hash of a password.
             - To create an account with a locked/disabled password on Linux systems, set this to V('!') or V('*').
             - To create an account with a locked/disabled password on OpenBSD, set this to V('*************').
@@ -101,7 +101,7 @@ options:
     state:
         description:
             - Whether the account should exist or not, taking action if the state is different from what is stated.
-            - See this L(FAQ entry,https://docs.distronode.com/distronode/latest/reference_appendices/faq.html#running-on-macos-as-a-target)
+            - See this L(FAQ entry,https://docs.distronode.github.io/distronode/latest/reference_appendices/faq.html#running-on-macos-as-a-target)
               for additional requirements when removing users on macOS systems.
         type: str
         choices: [ absent, present ]

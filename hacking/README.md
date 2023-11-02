@@ -22,7 +22,7 @@ easy_install pip  # if pip is not already available
 pip install -r requirements.txt
 ```
 
-From there, follow distronode instructions on docs.distronode.com as normal.
+From there, follow distronode instructions on docs.distronode.github.io as normal.
 
 test-module.py
 --------------

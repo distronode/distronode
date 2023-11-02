@@ -31,7 +31,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace Distronode.Command {
+namespace distronode.github.iomand {
     public class SymLinkHelper {
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
         public static extern bool DeleteFileW(string lpFileName);
@@ -64,11 +64,11 @@ function Remove-File($file, $checkmode) {
             # to an invalid path it will fail, using Win32 API to do this instead
             if ($file.PSIsContainer) {
                 if (-not $checkmode) {
-                    [Distronode.Command.SymLinkHelper]::DeleteDirectory($file.FullName)
+                    [distronode.github.iomand.SymLinkHelper]::DeleteDirectory($file.FullName)
                 }
             } else {
                 if (-not $checkmode) {
-                    [Distronode.Command.SymlinkHelper]::DeleteFile($file.FullName)
+                    [distronode.github.iomand.SymlinkHelper]::DeleteFile($file.FullName)
                 }
             }
         } elseif ($file.PSIsContainer) {

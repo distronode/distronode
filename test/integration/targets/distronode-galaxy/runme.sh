@@ -44,7 +44,7 @@ f_distronode_galaxy_create_role_repo_pre()
             git init .
 
             # Prep git, because it doesn't work inside a docker container without it
-            git config user.email "tester@distronode.com"
+            git config user.email "tester@distronode.github.io"
             git config user.name "Distronode Tester"
 
     # f_distronode_galaxy_create_role_repo_post
@@ -110,7 +110,7 @@ pushd "${galaxy_testdir}"
     distronode-galaxy install git+file:///"${galaxy_local_test_role_git_repo}" "$@" -vvvv 2>&1 | tee out.txt
 
     # Test no initial call is made to Galaxy
-    grep out.txt -e "https://galaxy.distronode.com" && cat out.txt && exit 1
+    grep out.txt -e "https://galaxy.distronode.github.io" && cat out.txt && exit 1
 
     # Test that the role was installed to the expected directory
     [[ -d "${HOME}/.distronode/roles/${galaxy_local_test_role}" ]]

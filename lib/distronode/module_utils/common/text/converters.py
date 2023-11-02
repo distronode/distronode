@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2019 Distronode Project
-# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.com>
+# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.github.io>
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
 from __future__ import annotations

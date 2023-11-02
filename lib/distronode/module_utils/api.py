@@ -4,7 +4,7 @@
 # still belong to the author of the module, and may assign their own license
 # to the complete work.
 #
-# Copyright: (c) 2015, Brian Coca, <bcoca@distronode.com>
+# Copyright: (c) 2015, Brian Coca, <bcoca@distronode.github.io>
 #
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 """

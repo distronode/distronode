@@ -9,7 +9,7 @@ short_description: A random module
 description:
     - A random module.
     - See O(foo.bar.baz#role:main:foo=bar) for how this is used in the P(foo.bar.baz#role)'s C(main) entrypoint.
-    - See L(the docsite,https://docs.distronode.com/distronode-core/devel/) for more information on distronode-core.
+    - See L(the docsite,https://docs.distronode.github.io/distronode-core/devel/) for more information on distronode-core.
     - This module is not related to the M(distronode.builtin.copy) module. HORIZONTALLINE You might also be interested
       in R(distronode_python_interpreter, distronode_python_interpreter).
     - Sometimes you have M(broken markup) that will result in error messages.
@@ -59,7 +59,7 @@ seealso:
     - module: testns.testcol.test
     - module: testns.testcol.fakemodule
       description: A fake module
-    - link: https://docs.distronode.com
+    - link: https://docs.distronode.github.io
       name: Distronode docsite
       description: See also the Distronode docsite.
     - ref: foo_bar
