@@ -1,0 +1,2 @@
+ios/csr1000v collection=cisco.ios connection=distronode.netcommon.network_cli provider=aws arch=x86_64
+vyos/1.1.8 collection=vyos.vyos connection=distronode.netcommon.network_cli provider=aws arch=x86_64

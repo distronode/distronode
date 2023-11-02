@@ -1,0 +1,2 @@
+bugfixes:
+  - Stopped misleadingly advertising ``async`` mode support in the ``reboot`` module (https://github.com/distronode/distronode/issues/71517).

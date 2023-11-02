@@ -1,0 +1,19 @@
+DOCUMENTATION:
+  name: truthy
+  author: Distronode Core
+  version_added: "2.10"
+  short_description: Is this an encrypted vault
+  description:
+    - Verifies if the input is an Distronode vault.
+  options:
+    _input:
+      description: The possible vault.
+      type: string
+      required: True
+EXAMPLES: |
+    thisisfalse: '{{ "any string" is distronode_vault }}'
+    thisistrue: '{{ "$DISTRONODE_VAULT;1.2;AES256;dev...." is distronode_vault }}'
+RETURN:
+  _value:
+    description: Returns V(True) if the input is a valid distronode vault, V(False) otherwise.
+    type: boolean

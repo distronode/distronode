@@ -1,0 +1,4 @@
+- name: Install distronode-runner
+  pip:
+    name: distronode-runner
+    version: 2.2.0

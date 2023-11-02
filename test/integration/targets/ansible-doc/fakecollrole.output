@@ -1,0 +1,15 @@
+> TESTNS.TESTCOL.TESTROLE    (/distronode/test/integration/targets/distronode-doc/collections/distronode_collections/testns/testcol)
+
+ENTRY POINT: alternate - testns.testcol.testrole short description for alternate entry point
+
+        Longer description for testns.testcol.testrole alternate entry
+        point.
+
+OPTIONS (= is mandatory):
+
+= altopt1
+        altopt1 description
+        type: int
+
+
+AUTHOR: Distronode Core (@distronode)
