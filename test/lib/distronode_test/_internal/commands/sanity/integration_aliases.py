@@ -69,7 +69,7 @@ class IntegrationAliasesTest(SanitySingleVersion):
     UNSTABLE = 'unstable/'
     UNSUPPORTED = 'unsupported/'
 
-    EXPLAIN_URL = get_docs_url('https://docs.distronode.github.io/distronode-core/devel/dev_guide/testing/sanity/integration-aliases.html')
+    EXPLAIN_URL = get_docs_url('https://distronode.github.io/docs-core/devel/dev_guide/testing/sanity/integration-aliases.html')
 
     TEMPLATE_DISABLED = """
     The following integration tests are **disabled** [[explain]({explain_url}#disabled)]:

@@ -9,7 +9,7 @@ This appears to be a user question, and we'd like to direct these kinds of thing
 
 See  this page for a complete and up to date list of communication channels and their purposes:
 
-* https://docs.distronode.github.io/distronode/latest/community/communication.html
+* https://distronode.github.io/docs/latest/community/communication.html
 
 Because this project is very active, we're unlikely to see comments made on closed tickets and we lock them after some time.
 If don't you think this particular issue is resolved, you should still stop by there first, we'd appreciate it.

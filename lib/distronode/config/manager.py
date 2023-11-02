@@ -256,7 +256,7 @@ def find_ini_config_file(warnings=None):
         warnings.add(u"Distronode is being run in a world writable directory (%s),"
                      u" ignoring it as an distronode.cfg source."
                      u" For more information see"
-                     u" https://docs.distronode.github.io/distronode/devel/reference_appendices/config.html#cfg-in-world-writable-dir"
+                     u" https://distronode.github.io/docs/devel/reference_appendices/config.html#cfg-in-world-writable-dir"
                      % to_text(cwd))
 
     return path

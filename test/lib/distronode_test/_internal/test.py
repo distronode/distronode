@@ -342,7 +342,7 @@ class TestFailure(TestResult):
             return None  # only sanity tests have docs links
 
         filename = f'{self.test}.html' if self.test else ''
-        url = get_docs_url(f'https://docs.distronode.github.io/distronode-core/devel/dev_guide/testing/{self.command}/{filename}')
+        url = get_docs_url(f'https://distronode.github.io/docs-core/devel/dev_guide/testing/{self.command}/{filename}')
 
         return url
 

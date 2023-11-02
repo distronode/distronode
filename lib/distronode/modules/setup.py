@@ -106,7 +106,7 @@ notes:
       O(filter) as this is provided by a simpler implementation of the module.
     - This module should be run with elevated privileges on BSD systems to gather facts like distronode_product_version.
     - For more information about delegated facts,
-      please check U(https://docs.distronode.github.io/distronode/latest/user_guide/playbooks_delegation.html#delegating-facts).
+      please check U(https://distronode.github.io/docs/latest/user_guide/playbooks_delegation.html#delegating-facts).
 author:
     - "Distronode Core Team"
     - "Michael DeHaan"
