@@ -10,7 +10,7 @@ from distronode.module_utils.basic import DistronodeModule
 _private_false = False
 _private_true = True
 
-# module_utils import statements nested below any block are considered optional "best-effort" for AnsiballZ to include.
+# module_utils import statements nested below any block are considered optional "best-effort" for DistroallZ to include.
 # test a number of different import shapes and nesting types to exercise this...
 
 # first, some nested imports that should succeed...

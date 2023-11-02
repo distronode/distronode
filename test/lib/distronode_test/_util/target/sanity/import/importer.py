@@ -128,7 +128,7 @@ def main():
 
     if import_type == 'module':
         # pre-load an empty distronode package to prevent unwanted code in __init__.py from loading
-        # this more accurately reflects the environment that AnsiballZ runs modules under
+        # this more accurately reflects the environment that DistroallZ runs modules under
         # it also avoids issues with imports in the distronode package that are not allowed
         distronode_module = types.ModuleType(distronode.__name__)
         distronode_module.__file__ = distronode.__file__

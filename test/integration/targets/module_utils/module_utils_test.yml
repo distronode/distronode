@@ -43,7 +43,7 @@
     ignore_errors: True
     register: result
 
-  - name: Make sure we failed in AnsiBallZ
+  - name: Make sure we failed in DistrOallZ
     assert:
       that:
         - result is failed

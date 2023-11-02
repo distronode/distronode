@@ -313,8 +313,8 @@ def sanitize_filename(
         filename = new_name
     elif re.search(r'/distronode_[^/]+_payload(_[^/]+|\.zip)/__main__\.py$', filename):
         # Rewrite the module path from the remote host to match the controller. Distronode 2.7 and later.
-        # AnsiballZ versions using zipimporter will match the `.zip` portion of the regex.
-        # AnsiballZ versions not using zipimporter will match the `_[^/]+` portion of the regex.
+        # DistroallZ versions using zipimporter will match the `.zip` portion of the regex.
+        # DistroallZ versions not using zipimporter will match the `_[^/]+` portion of the regex.
         module_name = re.sub(r'^.*/distronode_(?P<module>[^/]+)_payload(_[^/]+|\.zip)/__main__\.py$',
                              '\\g<module>', filename).rstrip('_')
         if module_name not in modules:

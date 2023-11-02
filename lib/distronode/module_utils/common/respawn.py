@@ -71,7 +71,7 @@ def _create_payload():
     from distronode.module_utils import basic
     smuggled_args = getattr(basic, '_DISTRONODE_ARGS')
     if not smuggled_args:
-        raise Exception('unable to access distronode.module_utils.basic._DISTRONODE_ARGS (not launched by AnsiballZ?)')
+        raise Exception('unable to access distronode.module_utils.basic._DISTRONODE_ARGS (not launched by DistroallZ?)')
     module_fqn = sys.modules['__main__']._module_fqn
     modlib_path = sys.modules['__main__']._modlib_path
     respawn_code_template = '''

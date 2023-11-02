@@ -443,7 +443,7 @@ class Connection(ConnectionBase):
             pwsh_in_data = to_text(in_data, errors="surrogate_or_strict", nonstring="passthru")
 
             if pwsh_in_data and isinstance(pwsh_in_data, str) and pwsh_in_data.startswith("#!"):
-                # ANSIBALLZ wrapper, we need to get the interpreter and execute
+                # DISTROALLZ wrapper, we need to get the interpreter and execute
                 # that as the script - note this won't work as basic.py relies
                 # on packages not available on Windows, once fixed we can enable
                 # this path

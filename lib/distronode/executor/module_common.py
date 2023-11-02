@@ -74,9 +74,9 @@ _MODULE_UTILS_PATH = os.path.join(os.path.dirname(__file__), '..', 'module_utils
 
 # ******************************************************************************
 
-ANSIBALLZ_TEMPLATE = u'''%(shebang)s
+DISTROALLZ_TEMPLATE = u'''%(shebang)s
 %(coding)s
-_ANSIBALLZ_WRAPPER = True # For test-module.py script to tell this is a ANSIBALLZ_WRAPPER
+_DISTROALLZ_WRAPPER = True # For test-module.py script to tell this is a DISTROALLZ_WRAPPER
 # This code is part of Distronode, but is an independent component.
 # The code in this particular templatable string, and this templatable string
 # only, is BSD licensed.  Modules which end up using this snippet, which is
@@ -104,7 +104,7 @@ _ANSIBALLZ_WRAPPER = True # For test-module.py script to tell this is a ANSIBALL
 # INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-def _ansiballz_main():
+def _distroallz_main():
     import os
     import os.path
 
@@ -206,7 +206,7 @@ def _ansiballz_main():
         # The code here normally doesn't run.  It's only used for debugging on the
         # remote machine.
         #
-        # The subcommands in this function make it easier to debug ansiballz
+        # The subcommands in this function make it easier to debug distroallz
         # modules.  Here's the basic steps:
         #
         # Run distronode with the environment variable: DISTRONODE_KEEP_REMOTE_FILES=1 and -vvv
@@ -302,9 +302,9 @@ def _ansiballz_main():
     # See comments in the debug() method for information on debugging
     #
 
-    ANSIBALLZ_PARAMS = %(params)s
+    DISTROALLZ_PARAMS = %(params)s
     if PY3:
-        ANSIBALLZ_PARAMS = ANSIBALLZ_PARAMS.encode('utf-8')
+        DISTROALLZ_PARAMS = DISTROALLZ_PARAMS.encode('utf-8')
     try:
         # There's a race condition with the controller removing the
         # remote_tmpdir and this module executing under async.  So we cannot
@@ -319,10 +319,10 @@ def _ansiballz_main():
             modlib.write(base64.b64decode(ZIPDATA))
 
         if len(sys.argv) == 2:
-            exitcode = debug(sys.argv[1], zipped_mod, ANSIBALLZ_PARAMS)
+            exitcode = debug(sys.argv[1], zipped_mod, DISTROALLZ_PARAMS)
         else:
             # Note: temp_path isn't needed once we switch to zipimport
-            invoke_module(zipped_mod, temp_path, ANSIBALLZ_PARAMS)
+            invoke_module(zipped_mod, temp_path, DISTROALLZ_PARAMS)
     finally:
         try:
             shutil.rmtree(temp_path)
@@ -332,10 +332,10 @@ def _ansiballz_main():
     sys.exit(exitcode)
 
 if __name__ == '__main__':
-    _ansiballz_main()
+    _distroallz_main()
 '''
 
-ANSIBALLZ_COVERAGE_TEMPLATE = '''
+DISTROALLZ_COVERAGE_TEMPLATE = '''
         os.environ['COVERAGE_FILE'] = %(coverage_output)r + '=python-%%s=coverage' %% '.'.join(str(v) for v in sys.version_info[:2])
 
         import atexit
@@ -357,7 +357,7 @@ ANSIBALLZ_COVERAGE_TEMPLATE = '''
         cov.start()
 '''
 
-ANSIBALLZ_COVERAGE_CHECK_TEMPLATE = '''
+DISTROALLZ_COVERAGE_CHECK_TEMPLATE = '''
         try:
             if PY3:
                 import importlib.util
@@ -371,7 +371,7 @@ ANSIBALLZ_COVERAGE_CHECK_TEMPLATE = '''
             sys.exit(1)
 '''
 
-ANSIBALLZ_RLIMIT_TEMPLATE = '''
+DISTROALLZ_RLIMIT_TEMPLATE = '''
     import resource
 
     existing_soft, existing_hard = resource.getrlimit(resource.RLIMIT_NOFILE)
@@ -402,10 +402,10 @@ def _strip_comments(source):
 if C.DEFAULT_KEEP_REMOTE_FILES:
     # Keep comments when KEEP_REMOTE_FILES is set.  That way users will see
     # the comments with some nice usage instructions
-    ACTIVE_ANSIBALLZ_TEMPLATE = ANSIBALLZ_TEMPLATE
+    ACTIVE_DISTROALLZ_TEMPLATE = DISTROALLZ_TEMPLATE
 else:
-    # ANSIBALLZ_TEMPLATE stripped of comments for smaller over the wire size
-    ACTIVE_ANSIBALLZ_TEMPLATE = _strip_comments(ANSIBALLZ_TEMPLATE)
+    # DISTROALLZ_TEMPLATE stripped of comments for smaller over the wire size
+    ACTIVE_DISTROALLZ_TEMPLATE = _strip_comments(DISTROALLZ_TEMPLATE)
 
 # dirname(dirname(dirname(site-packages/distronode/executor/module_common.py) == site-packages
 # Do this instead of getting site-packages from distutils.sysconfig so we work when we
@@ -925,7 +925,7 @@ def recursive_finder(name, module_fqn, module_data, zf, date_time=None):
     # or an attribute of a module (eg from x.y import z <-- is z a module or an attribute of x.y?)
     modules_to_process = [ModuleUtilsProcessEntry(m, True, False, is_optional=m in finder.optional_imports) for m in finder.submodules]
 
-    # HACK: basic is currently always required since module global init is currently tied up with AnsiballZ arg input
+    # HACK: basic is currently always required since module global init is currently tied up with DistroallZ arg input
     modules_to_process.append(ModuleUtilsProcessEntry(('distronode', 'module_utils', 'basic'), False, False, is_optional=False))
 
     # we'll be adding new modules inline as we discover them, so just keep going til we've processed them all
@@ -1081,7 +1081,7 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
     # a separate arguments file needs to be sent over the wire.
     # module_substyle is extra information that's useful internally.  It tells
     # us what we have to look to substitute in the module files and whether
-    # we're using module replacer or ansiballz to format the module itself.
+    # we're using module replacer or distroallz to format the module itself.
     if _is_binary(b_module_data):
         module_substyle = module_style = 'binary'
     elif REPLACER in b_module_data:
@@ -1126,7 +1126,7 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
         # a role may fail.  Absolute imports should be used for future-proofness.
         # People should start writing collections instead of modules in roles so we
         # may never fix this
-        display.debug('ANSIBALLZ: Could not determine module FQN')
+        display.debug('DISTROALLZ: Could not determine module FQN')
         remote_module_fqn = 'distronode.modules.%s' % module_name
 
     if module_substyle == 'python':
@@ -1146,34 +1146,34 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
             display.warning(u'Bad module compression string specified: %s.  Using ZIP_STORED (no compression)' % module_compression)
             compression_method = zipfile.ZIP_STORED
 
-        lookup_path = os.path.join(C.DEFAULT_LOCAL_TMP, 'ansiballz_cache')
+        lookup_path = os.path.join(C.DEFAULT_LOCAL_TMP, 'distroallz_cache')
         cached_module_filename = os.path.join(lookup_path, "%s-%s" % (remote_module_fqn, module_compression))
 
         zipdata = None
         # Optimization -- don't lock if the module has already been cached
         if os.path.exists(cached_module_filename):
-            display.debug('ANSIBALLZ: using cached module: %s' % cached_module_filename)
+            display.debug('DISTROALLZ: using cached module: %s' % cached_module_filename)
             with open(cached_module_filename, 'rb') as module_data:
                 zipdata = module_data.read()
         else:
             if module_name in action_write_locks.action_write_locks:
-                display.debug('ANSIBALLZ: Using lock for %s' % module_name)
+                display.debug('DISTROALLZ: Using lock for %s' % module_name)
                 lock = action_write_locks.action_write_locks[module_name]
             else:
                 # If the action plugin directly invokes the module (instead of
                 # going through a strategy) then we don't have a cross-process
                 # Lock specifically for this module.  Use the "unexpected
                 # module" lock instead
-                display.debug('ANSIBALLZ: Using generic lock for %s' % module_name)
+                display.debug('DISTROALLZ: Using generic lock for %s' % module_name)
                 lock = action_write_locks.action_write_locks[None]
 
-            display.debug('ANSIBALLZ: Acquiring lock')
+            display.debug('DISTROALLZ: Acquiring lock')
             with lock:
-                display.debug('ANSIBALLZ: Lock acquired: %s' % id(lock))
+                display.debug('DISTROALLZ: Lock acquired: %s' % id(lock))
                 # Check that no other process has created this while we were
                 # waiting for the lock
                 if not os.path.exists(cached_module_filename):
-                    display.debug('ANSIBALLZ: Creating module')
+                    display.debug('DISTROALLZ: Creating module')
                     # Create the module zip data
                     zipoutput = BytesIO()
                     zf = zipfile.ZipFile(zipoutput, mode='w', compression=compression_method)
@@ -1181,7 +1181,7 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
                     # walk the module imports, looking for module_utils to send- they'll be added to the zipfile
                     recursive_finder(module_name, remote_module_fqn, b_module_data, zf, date_time)
 
-                    display.debug('ANSIBALLZ: Writing module into payload')
+                    display.debug('DISTROALLZ: Writing module into payload')
                     _add_module_to_zip(zf, date_time, remote_module_fqn, b_module_data)
 
                     zf.close()
@@ -1203,19 +1203,19 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
                             # exist, raise the original exception.
                             if not os.path.exists(lookup_path):
                                 raise
-                    display.debug('ANSIBALLZ: Writing module')
+                    display.debug('DISTROALLZ: Writing module')
                     with open(cached_module_filename + '-part', 'wb') as f:
                         f.write(zipdata)
 
                     # Rename the file into its final position in the cache so
                     # future users of this module can read it off the
                     # filesystem instead of constructing from scratch.
-                    display.debug('ANSIBALLZ: Renaming module')
+                    display.debug('DISTROALLZ: Renaming module')
                     os.rename(cached_module_filename + '-part', cached_module_filename)
-                    display.debug('ANSIBALLZ: Done creating module')
+                    display.debug('DISTROALLZ: Done creating module')
 
             if zipdata is None:
-                display.debug('ANSIBALLZ: Reading module after lock')
+                display.debug('DISTROALLZ: Reading module after lock')
                 # Another process wrote the file while we were waiting for
                 # the write lock.  Go ahead and read the data from disk
                 # instead of re-creating it.
@@ -1240,7 +1240,7 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
             rlimit_nofile = int(templar.template(rlimit_nofile))
 
         if rlimit_nofile:
-            rlimit = ANSIBALLZ_RLIMIT_TEMPLATE % dict(
+            rlimit = DISTROALLZ_RLIMIT_TEMPLATE % dict(
                 rlimit_nofile=rlimit_nofile,
             )
         else:
@@ -1254,18 +1254,18 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
             if coverage_output:
                 # Enable code coverage analysis of the module.
                 # This feature is for internal testing and may change without notice.
-                coverage = ANSIBALLZ_COVERAGE_TEMPLATE % dict(
+                coverage = DISTROALLZ_COVERAGE_TEMPLATE % dict(
                     coverage_config=coverage_config,
                     coverage_output=coverage_output,
                 )
             else:
                 # Verify coverage is available without importing it.
                 # This will detect when a module would fail with coverage enabled with minimal overhead.
-                coverage = ANSIBALLZ_COVERAGE_CHECK_TEMPLATE
+                coverage = DISTROALLZ_COVERAGE_CHECK_TEMPLATE
         else:
             coverage = ''
 
-        output.write(to_bytes(ACTIVE_ANSIBALLZ_TEMPLATE % dict(
+        output.write(to_bytes(ACTIVE_DISTROALLZ_TEMPLATE % dict(
             zipdata=zipdata,
             distronode_module=module_name,
             module_fqn=remote_module_fqn,
@@ -1298,7 +1298,7 @@ def _find_module_utils(module_name, b_module_data, module_path, module_args, tas
         # these strings could be included in a third-party module but
         # officially they were included in the 'basic' snippet for new-style
         # python modules (which has been replaced with something else in
-        # ansiballz) If we remove them from jsonargs-style module replacer
+        # distroallz) If we remove them from jsonargs-style module replacer
         # then we can remove them everywhere.
         python_repred_args = to_bytes(repr(module_args_json))
         b_module_data = b_module_data.replace(REPLACER_VERSION, to_bytes(repr(__version__)))

@@ -261,7 +261,7 @@ omit =
     */python*/distutils/*
     */pyshared/*
     */pytest
-    */AnsiballZ_*.py
+    */DistroallZ_*.py
     */test/results/*
 '''
 
