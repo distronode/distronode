@@ -165,7 +165,7 @@ NOTE: These changes must be applied each time the container host is rebooted.
         dd_wsl_message = f'''
       When using Docker Desktop with WSL2, additional configuration [1] is required.
 
-[1] {get_docs_url("https://docs.distronode.com/distronode-core/devel/dev_guide/testing_running_locally.html#docker-desktop-with-wsl2")}
+[1] {get_docs_url("https://docs.distronode.github.io/distronode-core/devel/dev_guide/testing_running_locally.html#docker-desktop-with-wsl2")}
 '''
 
         if engine == 'podman':

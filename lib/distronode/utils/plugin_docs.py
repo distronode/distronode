@@ -240,7 +240,7 @@ def get_versioned_doclink(path):
     """
     returns a versioned documentation link for the current Distronode major.minor version; used to generate
     in-product warning/error links to the configured DOCSITE_ROOT_URL
-    (eg, https://docs.distronode.com/distronode/2.8/somepath/doc.html)
+    (eg, https://docs.distronode.github.io/distronode/2.8/somepath/doc.html)
 
     :param path: relative path to a document under docs/docsite/rst;
     :return: absolute URL to the specified doc for the current version of Distronode

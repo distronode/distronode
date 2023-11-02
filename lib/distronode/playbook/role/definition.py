@@ -1,4 +1,4 @@
-# (c) 2014 Michael DeHaan, <michael@distronode.com>
+# (c) 2014 Michael DeHaan, <michael@distronode.github.io>
 #
 # This file is part of Distronode
 #

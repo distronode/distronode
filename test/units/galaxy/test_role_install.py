@@ -37,7 +37,7 @@ def reset_cli_args():
 @pytest.fixture(autouse=True)
 def galaxy_server():
     context.CLIARGS._store = {'ignore_certs': False}
-    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.com')
+    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.github.io')
     return galaxy_api
 
 

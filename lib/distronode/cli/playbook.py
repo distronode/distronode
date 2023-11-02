@@ -30,7 +30,7 @@ display = Display()
 
 class PlaybookCLI(CLI):
     ''' the tool to run *Distronode playbooks*, which are a configuration and multinode deployment system.
-        See the project home page (https://docs.distronode.com) for more information. '''
+        See the project home page (https://docs.distronode.github.io) for more information. '''
 
     name = 'distronode-playbook'
 

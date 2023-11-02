@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2017, Brian Coca <bcoca@distronode.com>
+# (c) 2017, Brian Coca <bcoca@distronode.github.io>
 # (c) 2017, Adam Miller <admiller@redhat.com>
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)

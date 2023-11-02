@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2016, Matt Davis <mdavis@distronode.com>
+# (c) 2016, Matt Davis <mdavis@distronode.github.io>
 #
 # This file is part of Distronode
 #

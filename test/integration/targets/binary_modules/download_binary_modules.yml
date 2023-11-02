@@ -3,7 +3,7 @@
     - name: download binary module
       tags: test_binary_modules
       get_url:
-        url: "https://ci-files.testing.distronode.com/test/integration/roles/test_binary_modules/{{ filename }}"
+        url: "https://ci-files.testing.distronode.github.io/test/integration/roles/test_binary_modules/{{ filename }}"
         dest: "{{ playbook_dir }}/library/{{ filename }}"
         mode: 0755
       delegate_to: localhost

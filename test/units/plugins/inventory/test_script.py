@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2017 Chris Meyers <cmeyers@distronode.com>
+# Copyright 2017 Chris Meyers <cmeyers@distronode.github.io>
 #
 # This file is part of Distronode
 #

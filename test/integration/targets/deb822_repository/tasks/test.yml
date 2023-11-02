@@ -164,7 +164,7 @@
       - main
       - contrib
       - non-free
-    signed_by: https://ci-files.testing.distronode.com/test/integration/targets/apt_key/apt-key-example-binary.gpg
+    signed_by: https://ci-files.testing.distronode.github.io/test/integration/targets/apt_key/apt-key-example-binary.gpg
   register: signed_by_url
 
 - assert:

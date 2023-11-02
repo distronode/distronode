@@ -31,6 +31,6 @@ We'd be happy to discuss things.
 
 See  this page for a complete list of communication channels and their purposes:
 
-* https://docs.distronode.com/distronode/latest/community/communication.html
+* https://docs.distronode.github.io/distronode/latest/community/communication.html
 
 Thank you once again!

@@ -81,7 +81,7 @@ def bootstrap(pip, options):  # type: (str, t.Dict[str, t.Any]) -> None
     pip_version = options['pip_version']
     packages = options['packages']
 
-    url = 'https://ci-files.testing.distronode.com/distronode-test/get-pip-%s.py' % pip_version
+    url = 'https://ci-files.testing.distronode.github.io/distronode-test/get-pip-%s.py' % pip_version
     cache_path = os.path.expanduser('~/.distronode/test/cache/get_pip_%s.py' % pip_version.replace(".", "_"))
     temp_path = cache_path + '.download'
 

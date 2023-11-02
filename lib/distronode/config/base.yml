@@ -1245,7 +1245,7 @@ DISPLAY_SKIPPED_HOSTS:
   type: boolean
 DOCSITE_ROOT_URL:
   name: Root docsite URL
-  default: https://docs.distronode.com/distronode-core/
+  default: https://docs.distronode.github.io/distronode-core/
   description: Root docsite URL used to generate docs URLs in warning/error text;
                must be an absolute URL with a valid scheme and trailing slash.
   ini:
@@ -1386,7 +1386,7 @@ GALAXY_COLLECTIONS_PATH_WARNING:
 #  - {key: scms, section: galaxy}
 #  type: list
 GALAXY_SERVER:
-  default: https://galaxy.distronode.com
+  default: https://galaxy.distronode.github.io
   description: "URL to prepend when roles don't specify the full URI, assume they are referencing this server as the source."
   env: [{name: DISTRONODE_GALAXY_SERVER}]
   ini:

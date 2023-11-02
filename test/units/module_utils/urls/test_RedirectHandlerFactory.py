@@ -17,7 +17,7 @@ import pytest
 @pytest.fixture
 def urllib_req():
     req = urllib.request.Request(
-        'https://distronode.com/'
+        'https://distronode.github.io/'
     )
     return req
 
@@ -31,7 +31,7 @@ def test_no_redirs(urllib_req, request_body):
     handler = HTTPRedirectHandler('none')
     inst = handler()
     with pytest.raises(urllib.error.HTTPError):
-        inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+        inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
 
 def test_urllib2_redir(urllib_req, request_body, mocker):
@@ -39,17 +39,17 @@ def test_urllib2_redir(urllib_req, request_body, mocker):
 
     handler = HTTPRedirectHandler('urllib2')
     inst = handler()
-    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
-    redir_request_mock.assert_called_once_with(inst, urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+    redir_request_mock.assert_called_once_with(inst, urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
 
 def test_all_redir(urllib_req, request_body, mocker):
     req_mock = mocker.patch('distronode.module_utils.urls.urllib.request.Request')
     handler = HTTPRedirectHandler('all')
     inst = handler()
-    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
-    req_mock.assert_called_once_with('https://docs.distronode.com/', data=None, headers={}, method='GET', origin_req_host='distronode.com', unverifiable=True)
+    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
+    req_mock.assert_called_once_with('https://docs.distronode.github.io/', data=None, headers={}, method='GET', origin_req_host='distronode.github.io', unverifiable=True)
 
 
 def test_all_redir_post(request_body, mocker):
@@ -57,13 +57,13 @@ def test_all_redir_post(request_body, mocker):
     inst = handler()
 
     req = urllib.request.Request(
-        'https://distronode.com/',
+        'https://distronode.github.io/',
         'POST'
     )
 
     req_mock = mocker.patch('distronode.module_utils.urls.urllib.request.Request')
-    inst.redirect_request(req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
-    req_mock.assert_called_once_with('https://docs.distronode.com/', data=None, headers={}, method='GET', origin_req_host='distronode.com', unverifiable=True)
+    inst.redirect_request(req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
+    req_mock.assert_called_once_with('https://docs.distronode.github.io/', data=None, headers={}, method='GET', origin_req_host='distronode.github.io', unverifiable=True)
 
 
 def test_redir_headers_removal(urllib_req, request_body, mocker):
@@ -77,8 +77,8 @@ def test_redir_headers_removal(urllib_req, request_body, mocker):
         'Foo': 'bar',
     }
 
-    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
-    req_mock.assert_called_once_with('https://docs.distronode.com/', data=None, headers={'Foo': 'bar'}, method='GET', origin_req_host='distronode.com',
+    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
+    req_mock.assert_called_once_with('https://docs.distronode.github.io/', data=None, headers={'Foo': 'bar'}, method='GET', origin_req_host='distronode.github.io',
                                      unverifiable=True)
 
 
@@ -87,9 +87,9 @@ def test_redir_url_spaces(urllib_req, request_body, mocker):
     handler = HTTPRedirectHandler('all')
     inst = handler()
 
-    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/foo bar')
+    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/foo bar')
 
-    req_mock.assert_called_once_with('https://docs.distronode.com/foo%20bar', data=None, headers={}, method='GET', origin_req_host='distronode.com',
+    req_mock.assert_called_once_with('https://docs.distronode.github.io/foo%20bar', data=None, headers={}, method='GET', origin_req_host='distronode.github.io',
                                      unverifiable=True)
 
 
@@ -97,9 +97,9 @@ def test_redir_safe(urllib_req, request_body, mocker):
     req_mock = mocker.patch('distronode.module_utils.urls.urllib.request.Request')
     handler = HTTPRedirectHandler('safe')
     inst = handler()
-    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+    inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
-    req_mock.assert_called_once_with('https://docs.distronode.com/', data=None, headers={}, method='GET', origin_req_host='distronode.com', unverifiable=True)
+    req_mock.assert_called_once_with('https://docs.distronode.github.io/', data=None, headers={}, method='GET', origin_req_host='distronode.github.io', unverifiable=True)
 
 
 def test_redir_safe_not_safe(request_body):
@@ -107,12 +107,12 @@ def test_redir_safe_not_safe(request_body):
     inst = handler()
 
     req = urllib.request.Request(
-        'https://distronode.com/',
+        'https://distronode.github.io/',
         'POST'
     )
 
     with pytest.raises(urllib.error.HTTPError):
-        inst.redirect_request(req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+        inst.redirect_request(req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
 
 def test_redir_no_error_on_invalid(urllib_req, request_body):
@@ -120,7 +120,7 @@ def test_redir_no_error_on_invalid(urllib_req, request_body):
     inst = handler()
 
     with pytest.raises(urllib.error.HTTPError):
-        inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.com/')
+        inst.redirect_request(urllib_req, request_body, 301, '301 Moved Permanently', {}, 'https://docs.distronode.github.io/')
 
 
 def test_redir_http_error_308_urllib2(urllib_req, request_body, mocker):
@@ -128,6 +128,6 @@ def test_redir_http_error_308_urllib2(urllib_req, request_body, mocker):
     handler = HTTPRedirectHandler('urllib2')
     inst = handler()
 
-    inst.redirect_request(urllib_req, request_body, 308, '308 Permanent Redirect', {}, 'https://docs.distronode.com/')
+    inst.redirect_request(urllib_req, request_body, 308, '308 Permanent Redirect', {}, 'https://docs.distronode.github.io/')
 
     assert redir_mock.call_count == 1

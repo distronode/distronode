@@ -32,7 +32,7 @@ EXAMPLES: |
   # repeat_product => [ [ 1, "a", 1, "a" ], [ 1, "a", 1, "b" ], [ 1, "a", 2, "a" ], [ 1, "a", 2, "b" ], [ 1, "b", 1, "a" ], [ 1, "b", 1, "b" ], [ 1, "b", 2, "a" ], [ 1, "b", 2, "b" ], [ 2, "a", 1, "a" ], [ 2, "a", 1, "b" ], [ 2, "a", 2, "a" ], [ 2, "a", 2, "b" ], [ 2, "b", 1, "a" ], [ 2, "b", 1, "b" ], [ 2, "b", 2, "a" ], [ 2, "b", 2, "b" ] ]
   repeat_product:  "{{ [1,2] | product(['a', 'b'], repeat=2) }}"
 
-  # domains => [ 'example.com', 'distronode.com', 'redhat.com' ]
+  # domains => [ 'example.com', 'distronode.github.io', 'redhat.com' ]
   domains: "{{ [ 'example', 'distronode', 'redhat'] | product(['com']) | map('join', '.') }}"
 
 RETURN:

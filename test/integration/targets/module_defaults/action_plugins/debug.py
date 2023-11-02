@@ -1,5 +1,5 @@
 # Copyright 2012, Dag Wieers <dag@wieers.com>
-# Copyright 2016, Toshio Kuratomi <tkuratomi@distronode.com>
+# Copyright 2016, Toshio Kuratomi <tkuratomi@distronode.github.io>
 #
 # This file is part of Distronode
 #

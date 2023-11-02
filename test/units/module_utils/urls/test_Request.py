@@ -57,7 +57,7 @@ def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
     )
     fallback_mock = mocker.spy(request, '_fallback')
 
-    r = request.open('GET', 'https://distronode.com')
+    r = request.open('GET', 'https://distronode.github.io')
 
     calls = [
         call(None, False),  # use_proxy
@@ -100,7 +100,7 @@ def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
 
 
 def test_Request_open(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.com/')
+    r = Request().open('GET', 'https://distronode.github.io/')
     args = urlopen_mock.call_args[0]
     assert args[1] is None  # data, this is handled in the Request not urlopen
     assert args[2] == 10  # timeout
@@ -126,7 +126,7 @@ def test_Request_open(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_unix_socket(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.com/', unix_socket='/foo/bar/baz.sock')
+    r = Request().open('GET', 'http://distronode.github.io/', unix_socket='/foo/bar/baz.sock')
     args = urlopen_mock.call_args[0]
 
     opener = install_opener_mock.call_args[0][0]
@@ -143,7 +143,7 @@ def test_Request_open_unix_socket(urlopen_mock, install_opener_mock):
 def test_Request_open_https_unix_socket(urlopen_mock, install_opener_mock, mocker):
     do_open = mocker.patch.object(urllib.request.HTTPSHandler, 'do_open')
 
-    r = Request().open('GET', 'https://distronode.com/', unix_socket='/foo/bar/baz.sock')
+    r = Request().open('GET', 'https://distronode.github.io/', unix_socket='/foo/bar/baz.sock')
     args = urlopen_mock.call_args[0]
 
     opener = install_opener_mock.call_args[0][0]
@@ -166,18 +166,18 @@ def test_Request_open_ftp(urlopen_mock, install_opener_mock, mocker):
     mocker.patch('distronode.module_utils.urls.ParseResultDottedDict.as_list', side_effect=AssertionError)
 
     # Using ftp scheme should prevent the AssertionError side effect to fire
-    r = Request().open('GET', 'ftp://foo@distronode.com/')
+    r = Request().open('GET', 'ftp://foo@distronode.github.io/')
 
 
 def test_Request_open_headers(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.com/', headers={'Foo': 'bar'})
+    r = Request().open('GET', 'http://distronode.github.io/', headers={'Foo': 'bar'})
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert req.headers == {'Foo': 'bar'}
 
 
 def test_Request_open_username(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.com/', url_username='user')
+    r = Request().open('GET', 'http://distronode.github.io/', url_username='user')
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -192,11 +192,11 @@ def test_Request_open_username(urlopen_mock, install_opener_mock):
         if isinstance(handler, expected_handlers):
             found_handlers.append(handler)
     assert len(found_handlers) == 2
-    assert found_handlers[0].passwd.passwd[None] == {(('distronode.com', '/'),): ('user', None)}
+    assert found_handlers[0].passwd.passwd[None] == {(('distronode.github.io', '/'),): ('user', None)}
 
 
 def test_Request_open_username_in_url(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://user2@distronode.com/')
+    r = Request().open('GET', 'http://user2@distronode.github.io/')
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -210,11 +210,11 @@ def test_Request_open_username_in_url(urlopen_mock, install_opener_mock):
     for handler in handlers:
         if isinstance(handler, expected_handlers):
             found_handlers.append(handler)
-    assert found_handlers[0].passwd.passwd[None] == {(('distronode.com', '/'),): ('user2', '')}
+    assert found_handlers[0].passwd.passwd[None] == {(('distronode.github.io', '/'),): ('user2', '')}
 
 
 def test_Request_open_username_force_basic(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.com/', url_username='user', url_password='passwd', force_basic_auth=True)
+    r = Request().open('GET', 'http://distronode.github.io/', url_username='user', url_password='passwd', force_basic_auth=True)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -237,10 +237,10 @@ def test_Request_open_username_force_basic(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_auth_in_netloc(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://user:passwd@distronode.com/')
+    r = Request().open('GET', 'http://user:passwd@distronode.github.io/')
     args = urlopen_mock.call_args[0]
     req = args[0]
-    assert req.get_full_url() == 'http://distronode.com/'
+    assert req.get_full_url() == 'http://distronode.github.io/'
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -262,18 +262,18 @@ def test_Request_open_netrc(urlopen_mock, install_opener_mock, monkeypatch):
     here = os.path.dirname(__file__)
 
     monkeypatch.setenv('NETRC', os.path.join(here, 'fixtures/netrc'))
-    r = Request().open('GET', 'http://distronode.com/')
+    r = Request().open('GET', 'http://distronode.github.io/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert req.headers.get('Authorization') == b'Basic dXNlcjpwYXNzd2Q='
 
-    r = Request().open('GET', 'http://foo.distronode.com/')
+    r = Request().open('GET', 'http://foo.distronode.github.io/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert 'Authorization' not in req.headers
 
     monkeypatch.setenv('NETRC', os.path.join(here, 'fixtures/netrc.nonexistant'))
-    r = Request().open('GET', 'http://distronode.com/')
+    r = Request().open('GET', 'http://distronode.github.io/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert 'Authorization' not in req.headers
@@ -282,7 +282,7 @@ def test_Request_open_netrc(urlopen_mock, install_opener_mock, monkeypatch):
 def test_Request_open_no_proxy(urlopen_mock, install_opener_mock, mocker):
     build_opener_mock = mocker.patch('distronode.module_utils.urls.urllib.request.build_opener')
 
-    r = Request().open('GET', 'http://distronode.com/', use_proxy=False)
+    r = Request().open('GET', 'http://distronode.github.io/', use_proxy=False)
 
     handlers = build_opener_mock.call_args[0]
     found_handlers = []
@@ -296,7 +296,7 @@ def test_Request_open_no_proxy(urlopen_mock, install_opener_mock, mocker):
 def test_Request_open_no_validate_certs(urlopen_mock, install_opener_mock, mocker):
     do_open = mocker.patch.object(urllib.request.HTTPSHandler, 'do_open')
 
-    r = Request().open('GET', 'https://distronode.com/', validate_certs=False)
+    r = Request().open('GET', 'https://distronode.github.io/', validate_certs=False)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -332,7 +332,7 @@ def test_Request_open_client_cert(urlopen_mock, install_opener_mock, mocker):
     client_cert = os.path.join(here, 'fixtures/client.pem')
     client_key = os.path.join(here, 'fixtures/client.key')
 
-    r = Request().open('GET', 'https://distronode.com/', client_cert=client_cert, client_key=client_key)
+    r = Request().open('GET', 'https://distronode.github.io/', client_cert=client_cert, client_key=client_key)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -349,7 +349,7 @@ def test_Request_open_client_cert(urlopen_mock, install_opener_mock, mocker):
 
 
 def test_Request_open_cookies(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.com/', cookies=cookiejar.CookieJar())
+    r = Request().open('GET', 'https://distronode.github.io/', cookies=cookiejar.CookieJar())
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
@@ -364,7 +364,7 @@ def test_Request_open_cookies(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_invalid_method(urlopen_mock, install_opener_mock):
-    r = Request().open('UNKNOWN', 'https://distronode.com/')
+    r = Request().open('UNKNOWN', 'https://distronode.github.io/')
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -375,7 +375,7 @@ def test_Request_open_invalid_method(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_user_agent(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.com/', http_agent='distronode-tests')
+    r = Request().open('GET', 'https://distronode.github.io/', http_agent='distronode-tests')
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -384,7 +384,7 @@ def test_Request_open_user_agent(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_force(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.com/', force=True, last_mod_time=datetime.datetime.now())
+    r = Request().open('GET', 'https://distronode.github.io/', force=True, last_mod_time=datetime.datetime.now())
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -395,7 +395,7 @@ def test_Request_open_force(urlopen_mock, install_opener_mock):
 
 def test_Request_open_last_mod(urlopen_mock, install_opener_mock):
     now = datetime.datetime.now()
-    r = Request().open('GET', 'https://distronode.com/', last_mod_time=now)
+    r = Request().open('GET', 'https://distronode.github.io/', last_mod_time=now)
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -405,7 +405,7 @@ def test_Request_open_last_mod(urlopen_mock, install_opener_mock):
 
 def test_Request_open_headers_not_dict(urlopen_mock, install_opener_mock):
     with pytest.raises(ValueError):
-        Request().open('GET', 'https://distronode.com/', headers=['bob'])
+        Request().open('GET', 'https://distronode.github.io/', headers=['bob'])
 
 
 def test_Request_init_headers_not_dict(urlopen_mock, install_opener_mock):
@@ -426,14 +426,14 @@ def test_methods(method, kwargs, mocker):
     expected = method.upper()
     open_mock = mocker.patch('distronode.module_utils.urls.Request.open')
     request = Request()
-    getattr(request, method)('https://distronode.com')
-    open_mock.assert_called_once_with(expected, 'https://distronode.com', **kwargs)
+    getattr(request, method)('https://distronode.github.io')
+    open_mock.assert_called_once_with(expected, 'https://distronode.github.io', **kwargs)
 
 
 def test_open_url(urlopen_mock, install_opener_mock, mocker):
     req_mock = mocker.patch('distronode.module_utils.urls.Request.open')
-    open_url('https://distronode.com/')
-    req_mock.assert_called_once_with('GET', 'https://distronode.com/', data=None, headers=None, use_proxy=True,
+    open_url('https://distronode.github.io/')
+    req_mock.assert_called_once_with('GET', 'https://distronode.github.io/', data=None, headers=None, use_proxy=True,
                                      force=False, last_mod_time=None, timeout=10, validate_certs=True,
                                      url_username=None, url_password=None, http_agent=None,
                                      force_basic_auth=False, follow_redirects='urllib2',

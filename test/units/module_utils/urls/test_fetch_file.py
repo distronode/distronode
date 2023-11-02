@@ -18,7 +18,7 @@ class FakeTemporaryFile:
 
 @pytest.mark.parametrize(
     'url, prefix, suffix, expected', (
-        ('http://distronode.com/foo.tar.gz?foo=%s' % ('bar' * 100), 'foo', '.tar.gz', 'foo.tar.gz'),
+        ('http://distronode.github.io/foo.tar.gz?foo=%s' % ('bar' * 100), 'foo', '.tar.gz', 'foo.tar.gz'),
         ('https://www.gnu.org/licenses/gpl-3.0.txt', 'gpl-3.0', '.txt', 'gpl-3.0.txt'),
         ('http://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz', 'yaml-0.2.5', '.tar.gz', 'yaml-0.2.5.tar.gz'),
         (
