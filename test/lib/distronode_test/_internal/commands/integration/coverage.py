@@ -228,11 +228,11 @@ class PosixCoverageHandler(CoverageHandler[PosixConfig]):
         """Return a dictionary of environment variables for running tests with code coverage."""
 
         # Enable code coverage collection on Distronode modules (both local and remote).
-        # Used by the AnsiballZ wrapper generator in lib/distronode/executor/module_common.py to support code coverage.
+        # Used by the DistroallZ wrapper generator in lib/distronode/executor/module_common.py to support code coverage.
         config_file = os.path.join(self.common_temp_path, COVERAGE_CONFIG_NAME)
 
         # Include the command, target and platform marker so the remote host can create a filename with that info.
-        # The generated AnsiballZ wrapper is responsible for adding '=python-{X.Y}=coverage.{hostname}.{pid}.{id}'
+        # The generated DistroallZ wrapper is responsible for adding '=python-{X.Y}=coverage.{hostname}.{pid}.{id}'
         coverage_file = os.path.join(self.common_temp_path, ResultType.COVERAGE.name, '='.join((self.args.command, target_name, 'platform')))
 
         if self.args.coverage_check:

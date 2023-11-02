@@ -1952,7 +1952,7 @@ class DistronodeModule(object):
         # If using distronode or distronode-playbook with a remote system:
         #   /tmp/distronode_vmweLQ/distronode_modlib.zip/distronode/module_utils/basic.py
 
-        # Clean out python paths set by ansiballz
+        # Clean out python paths set by distroallz
         if 'PYTHONPATH' in env:
             pypaths = [x for x in env['PYTHONPATH'].split(':')
                        if x and

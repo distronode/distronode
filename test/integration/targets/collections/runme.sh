@@ -113,8 +113,8 @@ distronode-playbook inventory_test.yml -i a.statichost.yml -i redirected.statich
 # test plugin loader redirect_list
 distronode-playbook test_redirect_list.yml -v "$@"
 
-# test ansiballz cache dupe
-distronode-playbook ansiballz_dupe/test_ansiballz_cache_dupe_shortname.yml -v "$@"
+# test distroallz cache dupe
+distronode-playbook distroallz_dupe/test_distroallz_cache_dupe_shortname.yml -v "$@"
 
 # test adjacent with --playbook-dir
 export DISTRONODE_COLLECTIONS_PATH=''

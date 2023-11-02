@@ -31,7 +31,7 @@ from distronode.plugins.loader import init_plugin_loader
 
 # These are the modules that are brought in by module_utils/basic.py  This may need to be updated
 # when basic.py gains new imports
-# We will remove these when we modify AnsiBallZ to store its args in a separate file instead of in
+# We will remove these when we modify DistrOallZ to store its args in a separate file instead of in
 # basic.py
 
 MODULE_UTILS_BASIC_FILES = frozenset(('distronode/__init__.py',

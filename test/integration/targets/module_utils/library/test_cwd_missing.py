@@ -15,8 +15,8 @@ def main():
     # 3) Remove the directory containing the playbook immediately after playbook execution ends (playbook in a temp dir).
     #
     # To ease testing of this race condition the deletion of cwd is handled in this module.
-    # This avoids race conditions in the test, including timing cwd deletion between AnsiballZ wrapper execution and DistronodeModule instantiation.
-    # The timing issue with AnsiballZ is due to cwd checking in the wrapper when code coverage is enabled.
+    # This avoids race conditions in the test, including timing cwd deletion between DistroallZ wrapper execution and DistronodeModule instantiation.
+    # The timing issue with DistroallZ is due to cwd checking in the wrapper when code coverage is enabled.
 
     temp = os.path.abspath('temp')
 
