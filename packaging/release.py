@@ -1224,7 +1224,7 @@ def generate_summary() -> None:
     content = f"""
 release_summary: |
    | Release Date: {release_date}
-   | `Porting Guide <https://docs.distronode.github.io/distronode-core/{major_minor}/porting_guides/porting_guide_core_{major_minor}.html>`__
+   | `Porting Guide <https://distronode.github.io/docs-core/{major_minor}/porting_guides/porting_guide_core_{major_minor}.html>`__
 """
 
     summary_path.write_text(content.lstrip())

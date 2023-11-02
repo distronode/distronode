@@ -30,7 +30,7 @@ options:
         It does not enable fact caching across runs, it just means it will work with it if already enabled.
       - Normally this module creates 'host level variables' and has much higher precedence, this option changes the nature and precedence
         (by 7 steps) of the variable created.
-        U(https://docs.distronode.github.io/distronode/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
+        U(https://distronode.github.io/docs/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable)
       - "This actually creates 2 copies of the variable, a normal 'set_fact' host variable with high precedence and
         a lower 'distronode_fact' one that is available for persistence via the facts cache plugin.
         This creates a possibly confusing interaction with C(meta: clear_facts) as it will remove the 'distronode_fact' but not the host variable."

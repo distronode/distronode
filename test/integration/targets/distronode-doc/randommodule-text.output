@@ -2,7 +2,7 @@
 
         A random module. See `foo=bar' (of role foo.bar.baz, main
         entrypoint) for how this is used in the [foo.bar.baz]'s `main'
-        entrypoint. See the docsite <https://docs.distronode.github.io/distronode-
+        entrypoint. See the docsite <https://distronode.github.io/docs-
         core/devel/> for more information on distronode-core. This module
         is not related to the [distronode.builtin.copy] module.
         -------------  You might also be interested in
@@ -79,10 +79,10 @@ SEE ALSO:
       * Module distronode.builtin.ping
            The official documentation on the
            distronode.builtin.ping module.
-           https://docs.distronode.github.io/distronode-core/devel/collections/distronode/builtin/ping_module.html
+           https://distronode.github.io/docs-core/devel/collections/distronode/builtin/ping_module.html
       * Module distronode.builtin.uri
            Use this to fetch an URI
-           https://docs.distronode.github.io/distronode-core/devel/collections/distronode/builtin/uri_module.html
+           https://distronode.github.io/docs-core/devel/collections/distronode/builtin/uri_module.html
       * Module testns.testcol.test
       * Module testns.testcol.fakemodule
            A fake module
@@ -91,7 +91,7 @@ SEE ALSO:
            https://docs.distronode.github.io
       * Distronode documentation [foo_bar]
            Some foo bar.
-           https://docs.distronode.github.io/distronode-core/devel/#stq=foo_bar&stp=1
+           https://distronode.github.io/docs-core/devel/#stq=foo_bar&stp=1
 
 
 AUTHOR: Distronode Core Team

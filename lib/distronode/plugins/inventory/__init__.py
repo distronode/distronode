@@ -64,7 +64,7 @@ def expand_hostname_range(line=None):
     appearance. They are replaced in this function with '|' to ease
     string splitting.
 
-    References: https://docs.distronode.github.io/distronode/latest/user_guide/intro_inventory.html#hosts-and-groups
+    References: https://distronode.github.io/docs/latest/user_guide/intro_inventory.html#hosts-and-groups
     '''
     all_hosts = []
     if line:

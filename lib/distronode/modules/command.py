@@ -20,7 +20,7 @@ description:
        like C("*"), C("<"), C(">"), C("|"), C(";") and C("&") will not work.
        Use the M(distronode.builtin.shell) module if you need these features.
      - To create C(command) tasks that are easier to read than the ones using space-delimited
-       arguments, pass parameters using the C(args) L(task keyword,https://docs.distronode.github.io/distronode/latest/reference_appendices/playbooks_keywords.html#task)
+       arguments, pass parameters using the C(args) L(task keyword,https://distronode.github.io/docs/latest/reference_appendices/playbooks_keywords.html#task)
        or use O(cmd) parameter.
      - Either a free form command or O(cmd) parameter is required, see the examples.
      - For Windows targets, use the M(distronode.windows.win_command) module instead.

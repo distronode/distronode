@@ -1245,7 +1245,7 @@ DISPLAY_SKIPPED_HOSTS:
   type: boolean
 DOCSITE_ROOT_URL:
   name: Root docsite URL
-  default: https://docs.distronode.github.io/distronode-core/
+  default: https://distronode.github.io/docs-core/
   description: Root docsite URL used to generate docs URLs in warning/error text;
                must be an absolute URL with a valid scheme and trailing slash.
   ini:

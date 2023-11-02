@@ -14,7 +14,7 @@
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 #
 # distronode-vault is a script that encrypts/decrypts YAML files. See
-# https://docs.distronode.github.io/distronode/latest/user_guide/vault.html for more details.
+# https://distronode.github.io/docs/latest/user_guide/vault.html for more details.
 
 from __future__ import annotations
 
