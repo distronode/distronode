@@ -47,6 +47,11 @@ from ...distronode_util import (
     distronode_environment,
 )
 
+from ...python_requirements import (
+    PipUnavailableError,
+    install_requirements,
+)
+
 from ...config import (
     SanityConfig,
 )
@@ -61,6 +66,10 @@ from ...data import (
 
 from ...host_configs import (
     PythonConfig,
+)
+
+from ...venv import (
+    get_virtualenv_version,
 )
 
 
@@ -99,6 +108,15 @@ class ImportTest(SanityMultipleVersion):
         settings = self.load_processor(args, python.version)
 
         paths = [target.path for target in targets.include]
+
+        if python.version.startswith('2.') and (get_virtualenv_version(args, python.path) or (0,)) < (13,):
+            # hack to make sure that virtualenv is available under Python 2.x
+            # on Python 3.x we can use the built-in venv
+            # version 13+ is required to use the `--no-wheel` option
+            try:
+                install_requirements(args, python, virtualenv=True, controller=False)  # sanity (import)
+            except PipUnavailableError as ex:
+                display.warning(str(ex))
 
         temp_root = os.path.join(ResultType.TMP.path, 'sanity', 'import')
 

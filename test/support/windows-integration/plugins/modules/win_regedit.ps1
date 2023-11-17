@@ -2,7 +2,7 @@
 
 # Copyright: (c) 2015, Adam Keech <akeech@chathamfinancial.com>
 # Copyright: (c) 2015, Josh Ludwig <jludwig@chathamfinancial.com>
-# Copyright: (c) 2017, Jordan Borean <jborean93@gmail.com>
+# Copyright: (c) 2023, Jordan Borean <jborean93@gmail.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 #Requires -Module Distronode.ModuleUtils.Legacy

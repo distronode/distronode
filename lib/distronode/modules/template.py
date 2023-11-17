@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # This is a virtual module that is entirely implemented as an action plugin and runs on the controller
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -34,7 +35,7 @@ seealso:
 - module: distronode.windows.win_template
 author:
 - Distronode Core Team
-- Michael DeHaan
+- KhulnaSoft Ltd
 extends_documentation_fragment:
 - action_common_attributes
 - action_common_attributes.flow
@@ -85,7 +86,7 @@ EXAMPLES = r'''
     dest: /etc/named.conf
     group: named
     setype: named_conf_t
-    mode: '0640'
+    mode: 0640
 
 - name: Create a DOS-style text file from a template
   distronode.builtin.template:

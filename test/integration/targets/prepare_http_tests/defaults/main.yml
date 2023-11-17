@@ -1,5 +1,5 @@
 badssl_host: wrong.host.badssl.com
 self_signed_host: self-signed.distronode.http.tests
 httpbin_host: httpbin.org
-sni_host: ci-files.testing.distronode.github.io
+sni_host: ci-files.testing.distronode.khulnasoft.com
 badssl_host_substring: wrong.host.badssl.com

@@ -6,7 +6,8 @@ This file provides ease of use shortcuts for loading and dumping YAML,
 preferring the YAML compiled C extensions to reduce duplicated code.
 """
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from functools import partial as _partial
 

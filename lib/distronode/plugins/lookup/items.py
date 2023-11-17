@@ -1,11 +1,12 @@
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = """
     name: items
-    author: Michael DeHaan
+    author: KhulnaSoft Ltd
     version_added: historical
     short_description: list of items
     description:

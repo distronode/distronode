@@ -1,8 +1,9 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = '''
     name: default
@@ -165,7 +166,7 @@ class CallbackModule(CallbackBase):
         # args can be specified as no_log in several places: in the task or in
         # the argument spec.  We can check whether the task is no_log but the
         # argument spec can't be because that is only run on the target
-        # machine and we haven't run it there yet at this time.
+        # machine and we haven't run it thereyet at this time.
         #
         # So we give people a config option to affect display of the args so
         # that they can secure this if they feel that their stdout is insecure

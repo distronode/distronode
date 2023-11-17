@@ -16,6 +16,6 @@ Can you please post on distronode-development list so we can talk about this ide
 
 For other alternatives, check this page for a more complete list of communication channels and their purposes:
 
-* https://distronode.github.io/docs/latest/community/communication.html
+* https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html
 
 Thank you once again for this and your interest in Distronode!

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import copy
 import json
@@ -94,7 +96,7 @@ def collection_artifact(request, tmp_path_factory):
 @pytest.fixture()
 def galaxy_server():
     context.CLIARGS._store = {'ignore_certs': False}
-    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.github.io')
+    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.khulnasoft.com')
     galaxy_api.get_collection_signatures = MagicMock(return_value=[])
     return galaxy_api
 

@@ -47,13 +47,6 @@
   when: (distronode_distribution == 'Fedora' and distronode_distribution_major_version is version('23', '>=')) or
         (distronode_distribution in ['RedHat', 'CentOS'] and distronode_distribution_major_version is version('8', '>='))
 
-- include_tasks: dnf_group_remove.yml
-  when:
-    - (distronode_distribution == 'Fedora' and distronode_distribution_major_version is version('23', '>=')) or
-      (distronode_distribution in ['RedHat', 'CentOS'] and distronode_distribution_major_version is version('8', '>='))
-    # https://github.com/rpm-software-management/dnf5/issues/917
-    - not dnf5|default(false)
-
 - include_tasks: dnfinstallroot.yml
   when: (distronode_distribution == 'Fedora' and distronode_distribution_major_version is version('23', '>=')) or
         (distronode_distribution in ['RedHat', 'CentOS'] and distronode_distribution_major_version is version('8', '>='))

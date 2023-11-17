@@ -2,7 +2,8 @@
 # Most of these names are only available via PluginLoader so pylint doesn't
 # know they exist
 # pylint: disable=no-name-in-module
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 from distronode.module_utils.basic import DistronodeModule
 
@@ -10,7 +11,7 @@ from distronode.module_utils.basic import DistronodeModule
 _private_false = False
 _private_true = True
 
-# module_utils import statements nested below any block are considered optional "best-effort" for DistroallZ to include.
+# module_utils import statements nested below any block are considered optional "best-effort" for AnsiballZ to include.
 # test a number of different import shapes and nesting types to exercise this...
 
 # first, some nested imports that should succeed...

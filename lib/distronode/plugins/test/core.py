@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import re
 import operator as py_operator
@@ -136,7 +138,7 @@ def regex(value='', pattern='', ignorecase=False, multiline=False, match_type='s
 
 
 def vault_encrypted(value):
-    """Evaluate whether a variable is a single vault encrypted value
+    """Evaulate whether a variable is a single vault encrypted value
 
     .. versionadded:: 2.10
     """

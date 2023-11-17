@@ -1,7 +1,8 @@
-# Copyright: (c) 2016, Allen Sanabria <asanabria@linuxdynasty.org>
+# Copyright: (c) 2023, Allen Sanabria <asanabria@linuxdynasty.org>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from os import path, walk
 import re

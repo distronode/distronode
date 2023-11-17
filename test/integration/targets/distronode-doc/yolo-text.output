@@ -13,7 +13,7 @@ SEE ALSO:
       * Module distronode.builtin.test
            The official documentation on the
            distronode.builtin.test module.
-           https://distronode.github.io/docs-core/devel/collections/distronode/builtin/test_module.html
+           https://distronode.khulnasoft.com/docs/distronode-core/devel/collections/distronode/builtin/test_module.html
       * Module testns.testcol.fakemodule
            A fake module
       * Lookup plugin testns.testcol.noop
@@ -22,16 +22,16 @@ SEE ALSO:
       * Filter plugin distronode.builtin.combine
            The official documentation on the
            distronode.builtin.combine filter plugin.
-           https://distronode.github.io/docs-core/devel/collections/distronode/builtin/combine_filter.html
+           https://distronode.khulnasoft.com/docs/distronode-core/devel/collections/distronode/builtin/combine_filter.html
       * Lookup plugin distronode.builtin.file
            Read a file on the controller.
-           https://distronode.github.io/docs-core/devel/collections/distronode/builtin/file_lookup.html
+           https://distronode.khulnasoft.com/docs/distronode-core/devel/collections/distronode/builtin/file_lookup.html
       * Distronode docsite
            See also the Distronode docsite.
-           https://docs.distronode.github.io
+           https://distronode.khulnasoft.com/docs
       * Distronode documentation [foo_bar]
            Some foo bar.
-           https://distronode.github.io/docs-core/devel/#stq=foo_bar&stp=1
+           https://distronode.khulnasoft.com/docs/distronode-core/devel/#stq=foo_bar&stp=1
 
 
 NAME: yolo

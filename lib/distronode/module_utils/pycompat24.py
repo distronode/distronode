@@ -4,7 +4,7 @@
 # still belong to the author of the module, and may assign their own license
 # to the complete work.
 #
-# Copyright (c) 2016, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# Copyright (c) 2016, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # Copyright (c) 2015, Marius Gedminas
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -26,11 +26,10 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import sys
-
-from distronode.module_utils.common.warnings import deprecate
 
 
 def get_exception():
@@ -45,29 +44,10 @@ def get_exception():
             e = get_exception()
 
     """
-    deprecate(
-        msg='The `distronode.module_utils.pycompat24.get_exception` '
-        'function is deprecated.',
-        version='2.19',
-    )
     return sys.exc_info()[1]
 
 
-def __getattr__(importable_name):
-    """Inject import-time deprecation warning for ``literal_eval()``."""
-    if importable_name == 'literal_eval':
-        deprecate(
-            msg=f'The `distronode.module_utils.pycompat24.'
-            f'{importable_name}` function is deprecated.',
-            version='2.19',
-        )
-        from ast import literal_eval
-        return literal_eval
-
-    raise AttributeError(
-        f'cannot import name {importable_name !r} '
-        f'has no attribute ({__file__ !s})',
-    )
+from ast import literal_eval
 
 
-__all__ = ('get_exception', 'literal_eval')  # pylint: disable=undefined-all-variable
+__all__ = ('get_exception', 'literal_eval')

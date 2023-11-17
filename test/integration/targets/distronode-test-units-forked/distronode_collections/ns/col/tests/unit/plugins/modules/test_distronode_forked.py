@@ -1,6 +1,7 @@
 """Unit tests to verify the functionality of the distronode-forked pytest plugin."""
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 
 import os
 import pytest

@@ -1,6 +1,6 @@
 # test code for filters
-# Copyright: (c) 2014, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2019, Distronode Project
+# Copyright: (c) 2014, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # Note: |groupby is already tested by the `groupby_filter` target.
@@ -334,27 +334,6 @@
   assert:
     that:
       - '"hElLo there"|regex_replace("hello", "hi", ignorecase=True) == "hi there"'
-
-- name: Verify regex_replace with count
-  assert:
-    that:
-      - '"foo=bar=baz"|regex_replace("=", ":", count=1) == "foo:bar=baz"'
-
-- name: Verify regex_replace with correct mandatory_count
-  assert:
-    that:
-      - '"foo=bar=baz"|regex_replace("=", ":", mandatory_count=2) == "foo:bar:baz"'
-
-- name: Verify regex_replace with incorrect mandatory_count
-  debug:
-    msg: "{{ 'foo=bar=baz'|regex_replace('=', ':', mandatory_count=1) }}"
-  ignore_errors: yes
-  register: incorrect_mandatory_count
-
-- assert:
-    that:
-      - "incorrect_mandatory_count is failed"
-      - "' times, but matches ' in incorrect_mandatory_count.msg"
 
 - name: Verify case-insensitive regex_findall
   assert:

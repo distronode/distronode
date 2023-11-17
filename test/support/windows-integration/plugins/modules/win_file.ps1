@@ -1,6 +1,6 @@
 #!powershell
 
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 #Requires -Module Distronode.ModuleUtils.Legacy
@@ -31,7 +31,7 @@ using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 
-namespace distronode.github.iomand {
+namespace distronode.khulnasoft.command {
     public class SymLinkHelper {
         [DllImport("kernel32.dll", CharSet=CharSet.Unicode, SetLastError=true)]
         public static extern bool DeleteFileW(string lpFileName);
@@ -64,11 +64,11 @@ function Remove-File($file, $checkmode) {
             # to an invalid path it will fail, using Win32 API to do this instead
             if ($file.PSIsContainer) {
                 if (-not $checkmode) {
-                    [distronode.github.iomand.SymLinkHelper]::DeleteDirectory($file.FullName)
+                    [distronode.khulnasoft.command.SymLinkHelper]::DeleteDirectory($file.FullName)
                 }
             } else {
                 if (-not $checkmode) {
-                    [distronode.github.iomand.SymlinkHelper]::DeleteFile($file.FullName)
+                    [distronode.khulnasoft.command.SymlinkHelper]::DeleteFile($file.FullName)
                 }
             }
         } elseif ($file.PSIsContainer) {

@@ -1,8 +1,9 @@
-# (C) 2013, James Cammarata <jcammarata@distronode.github.io>
-# Copyright: (c) 2019, Distronode Project
+# (C) 2013, James Cammarata <jcammarata@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import collections
 import datetime
@@ -87,8 +88,8 @@ def g_connect(versions):
                 n_url = self.api_server
                 error_context_msg = 'Error when finding available api versions from %s (%s)' % (self.name, n_url)
 
-                if self.api_server == 'https://galaxy.distronode.github.io' or self.api_server == 'https://galaxy.distronode.github.io/':
-                    n_url = 'https://galaxy.distronode.github.io/api/'
+                if self.api_server == 'https://galaxy.distronode.khulnasoft.com' or self.api_server == 'https://galaxy.distronode.khulnasoft.com/':
+                    n_url = 'https://galaxy.distronode.khulnasoft.com/api/'
 
                 try:
                     data = self._call_galaxy(n_url, method='GET', error_context_msg=error_context_msg, cache=True)

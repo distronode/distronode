@@ -6,7 +6,8 @@
 
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = '''
@@ -456,9 +457,7 @@ class SourcesList(object):
 
 class UbuntuSourcesList(SourcesList):
 
-    # prefer api.launchpad.net over launchpad.net/api
-    # see: https://github.com/distronode/distronode/pull/81978#issuecomment-1767062178
-    LP_API = 'https://api.launchpad.net/1.0/~%s/+archive/%s'
+    LP_API = 'https://launchpad.net/api/1.0/~%s/+archive/%s'
 
     def __init__(self, module):
         self.module = module

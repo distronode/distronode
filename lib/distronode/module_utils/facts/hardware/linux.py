@@ -13,7 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import collections
 import errno
@@ -555,7 +556,6 @@ class LinuxHardware(Hardware):
             fields = [self._replace_octal_escapes(field) for field in fields]
 
             device, mount, fstype, options = fields[0], fields[1], fields[2], fields[3]
-            dump, passno = int(fields[4]), int(fields[5])
 
             if not device.startswith(('/', '\\')) and ':/' not in device or fstype == 'none':
                 continue
@@ -563,9 +563,7 @@ class LinuxHardware(Hardware):
             mount_info = {'mount': mount,
                           'device': device,
                           'fstype': fstype,
-                          'options': options,
-                          'dump': dump,
-                          'passno': passno}
+                          'options': options}
 
             if mount in bind_mounts:
                 # only add if not already there, we might have a plain /etc/mtab

@@ -50,7 +50,8 @@
 # http://code.activestate.com/recipes/496741-object-proxying/
 # Author: Tomer Filiba
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from collections.abc import Mapping, Set
 

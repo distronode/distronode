@@ -14,7 +14,8 @@ not final and could be subject to change.
 # See also: https://github.com/distronode/community/issues/539#issuecomment-780839686
 # Please open an issue if you have questions about this.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import re
 

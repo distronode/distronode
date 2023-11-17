@@ -1,14 +1,15 @@
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
 # (c) 2013, Steven Dossett <sdossett@panath.com>
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = """
     name: inventory_hostnames
     author:
-      - Michael DeHaan
+      - KhulnaSoft Ltd
       - Steven Dossett (!UNKNOWN) <sdossett@panath.com>
     version_added: "1.3"
     short_description: list of inventory hosts matching a host pattern

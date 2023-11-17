@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-# Copyright: (c) 2013, James Cammarata <jcammarata@distronode.github.io>
-# Copyright: (c) 2018-2021, Distronode Project
+# Copyright: (c) 2013, James Cammarata <jcammarata@khulnasoft.com>
+# Copyright: (c) 2023-2021, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # PYTHON_ARGCOMPLETE_OK
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # distronode.cli needs to be imported first, to ensure the source bin/* scripts run that code first
 from distronode.cli import CLI
@@ -222,7 +223,7 @@ class GalaxyCLI(CLI):
             if args[1:3] == ['role', 'login']:
                 display.error(
                     "The login command was removed in late 2020. An API key is now required to publish roles or collections "
-                    "to Galaxy. The key can be found at https://galaxy.distronode.github.io/me/preferences, and passed to the "
+                    "to Galaxy. The key can be found at https://galaxy.distronode.khulnasoft.com/me/preferences, and passed to the "
                     "distronode-galaxy CLI via a file at {0} or (insecurely) via the `--token` "
                     "command-line argument.".format(to_text(C.GALAXY_TOKEN_PATH)))
                 sys.exit(1)
@@ -245,7 +246,7 @@ class GalaxyCLI(CLI):
         common.add_argument('--api-version', type=int, choices=[2, 3], help=argparse.SUPPRESS)  # Hidden argument that should only be used in our tests
         common.add_argument('--token', '--api-key', dest='api_key',
                             help='The Distronode Galaxy API key which can be found at '
-                                 'https://galaxy.distronode.github.io/me/preferences.')
+                                 'https://galaxy.distronode.khulnasoft.com/me/preferences.')
         common.add_argument('-c', '--ignore-certs', action='store_true', dest='ignore_certs', help='Ignore SSL certificate validation errors.', default=None)
 
         # --timeout uses the default None to handle two different scenarios.
@@ -1518,7 +1519,7 @@ class GalaxyCLI(CLI):
                         dep_role = GalaxyRole(self.galaxy, self.lazy_role_api, **dep_info)
                         if '.' not in dep_role.name and '.' not in dep_role.src and dep_role.scm is None:
                             # we know we can skip this, as it's not going to
-                            # be found on galaxy.distronode.github.io
+                            # be found on galaxy.distronode.khulnasoft.com
                             continue
                         if dep_role.install_info is None:
                             if dep_role not in requirements:

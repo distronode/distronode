@@ -10,12 +10,12 @@ you may want to learn and read through the following articles I've
 gathered for you:
 
 • https://opensource.guide/how-to-contribute/
-• https://distronode.github.io/docs/devel/community/
+• https://distronode.khulnasoft.com/docs/distronode/devel/community/
 
 Because this project is very active, we're unlikely to see comments made on closed tickets and we lock them after some time.
 
 If you or anyone else has any further questions, please let us know by using any of the communication methods listed in the page below:
 
-  https://distronode.github.io/docs/latest/community/communication.html
+  https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html
 
 Have a nice day!

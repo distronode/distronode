@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2017 Distronode Project
+# Copyright: (c) 2023 Distronode Project
 # License: GNU General Public License v3 or later (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt )
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import pytest
 

@@ -1,7 +1,8 @@
 # Copyright (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = '''
     name: yaml
@@ -113,7 +114,7 @@ class InventoryModule(BaseFileInventoryPlugin):
             raise DistronodeParserError('Plugin configuration YAML file, not YAML inventory')
 
         # We expect top level keys to correspond to groups, iterate over them
-        # to get host, vars and subgroups (which we iterate over recursively)
+        # to get host, vars and subgroups (which we iterate over recursivelly)
         if isinstance(data, MutableMapping):
             for group_name in data:
                 self._parse_group(group_name, data[group_name])

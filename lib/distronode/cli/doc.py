@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # Copyright: (c) 2014, James Tanner <tanner.jc@gmail.com>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # PYTHON_ARGCOMPLETE_OK
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # distronode.cli needs to be imported first, to ensure the source bin/* scripts run that code first
 from distronode.cli import CLI
 
-import importlib
 import pkgutil
 import os
 import os.path
@@ -30,6 +30,7 @@ from distronode.module_utils.common.text.converters import to_native, to_text
 from distronode.module_utils.common.collections import is_sequence
 from distronode.module_utils.common.json import json_dump
 from distronode.module_utils.common.yaml import yaml_dump
+from distronode.module_utils.compat import importlib
 from distronode.module_utils.six import string_types
 from distronode.parsing.plugin_docs import read_docstub
 from distronode.parsing.utils.yaml import from_yaml
@@ -48,6 +49,11 @@ TARGET_OPTIONS = C.DOCUMENTABLE_PLUGINS + ('role', 'keyword',)
 PB_OBJECTS = ['Play', 'Role', 'Block', 'Task']
 PB_LOADED = {}
 SNIPPETS = ['inventory', 'lookup', 'module']
+
+
+def add_collection_plugins(plugin_list, plugin_type, coll_filter=None):
+    display.deprecated("add_collection_plugins method, use distronode.plugins.list functions instead.", version='2.17')
+    plugin_list.update(list_plugins(plugin_type, coll_filter))
 
 
 def jdump(text):
@@ -419,6 +425,11 @@ class DocCLI(CLI, RoleMixin):
         return f"`{text}'"
 
     @classmethod
+    def find_plugins(cls, path, internal, plugin_type, coll_filter=None):
+        display.deprecated("find_plugins method as it is incomplete/incorrect. use distronode.plugins.list functions instead.", version='2.17')
+        return list_plugins(plugin_type, coll_filter, [path]).keys()
+
+    @classmethod
     def tty_ify(cls, text):
 
         # general formatting
@@ -450,7 +461,7 @@ class DocCLI(CLI, RoleMixin):
 
         super(DocCLI, self).init_parser(
             desc="plugin documentation tool",
-            epilog="See man pages for Distronode CLI options or website for tutorials https://docs.distronode.github.io"
+            epilog="See man pages for Distronode CLI options or website for tutorials https://distronode.khulnasoft.com/docs"
         )
         opt_help.add_module_options(self.parser)
         opt_help.add_basedir_options(self.parser)
@@ -814,7 +825,7 @@ class DocCLI(CLI, RoleMixin):
                 else:
                     plugin_names = self._list_plugins(ptype, None)
                     docs['all'][ptype] = self._get_plugins_docs(ptype, plugin_names, fail_ok=(ptype in ('test', 'filter')), fail_on_errors=no_fail)
-                    # reset list after each type to avoid pollution
+                    # reset list after each type to avoid polution
         elif listing:
             if plugin_type == 'keyword':
                 docs = DocCLI._list_keywords()

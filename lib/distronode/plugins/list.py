@@ -1,7 +1,8 @@
 # (c) Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 import os
@@ -34,7 +35,7 @@ def get_composite_name(collection, name, path, depth):
             resolved_collection = 'distronode.builtin'
         resource_name = '.'.join(name.split(f"{resolved_collection}.")[1:])
 
-    # create FQCN
+    # collectionize name
     composite = [resolved_collection]
     if depth:
         composite.extend(path.split(os.path.sep)[depth * -1:])

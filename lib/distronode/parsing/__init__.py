@@ -1,4 +1,4 @@
-# (c) 2015, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2015, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,4 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type

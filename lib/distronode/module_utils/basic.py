@@ -1,21 +1,23 @@
-# Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2012-2013
-# Copyright (c), Toshio Kuratomi <tkuratomi@distronode.github.io> 2016
+# Copyright (c), KhulnaSoft Ltd <info@khulnasoft.com>, 2012-2013
+# Copyright (c), Toshio Kuratomi <tkuratomi@khulnasoft.com> 2016
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
-import json
 import sys
 
 # Used for determining if the system is running a new enough python version
 # and should only restrict on our documented minimum versions
-_PY_MIN = (3, 7)
+_PY3_MIN = sys.version_info >= (3, 6)
+_PY2_MIN = (2, 7) <= sys.version_info < (3,)
+_PY_MIN = _PY3_MIN or _PY2_MIN
 
-if sys.version_info < _PY_MIN:
-    print(json.dumps(dict(
-        failed=True,
-        msg=f"distronode-core requires a minimum of Python version {'.'.join(map(str, _PY_MIN))}. Current version: {''.join(sys.version.splitlines())}",
-    )))
+if not _PY_MIN:
+    print(
+        '\n{"failed": true, '
+        '"msg": "distronode-core requires a minimum of Python2 version 2.7 or Python3 version 3.6. Current version: %s"}' % ''.join(sys.version.splitlines())
+    )
     sys.exit(1)
 
 # Distronode modules can be written in any language.
@@ -34,7 +36,6 @@ import pwd
 import platform
 import re
 import select
-import selectors
 import shlex
 import shutil
 import signal
@@ -72,6 +73,8 @@ except ImportError:
 
 # Python2 & 3 way to get NoneType
 NoneType = type(None)
+
+from distronode.module_utils.compat import selectors
 
 from ._text import to_native, to_bytes, to_text
 from distronode.module_utils.common.text.converters import (
@@ -125,6 +128,12 @@ def _get_available_hash_algorithms():
 
 AVAILABLE_HASH_ALGORITHMS = _get_available_hash_algorithms()
 
+try:
+    from distronode.module_utils.common._json_compat import json
+except ImportError as e:
+    print('\n{{"msg": "Error: distronode requires the stdlib json: {0}", "failed": true}}'.format(to_native(e)))
+    sys.exit(1)
+
 from distronode.module_utils.six.moves.collections_abc import (
     KeysView,
     Mapping, MutableMapping,
@@ -147,6 +156,7 @@ from distronode.module_utils.common.sys_info import (
     get_distribution_version,
     get_platform_subclass,
 )
+from distronode.module_utils.pycompat24 import get_exception, literal_eval
 from distronode.module_utils.common.parameters import (
     env_fallback,
     remove_values,
@@ -202,6 +212,8 @@ try:
 except NameError:
     # Python 3
     basestring = string_types
+
+_literal_eval = literal_eval
 
 # End of deprecated names
 
@@ -375,8 +387,8 @@ def _load_params():
     try:
         params = json.loads(buffer.decode('utf-8'))
     except ValueError:
-        # This helper is used too early for fail_json to work.
-        print('\n{"msg": "Error: Module unable to decode stdin/parameters as valid JSON. Unable to parse what parameters were passed", "failed": true}')
+        # This helper used too early for fail_json to work.
+        print('\n{"msg": "Error: Module unable to decode valid JSON on stdin.  Unable to figure out what parameters were passed", "failed": true}')
         sys.exit(1)
 
     if PY2:
@@ -387,7 +399,7 @@ def _load_params():
     except KeyError:
         # This helper does not have access to fail_json so we have to print
         # json output on our own.
-        print('\n{"msg": "Error: Module unable to locate DISTRONODE_MODULE_ARGS in JSON data from stdin. Unable to figure out what parameters were passed", '
+        print('\n{"msg": "Error: Module unable to locate DISTRONODE_MODULE_ARGS in json data from stdin.  Unable to figure out what parameters were passed", '
               '"failed": true}')
         sys.exit(1)
 
@@ -480,8 +492,6 @@ class DistronodeModule(object):
 
         try:
             error = self.validation_result.errors[0]
-            if isinstance(error, UnsupportedError) and self._ignore_unknown_opts:
-                error = None
         except IndexError:
             error = None
 
@@ -558,7 +568,7 @@ class DistronodeModule(object):
             raise AssertionError("implementation error -- version and date must not both be set")
         deprecate(msg, version=version, date=date, collection_name=collection_name)
         # For compatibility, we accept that neither version nor date is set,
-        # and treat that the same as if version would not have been set
+        # and treat that the same as if version would haven been set
         if date is not None:
             self.log('[DEPRECATION WARNING] %s %s' % (msg, date))
         else:
@@ -685,7 +695,7 @@ class DistronodeModule(object):
 
     def find_mount_point(self, path):
         '''
-            Takes a path and returns its mount point
+            Takes a path and returns it's mount point
 
         :param path: a string type with a filesystem path
         :returns: the path to the mount point as a text type
@@ -881,7 +891,7 @@ class DistronodeModule(object):
                                    details=to_native(e))
 
                 if mode != stat.S_IMODE(mode):
-                    # prevent mode from having extra info or being invalid long number
+                    # prevent mode from having extra info orbeing invalid long number
                     path = to_text(b_path)
                     self.fail_json(path=path, msg="Invalid mode supplied, only permission info is allowed", details=mode)
 
@@ -1952,7 +1962,7 @@ class DistronodeModule(object):
         # If using distronode or distronode-playbook with a remote system:
         #   /tmp/distronode_vmweLQ/distronode_modlib.zip/distronode/module_utils/basic.py
 
-        # Clean out python paths set by distroallz
+        # Clean out python paths set by ansiballz
         if 'PYTHONPATH' in env:
             pypaths = [x for x in env['PYTHONPATH'].split(':')
                        if x and
@@ -2133,33 +2143,3 @@ class DistronodeModule(object):
 
 def get_module_path():
     return os.path.dirname(os.path.realpath(__file__))
-
-
-def __getattr__(importable_name):
-    """Inject import-time deprecation warnings.
-
-    Specifically, for ``literal_eval()``, ``_literal_eval()``
-    and ``get_exception()``.
-    """
-    if importable_name == 'get_exception':
-        deprecate(
-            msg=f'The `distronode.module_utils.basic.'
-            f'{importable_name}` function is deprecated.',
-            version='2.19',
-        )
-        from distronode.module_utils.pycompat24 import get_exception
-        return get_exception
-
-    if importable_name in {'literal_eval', '_literal_eval'}:
-        deprecate(
-            msg=f'The `distronode.module_utils.basic.'
-            f'{importable_name}` function is deprecated.',
-            version='2.19',
-        )
-        from ast import literal_eval
-        return literal_eval
-
-    raise AttributeError(
-        f'cannot import name {importable_name !r} '
-        f'has no attribute ({__file__ !s})',
-    )

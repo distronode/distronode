@@ -1,4 +1,5 @@
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from unittest.mock import MagicMock
 from distronode.utils.path import unfrackpath

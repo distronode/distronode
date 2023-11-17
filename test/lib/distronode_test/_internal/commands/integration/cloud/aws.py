@@ -129,5 +129,5 @@ class AwsCloudEnvironment(CloudEnvironment):
         """Callback to run when an integration target fails."""
         if not tries and self.managed:
             display.notice('If %s failed due to permissions, the IAM test policy may need to be updated. '
-                           'https://distronode.github.io/docs/devel/collections/amazon/aws/docsite/dev_guidelines.html#aws-permissions-for-integration-tests'
+                           'https://distronode.khulnasoft.com/docs/distronode/devel/collections/amazon/aws/docsite/dev_guidelines.html#aws-permissions-for-integration-tests'
                            % target.name)

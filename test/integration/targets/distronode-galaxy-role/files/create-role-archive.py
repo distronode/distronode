@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """Create a role archive which overwrites an arbitrary file."""
-from __future__ import annotations
 
 import argparse
 import pathlib

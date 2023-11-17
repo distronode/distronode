@@ -70,6 +70,7 @@ from distronode.module_utils.common.collections import is_iterable
 from distronode.module_utils.common.parameters import DEFAULT_TYPE_VALIDATORS
 from distronode.module_utils.compat.version import StrictVersion, LooseVersion
 from distronode.module_utils.basic import to_bytes
+from distronode.module_utils.six import PY3, with_metaclass, string_types
 from distronode.plugins.loader import fragment_loader
 from distronode.plugins.list import IGNORE as REJECTLIST
 from distronode.utils.plugin_docs import add_collection_to_versions_and_dates, add_fragments, get_docstring
@@ -86,11 +87,14 @@ from .schema import (
 from .utils import CaptureStd, NoArgsDistronodeModule, compare_unordered_lists, parse_yaml, parse_isodate
 
 
-# Because there is no ast.TryExcept in Python 3 ast module
-TRY_EXCEPT = ast.Try
-# REPLACER_WINDOWS from distronode.executor.module_common is byte
-# string but we need unicode for Python 3
-REPLACER_WINDOWS = REPLACER_WINDOWS.decode('utf-8')
+if PY3:
+    # Because there is no ast.TryExcept in Python 3 ast module
+    TRY_EXCEPT = ast.Try
+    # REPLACER_WINDOWS from distronode.executor.module_common is byte
+    # string but we need unicode for Python 3
+    REPLACER_WINDOWS = REPLACER_WINDOWS.decode('utf-8')
+else:
+    TRY_EXCEPT = ast.TryExcept
 
 REJECTLIST_DIRS = frozenset(('.git', 'test', '.github', '.idea'))
 INDENT_REGEX = re.compile(r'([\t]*)')
@@ -265,7 +269,7 @@ class Reporter:
         return 3 if sum(ret) else 0
 
 
-class Validator(metaclass=abc.ABCMeta):
+class Validator(with_metaclass(abc.ABCMeta, object)):
     """Validator instances are intended to be run on a single object.  if you
     are scanning multiple objects for problems, you'll want to have a separate
     Validator for each one."""
@@ -488,7 +492,7 @@ class ModuleValidator(Validator):
                     path=self.object_path,
                     code='use-short-gplv3-license',
                     msg='Found old style GPLv3 license header: '
-                        'https://distronode.github.io/docs-core/devel/dev_guide/developing_modules_documenting.html#copyright'
+                        'https://distronode.khulnasoft.com/docs/distronode-core/devel/dev_guide/developing_modules_documenting.html#copyright'
                 )
 
     def _check_for_subprocess(self):
@@ -1189,7 +1193,7 @@ class ModuleValidator(Validator):
             for entry in object:
                 self._validate_semantic_markup(entry)
             return
-        if not isinstance(object, str):
+        if not isinstance(object, string_types):
             return
 
         if self.collection:
@@ -1370,7 +1374,7 @@ class ModuleValidator(Validator):
                 continue
             bad_term = False
             for term in check:
-                if not isinstance(term, str):
+                if not isinstance(term, string_types):
                     msg = name
                     if context:
                         msg += " found in %s" % " -> ".join(context)
@@ -1438,7 +1442,7 @@ class ModuleValidator(Validator):
                 continue
             bad_term = False
             for term in requirements:
-                if not isinstance(term, str):
+                if not isinstance(term, string_types):
                     msg = "required_if"
                     if context:
                         msg += " found in %s" % " -> ".join(context)
@@ -1521,13 +1525,13 @@ class ModuleValidator(Validator):
             # This is already reported by schema checking
             return
         for key, value in terms.items():
-            if isinstance(value, str):
+            if isinstance(value, string_types):
                 value = [value]
             if not isinstance(value, (list, tuple)):
                 # This is already reported by schema checking
                 continue
             for term in value:
-                if not isinstance(term, str):
+                if not isinstance(term, string_types):
                     # This is already reported by schema checking
                     continue
             if len(set(value)) != len(value) or key in value:

@@ -3,7 +3,8 @@
 
 # General networking tools that may be used by all modules
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import re
 from struct import pack
@@ -61,7 +62,7 @@ def to_masklen(val):
 
 
 def to_subnet(addr, mask, dotted_notation=False):
-    """ converts an addr / mask pair to a subnet in cidr notation """
+    """ coverts an addr / mask pair to a subnet in cidr notation """
     try:
         if not is_masklen(mask):
             raise ValueError

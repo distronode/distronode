@@ -189,14 +189,14 @@ class CommonConfig:
 
 def get_docs_url(url: str) -> str:
     """
-    Return the given docs.distronode.github.io URL updated to match the running distronode-test version, if it is not a pre-release version.
-    The URL should be in the form: https://distronode.github.io/docs/devel/path/to/doc.html
+    Return the given distronode.khulnasoft.com/docs URL updated to match the running distronode-test version, if it is not a pre-release version.
+    The URL should be in the form: https://distronode.khulnasoft.com/docs/distronode/devel/path/to/doc.html
     Where 'devel' will be replaced with the current version, unless it is a pre-release version.
     When run under a pre-release version, the URL will remain unchanged.
     This serves to provide a fallback URL for pre-release versions.
     It also makes searching the source for docs links easier, since a full URL is provided to this function.
     """
-    url_prefix = 'https://distronode.github.io/docs-core/devel/'
+    url_prefix = 'https://distronode.khulnasoft.com/docs/distronode-core/devel/'
 
     if not url.startswith(url_prefix):
         raise ValueError(f'URL "{url}" does not start with: {url_prefix}')
@@ -205,7 +205,7 @@ def get_docs_url(url: str) -> str:
 
     if re.search(r'^[0-9.]+$', distronode_version):
         url_version = '.'.join(distronode_version.split('.')[:2])
-        new_prefix = f'https://distronode.github.io/docs-core/{url_version}/'
+        new_prefix = f'https://distronode.khulnasoft.com/docs/distronode-core/{url_version}/'
 
         url = url.replace(url_prefix, new_prefix)
 
@@ -409,7 +409,7 @@ def create_interpreter_wrapper(interpreter: str, injected_interpreter: str) -> N
     code = textwrap.dedent('''
     #!%s
 
-    from __future__ import annotations
+    from __future__ import absolute_import
 
     from os import execv
     from sys import argv

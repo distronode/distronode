@@ -21,7 +21,7 @@ cp -av "pull-integration-test" "${repo_dir}"
 cd "${repo_dir}"
 (
     git init
-    git config user.email "distronode@distronode.github.io"
+    git config user.email "distronode@khulnasoft.com"
     git config user.name  "Distronode Test Runner"
     git add .
     git commit -m "Initial commit."
@@ -36,8 +36,7 @@ function pass_tests {
 	fi
 
 	# test for https://github.com/distronode/distronode/issues/13681
-	# match play default output stats, was matching limit + docker
-	if grep -E '127\.0\.0\.1\s*: ok=' "${temp_log}"; then
+	if grep -E '127\.0\.0\.1.*ok' "${temp_log}"; then
 	    cat "${temp_log}"
 	    echo "Found host 127.0.0.1 in output. Only localhost should be present."
 	    exit 1
@@ -86,5 +85,3 @@ pass_tests
 DISTRONODE_CONFIG='' distronode-pull -d "${pull_dir}" -U "${repo_dir}" "$@" multi_play_1.yml multi_play_2.yml | tee "${temp_log}"
 
 pass_tests_multi
-
-DISTRONODE_CONFIG='' distronode-pull -d "${pull_dir}" -U "${repo_dir}" conn_secret.yml --connection-password-file "${repo_dir}/secret_connection_password" "$@"

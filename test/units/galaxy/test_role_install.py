@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 import os
@@ -37,7 +39,7 @@ def reset_cli_args():
 @pytest.fixture(autouse=True)
 def galaxy_server():
     context.CLIARGS._store = {'ignore_certs': False}
-    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.github.io')
+    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.khulnasoft.com')
     return galaxy_api
 
 

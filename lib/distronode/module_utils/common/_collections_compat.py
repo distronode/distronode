@@ -6,7 +6,8 @@ Use `distronode.module_utils.six.moves.collections_abc` instead, which has been 
 This module exists only for backwards compatibility.
 """
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 # Although this was originally intended for internal use only, it has wide adoption in collections.
 # This is due in part to sanity tests previously recommending its use over `collections` imports.

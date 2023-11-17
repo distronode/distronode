@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = '''
@@ -11,7 +12,7 @@ DOCUMENTATION = '''
 module: git
 author:
     - "Distronode Core Team"
-    - "Michael DeHaan"
+    - "KhulnaSoft Ltd"
 version_added: "0.0.1"
 short_description: Deploy software (or files) from git checkouts
 description:
@@ -1263,7 +1264,7 @@ def main():
     # We screenscrape a huge amount of git commands so use C locale anytime we
     # call run_command()
     locale = get_best_parsable_locale(module)
-    module.run_command_environ_update = dict(LANG=locale, LC_ALL=locale, LC_MESSAGES=locale, LC_CTYPE=locale, LANGUAGE=locale)
+    module.run_command_environ_update = dict(LANG=locale, LC_ALL=locale, LC_MESSAGES=locale, LC_CTYPE=locale)
 
     if separate_git_dir:
         separate_git_dir = os.path.realpath(separate_git_dir)

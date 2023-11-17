@@ -7,8 +7,6 @@
 The facts base class
 this contains methods common to all facts subsets
 """
-from __future__ import annotations
-
 from distronode_collections.distronode.netcommon.plugins.module_utils.network.common.network import (
     get_resource_connection,
 )

@@ -1,6 +1,8 @@
-# Copyright: (c) 2021, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from jinja2.runtime import Undefined
 from jinja2.exceptions import UndefinedError

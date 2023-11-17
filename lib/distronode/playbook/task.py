@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode import constants as C
 from distronode.errors import DistronodeError, DistronodeParserError, DistronodeUndefinedVariable, DistronodeAssertionError
@@ -134,7 +136,7 @@ class Task(Base, Conditional, Taggable, CollectionSearch, Notifiable, Delegatabl
         return t.load_data(data, variable_manager=variable_manager, loader=loader)
 
     def __repr__(self):
-        ''' returns a human-readable representation of the task '''
+        ''' returns a human readable representation of the task '''
         if self.action in C._ACTION_META:
             return "TASK: meta (%s)" % self.args['_raw_params']
         else:

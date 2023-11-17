@@ -1,3 +1,0 @@
----
-bugfixes:
-- Provide additional information about the alternative plugin in the deprecation message (https://github.com/distronode/distronode/issues/80561).

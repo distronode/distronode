@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -28,7 +28,8 @@
 #    ./hacking/test-module.py -m lib/distronode/modules/lineinfile.py -a "dest=/etc/exports line='/srv/home hostname1(rw,sync)'" --check
 #    ./hacking/test-module.py -m lib/distronode/modules/command.py -a "echo hello" -n -o "test_hello"
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import glob
 import optparse
@@ -162,12 +163,12 @@ def boilerplate_module(modfile, args, interpreters, check, destfile):
         task_vars=task_vars
     )
 
-    if module_style == 'new' and '_DISTROALLZ_WRAPPER = True' in to_native(module_data):
-        module_style = 'distroallz'
+    if module_style == 'new' and '_ANSIBALLZ_WRAPPER = True' in to_native(module_data):
+        module_style = 'ansiballz'
 
     modfile2_path = os.path.expanduser(destfile)
     print("* including generated source, if any, saving to: %s" % modfile2_path)
-    if module_style not in ('distroallz', 'old'):
+    if module_style not in ('ansiballz', 'old'):
         print("* this may offset any line numbers in tracebacks/debuggers!")
     modfile2 = open(modfile2_path, 'wb')
     modfile2.write(module_data)
@@ -177,7 +178,7 @@ def boilerplate_module(modfile, args, interpreters, check, destfile):
     return (modfile2_path, modname, module_style)
 
 
-def distroallz_setup(modfile, modname, interpreters):
+def ansiballz_setup(modfile, modname, interpreters):
     os.system("chmod +x %s" % modfile)
 
     if 'distronode_python_interpreter' in interpreters:
@@ -192,16 +193,16 @@ def distroallz_setup(modfile, modname, interpreters):
     lines = out.splitlines()
     if len(lines) != 2 or 'Module expanded into' not in lines[0]:
         print("*" * 35)
-        print("INVALID OUTPUT FROM DISTROALLZ MODULE WRAPPER")
+        print("INVALID OUTPUT FROM ANSIBALLZ MODULE WRAPPER")
         print(out)
         sys.exit(err)
     debug_dir = lines[1].strip()
 
-    # All the directories in an DistrOallZ that modules can live
+    # All the directories in an AnsiBallZ that modules can live
     core_dirs = glob.glob(os.path.join(debug_dir, 'distronode/modules'))
     collection_dirs = glob.glob(os.path.join(debug_dir, 'distronode_collections/*/*/plugins/modules'))
 
-    # There's only one module in an DistrOallZ payload so look for the first module and then exit
+    # There's only one module in an AnsiBallZ payload so look for the first module and then exit
     for module_dir in core_dirs + collection_dirs:
         for dirname, directories, filenames in os.walk(module_dir):
             for filename in filenames:
@@ -211,15 +212,15 @@ def distroallz_setup(modfile, modname, interpreters):
 
     argsfile = os.path.join(debug_dir, 'args')
 
-    print("* distroallz module detected; extracted module source to: %s" % debug_dir)
+    print("* ansiballz module detected; extracted module source to: %s" % debug_dir)
     return modfile, argsfile
 
 
 def runtest(modfile, argspath, modname, module_style, interpreters):
     """Test run a module, piping it's output for reporting."""
     invoke = ""
-    if module_style == 'distroallz':
-        modfile, argspath = distroallz_setup(modfile, modname, interpreters)
+    if module_style == 'ansiballz':
+        modfile, argspath = ansiballz_setup(modfile, modname, interpreters)
         if 'distronode_python_interpreter' in interpreters:
             invoke = "%s " % interpreters['distronode_python_interpreter']
 
@@ -254,8 +255,8 @@ def runtest(modfile, argspath, modname, module_style, interpreters):
 def rundebug(debugger, modfile, argspath, modname, module_style, interpreters):
     """Run interactively with console debugger."""
 
-    if module_style == 'distroallz':
-        modfile, argspath = distroallz_setup(modfile, modname, interpreters)
+    if module_style == 'ansiballz':
+        modfile, argspath = ansiballz_setup(modfile, modname, interpreters)
 
     if argspath is not None:
         subprocess.call("%s %s %s" % (debugger, modfile, argspath), shell=True)
@@ -271,7 +272,7 @@ def main():
     (modfile, modname, module_style) = boilerplate_module(options.module_path, options.module_args, interpreters, options.check, options.filename)
 
     argspath = None
-    if module_style not in ('new', 'distroallz'):
+    if module_style not in ('new', 'ansiballz'):
         if module_style in ('non_native_want_json', 'binary'):
             argspath = write_argsfile(options.module_args, json=True)
         elif module_style == 'old':

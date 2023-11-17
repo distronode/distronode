@@ -20,7 +20,8 @@
 
 """CLI tool for starting new CI runs."""
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # noinspection PyCompatibility
 import argparse

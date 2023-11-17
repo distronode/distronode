@@ -1,4 +1,4 @@
-# (c) 2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #

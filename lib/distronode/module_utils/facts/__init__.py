@@ -26,7 +26,8 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # import from the compat api because 2.0-2.3 had a module_utils.facts.distronode_facts
 # and get_all_facts in top level namespace

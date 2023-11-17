@@ -1,10 +1,11 @@
-# Copyright: (c) 2018 Distronode Project
+# Copyright: (c) 2023 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # FUTURE: this could be swapped out for our bundled version of distro to move more complete platform
 # logic to the targets, so long as we maintain Py2.6 compat and don't need to do any kind of script assembly
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import json
 import platform

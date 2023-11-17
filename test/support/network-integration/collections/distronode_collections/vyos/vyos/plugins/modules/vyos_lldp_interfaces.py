@@ -26,8 +26,9 @@
 The module file for vyos_lldp_interfaces
 """
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 
 DISTRONODE_METADATA = {
     "metadata_version": "1.1",

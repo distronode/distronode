@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-# Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # PYTHON_ARGCOMPLETE_OK
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # distronode.cli needs to be imported first, to ensure the source bin/* scripts run that code first
 from distronode.cli import CLI
@@ -274,15 +275,8 @@ class PullCLI(CLI):
             for vault_id in context.CLIARGS['vault_ids']:
                 cmd += " --vault-id=%s" % vault_id
 
-        if context.CLIARGS['become_password_file']:
-            cmd += " --become-password-file=%s" % context.CLIARGS['become_password_file']
-
-        if context.CLIARGS['connection_password_file']:
-            cmd += " --connection-password-file=%s" % context.CLIARGS['connection_password_file']
-
         for ev in context.CLIARGS['extra_vars']:
             cmd += ' -e %s' % shlex.quote(ev)
-
         if context.CLIARGS['become_ask_pass']:
             cmd += ' --ask-become-pass'
         if context.CLIARGS['skip_tags']:

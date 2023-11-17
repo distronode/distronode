@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright: (c) 2015, Corwin Brown <corwin@corwinbrown.com>
-# Copyright: (c) 2017, Dag Wieers (@dagwieers) <dag@wieers.com>
+# Copyright: (c) 2023, Dag Wieers (@dagwieers) <dag@wieers.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 DOCUMENTATION = r'''
@@ -126,7 +126,7 @@ url:
   description: The Target URL.
   returned: always
   type: str
-  sample: https://www.distronode.github.io
+  sample: https://www.distronode.khulnasoft.com
 status_code:
   description: The HTTP Status Code of the response.
   returned: success

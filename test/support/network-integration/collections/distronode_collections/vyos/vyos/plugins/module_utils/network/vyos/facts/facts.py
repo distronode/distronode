@@ -6,8 +6,9 @@ The facts class for vyos
 this file validates each subset of facts and selectively
 calls the appropriate facts gathering function
 """
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 from distronode_collections.distronode.netcommon.plugins.module_utils.network.common.facts.facts import (
     FactsBase,
 )

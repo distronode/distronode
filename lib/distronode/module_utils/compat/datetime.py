@@ -1,7 +1,9 @@
 # Copyright (c) 2023 Distronode
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode.module_utils.six import PY3
 

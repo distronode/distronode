@@ -1,9 +1,9 @@
 [![PyPI version](https://img.shields.io/pypi/v/distronode-core.svg)](https://pypi.org/project/distronode-core)
-[![Docs badge](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://distronode.github.io/docs/latest/)
-[![Chat badge](https://img.shields.io/badge/chat-IRC-brightgreen.svg)](https://distronode.github.io/docs/latest/community/communication.html)
+[![Docs badge](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/)
+[![Chat badge](https://img.shields.io/badge/chat-IRC-brightgreen.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html)
 [![Build Status](https://dev.azure.com/distronode/distronode/_apis/build/status/CI?branchName=devel)](https://dev.azure.com/distronode/distronode/_build/latest?definitionId=20&branchName=devel)
-[![Distronode Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Distronode-silver.svg)](https://distronode.github.io/docs/latest/community/code_of_conduct.html)
-[![Distronode mailing lists](https://img.shields.io/badge/mailing%20lists-Distronode-orange.svg)](https://distronode.github.io/docs/latest/community/communication.html#mailing-list-information)
+[![Distronode Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Distronode-silver.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/code_of_conduct.html)
+[![Distronode mailing lists](https://img.shields.io/badge/mailing%20lists-Distronode-orange.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html#mailing-list-information)
 [![Repository License](https://img.shields.io/badge/license-GPL%20v3.0-brightgreen.svg)](COPYING)
 [![Distronode CII Best Practices certification](https://bestpractices.coreinfrastructure.org/projects/2372/badge)](https://bestpractices.coreinfrastructure.org/projects/2372)
 
@@ -12,7 +12,7 @@
 Distronode is a radically simple IT automation system. It handles
 configuration management, application deployment, cloud provisioning,
 ad-hoc task execution, network automation, and multi-node orchestration. Distronode makes complex
-changes like zero-downtime rolling updates with load balancers easy. More information on the Distronode [website](https://distronode.github.io/).
+changes like zero-downtime rolling updates with load balancers easy. More information on the Distronode [website](https://distronode.khulnasoft.com/).
 
 ## Design Principles
 
@@ -32,7 +32,7 @@ changes like zero-downtime rolling updates with load balancers easy. More inform
 ## Use Distronode
 
 You can install a released version of Distronode with `pip` or a package manager. See our
-[installation guide](https://distronode.github.io/docs/latest/installation_guide/intro_installation.html) for details on installing Distronode
+[installation guide](https://distronode.khulnasoft.com/docs/distronode/latest/installation_guide/intro_installation.html) for details on installing Distronode
 on a variety of platforms.
 
 Power users and developers can run the `devel` branch, which has the latest
@@ -42,7 +42,7 @@ in the Distronode community if you want to run the `devel` branch.
 
 ## Get Involved
 
-* Read [Community Information](https://distronode.github.io/docs/latest/community) for all
+* Read [Community Information](https://distronode.khulnasoft.com/docs/distronode/latest/community) for all
   kinds of ways to contribute to and interact with the project,
   including mailing list information and how to submit bug reports and
   code to Distronode.
@@ -54,33 +54,33 @@ in the Distronode community if you want to run the `devel` branch.
   know what is going on, but it also helps save time and effort if we decide
   some changes are needed.
 * For a list of email lists, IRC channels and Working Groups, see the
-  [Communication page](https://distronode.github.io/docs/latest/community/communication.html)
+  [Communication page](https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html)
 
 ## Coding Guidelines
 
-We document our Coding Guidelines in the [Developer Guide](https://distronode.github.io/docs/devel/dev_guide/). We particularly suggest you review:
+We document our Coding Guidelines in the [Developer Guide](https://distronode.khulnasoft.com/docs/distronode/devel/dev_guide/). We particularly suggest you review:
 
-* [Contributing your module to Distronode](https://distronode.github.io/docs/devel/dev_guide/developing_modules_checklist.html)
-* [Conventions, tips, and pitfalls](https://distronode.github.io/docs/devel/dev_guide/developing_modules_best_practices.html)
+* [Contributing your module to Distronode](https://distronode.khulnasoft.com/docs/distronode/devel/dev_guide/developing_modules_checklist.html)
+* [Conventions, tips, and pitfalls](https://distronode.khulnasoft.com/docs/distronode/devel/dev_guide/developing_modules_best_practices.html)
 
 ## Branch Info
 
 * The `devel` branch corresponds to the release actively under development.
 * The `stable-2.X` branches correspond to stable releases.
-* Create a branch based on `devel` and set up a [dev environment](https://distronode.github.io/docs/latest/dev_guide/developing_modules_general.html#common-environment-setup) if you want to open a PR.
-* See the [Distronode release and maintenance](https://distronode.github.io/docs/devel/reference_appendices/release_and_maintenance.html) page for information about active branches.
+* Create a branch based on `devel` and set up a [dev environment](https://distronode.khulnasoft.com/docs/distronode/latest/dev_guide/developing_modules_general.html#common-environment-setup) if you want to open a PR.
+* See the [Distronode release and maintenance](https://distronode.khulnasoft.com/docs/distronode/devel/reference_appendices/release_and_maintenance.html) page for information about active branches.
 
 ## Roadmap
 
 Based on team and community feedback, an initial roadmap will be published for a major or minor version (ex: 2.7, 2.8).
-The [Distronode Roadmap page](https://distronode.github.io/docs/devel/roadmap/) details what is planned and how to influence the roadmap.
+The [Distronode Roadmap page](https://distronode.khulnasoft.com/docs/distronode/devel/roadmap/) details what is planned and how to influence the roadmap.
 
 ## Authors
 
-Distronode was created by [GitWorkflows](https://github.com/gitworkflows)
+Distronode was created by [KhulnaSoft Ltd](https://github.com/khulnasoft)
 and has contributions from over 5000 users (and growing). Thanks everyone!
 
-[Distronode](https://www.distronode.github.io) is sponsored by [Red Hat, Inc.](https://www.redhat.com)
+[Distronode](https://www.distronode.khulnasoft.com) is sponsored by [Red Hat, Inc.](https://www.redhat.com)
 
 ## License
 

@@ -2,7 +2,8 @@
 # Copyright (c) 2019 Distronode Project
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 import datetime
 import os
@@ -87,7 +88,6 @@ PASS_VARS = {
     'debug': ('_debug', False),
     'diff': ('_diff', False),
     'keep_remote_files': ('_keep_remote_files', False),
-    'ignore_unknown_opts': ('_ignore_unknown_opts', False),
     'module_name': ('_name', None),
     'no_log': ('no_log', False),
     'remote_tmp': ('_remote_tmp', None),
@@ -101,7 +101,7 @@ PASS_VARS = {
     'version': ('distronode_version', '0.0'),
 }
 
-PASS_BOOLS = ('check_mode', 'debug', 'diff', 'keep_remote_files', 'ignore_unknown_opts', 'no_log')
+PASS_BOOLS = ('check_mode', 'debug', 'diff', 'keep_remote_files', 'no_log')
 
 DEFAULT_TYPE_VALIDATORS = {
     'str': check_type_str,

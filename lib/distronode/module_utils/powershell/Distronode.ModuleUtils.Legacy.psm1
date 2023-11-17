@@ -1,4 +1,4 @@
-# Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2014, and others
+# Copyright (c), KhulnaSoft Ltd <info@khulnasoft.com>, 2014, and others
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
 Set-StrictMode -Version 2.0
@@ -372,11 +372,8 @@ Function Get-PendingRebootStatus {
     <#
     .SYNOPSIS
     Check if reboot is required, if so notify CA.
-    Function returns true if computer has a pending reboot.
-
-    People should not be using this function, it is kept
-    just for backwards compatibility.
-    #>
+    Function returns true if computer has a pending reboot
+#>
     $featureData = Invoke-CimMethod -EA Ignore -Name GetServerFeature -Namespace root\microsoft\windows\servermanager -Class MSFT_ServerManagerTasks
     $regData = Get-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager" "PendingFileRenameOperations" -EA Ignore
     $CBSRebootStatus = Get-ChildItem "HKLM:\\SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing" -ErrorAction SilentlyContinue |

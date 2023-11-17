@@ -22,7 +22,7 @@ DOCUMENTATION:
     - plugin: distronode.builtin.file
       plugin_type: lookup
       description: Read a file on the controller.
-    - link: https://docs.distronode.github.io
+    - link: https://distronode.khulnasoft.com/docs
       name: Distronode docsite
       description: See also the Distronode docsite.
     - ref: foo_bar
