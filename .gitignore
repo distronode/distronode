@@ -20,7 +20,7 @@ rpm-build
 #VSCode stuff..
 .vscode/
 # Mac OS X stuff...
-**/.DS_Store
+.DS_Store
 # manpage build stuff...
 docs/man/man1/distronode*.1
 docs/man/man1/distronode*.1.asciidoc.in

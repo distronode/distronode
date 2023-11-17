@@ -6,7 +6,7 @@
   become_user: unpriv2
 
   tasks:
-    - name: Get DistroallZ temp directory
+    - name: Get AnsiballZ temp directory
       action: tmpdir
       register: tmpdir
       become_user: unpriv2

@@ -43,7 +43,7 @@
     ignore_errors: True
     register: result
 
-  - name: Make sure we failed in DistrOallZ
+  - name: Make sure we failed in AnsiBallZ
     assert:
       that:
         - result is failed
@@ -119,7 +119,3 @@
       that:
       - optionaltest is success
       - optionaltest.msg == 'all missing optional imports behaved as expected'
-
-  - name: Test heuristic_log_sanitize
-    test_heuristic_log_sanitize:
-      data: https://user:pass@example.org/

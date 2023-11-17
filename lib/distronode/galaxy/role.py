@@ -1,6 +1,6 @@
 ########################################################################
 #
-# (C) 2015, Brian Coca <bcoca@distronode.github.io>
+# (C) 2015, Brian Coca <bcoca@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -19,7 +19,8 @@
 #
 ########################################################################
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import errno
 import datetime

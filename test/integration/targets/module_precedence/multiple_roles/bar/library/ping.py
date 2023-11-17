@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2016, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# (c) 2016, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -19,7 +19,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DISTRONODE_METADATA = {'metadata_version': '1.1',
                     'status': ['stableinterface'],
@@ -39,7 +40,7 @@ description:
 options: {}
 author:
     - "Distronode Core Team"
-    - "Michael DeHaan"
+    - "KhulnaSoft Ltd"
 '''
 
 EXAMPLES = '''

@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <https://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import hashlib
 import os
@@ -64,7 +66,7 @@ def expand_hostname_range(line=None):
     appearance. They are replaced in this function with '|' to ease
     string splitting.
 
-    References: https://distronode.github.io/docs/latest/user_guide/intro_inventory.html#hosts-and-groups
+    References: https://distronode.khulnasoft.com/docs/distronode/latest/user_guide/intro_inventory.html#hosts-and-groups
     '''
     all_hosts = []
     if line:

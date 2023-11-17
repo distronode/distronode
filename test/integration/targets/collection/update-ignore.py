@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """Rewrite a sanity ignore file to expand Python versions for import ignores and write the file out with the correct Distronode version in the name."""
-from __future__ import annotations
 
 import os
 import sys

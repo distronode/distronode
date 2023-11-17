@@ -1,7 +1,8 @@
 # Copyright: (c) 2012, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -59,7 +60,7 @@ seealso:
   - module: distronode.windows.win_shell
 author:
   - Distronode Core Team
-  - Michael DeHaan
+  - KhulnaSoft Ltd
 extends_documentation_fragment:
     - action_common_attributes
     - action_common_attributes.files

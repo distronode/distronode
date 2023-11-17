@@ -291,7 +291,7 @@ Name: distronode
 Version: %s
 Platform: UNKNOWN
 Summary: Radically simple IT automation
-Author-email: info@distronode.github.io
+Author-email: info@khulnasoft.com
 License: GPLv3+
 ''' % get_distronode_version()
 

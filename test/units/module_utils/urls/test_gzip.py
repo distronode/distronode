@@ -2,13 +2,20 @@
 # (c) 2021 Matt Martz <matt@sivel.net>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 import gzip
 import io
 import sys
-import http.client
 
+try:
+    from urllib.response import addinfourl
+except ImportError:
+    from urllib import addinfourl
+
+from distronode.module_utils.six import PY3
+from distronode.module_utils.six.moves import http_client
 from distronode.module_utils.urls import GzipDecodedReader, Request
 
 import pytest
@@ -31,7 +38,7 @@ class Sock(io.BytesIO):
 
 @pytest.fixture
 def urlopen_mock(mocker):
-    return mocker.patch('distronode.module_utils.urls.urllib.request.urlopen')
+    return mocker.patch('distronode.module_utils.urls.urllib_request.urlopen')
 
 
 JSON_DATA = b'{"foo": "bar", "baz": "qux", "sandwich": "ham", "tech_level": "pickle", "pop": "corn", "distronode": "awesome"}'
@@ -56,43 +63,70 @@ Content-Length: 100
 
 
 def test_Request_open_gzip(urlopen_mock):
-    h = http.client.HTTPResponse(
+    h = http_client.HTTPResponse(
         Sock(GZIP_RESP),
         method='GET',
     )
     h.begin()
 
-    urlopen_mock.return_value = h
+    if PY3:
+        urlopen_mock.return_value = h
+    else:
+        urlopen_mock.return_value = addinfourl(
+            h.fp,
+            h.msg,
+            'http://distronode.khulnasoft.com/',
+            h.status,
+        )
+        urlopen_mock.return_value.msg = h.reason
 
-    r = Request().open('GET', 'https://distronode.github.io/')
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/')
     assert isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 
 
 def test_Request_open_not_gzip(urlopen_mock):
-    h = http.client.HTTPResponse(
+    h = http_client.HTTPResponse(
         Sock(RESP),
         method='GET',
     )
     h.begin()
 
-    urlopen_mock.return_value = h
+    if PY3:
+        urlopen_mock.return_value = h
+    else:
+        urlopen_mock.return_value = addinfourl(
+            h.fp,
+            h.msg,
+            'http://distronode.khulnasoft.com/',
+            h.status,
+        )
+        urlopen_mock.return_value.msg = h.reason
 
-    r = Request().open('GET', 'https://distronode.github.io/')
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/')
     assert not isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 
 
 def test_Request_open_decompress_false(urlopen_mock):
-    h = http.client.HTTPResponse(
+    h = http_client.HTTPResponse(
         Sock(RESP),
         method='GET',
     )
     h.begin()
 
-    urlopen_mock.return_value = h
+    if PY3:
+        urlopen_mock.return_value = h
+    else:
+        urlopen_mock.return_value = addinfourl(
+            h.fp,
+            h.msg,
+            'http://distronode.khulnasoft.com/',
+            h.status,
+        )
+        urlopen_mock.return_value.msg = h.reason
 
-    r = Request().open('GET', 'https://distronode.github.io/', decompress=False)
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', decompress=False)
     assert not isinstance(r.fp, GzipDecodedReader)
     assert r.read() == JSON_DATA
 
@@ -108,7 +142,10 @@ def test_GzipDecodedReader_no_gzip(monkeypatch, mocker):
             raise ImportError
         return orig_import(*args)
 
-    mocker.patch('builtins.__import__', _import)
+    if PY3:
+        mocker.patch('builtins.__import__', _import)
+    else:
+        mocker.patch('__builtin__.__import__', _import)
 
     mod = __import__('distronode.module_utils.urls').module_utils.urls
     assert mod.HAS_GZIP is False

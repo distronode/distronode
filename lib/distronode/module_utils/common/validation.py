@@ -2,14 +2,15 @@
 # Copyright (c) 2019 Distronode Project
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
-import json
 import os
 import re
 
 from ast import literal_eval
 from distronode.module_utils.common.text.converters import to_native
+from distronode.module_utils.common._json_compat import json
 from distronode.module_utils.common.collections import is_iterable
 from distronode.module_utils.common.text.converters import jsonify
 from distronode.module_utils.common.text.formatters import human_to_bytes

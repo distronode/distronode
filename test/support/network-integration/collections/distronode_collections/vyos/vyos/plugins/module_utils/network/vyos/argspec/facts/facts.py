@@ -4,7 +4,9 @@
 """
 The arg spec for the vyos facts module.
 """
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
 
 
 class FactsArgs(object):  # pylint: disable=R0903

@@ -16,7 +16,9 @@
 #
 # Copyright 2016, Adrian Likins <alikins@redhat.com>
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from units.compat import unittest
 

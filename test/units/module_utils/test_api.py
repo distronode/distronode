@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2020, Abhijeet Kasurde <akasurde@redhat.com>
-# Copyright: (c) 2020, Distronode Project
+# Copyright: (c) 2023, Abhijeet Kasurde <akasurde@redhat.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 from distronode.module_utils.api import rate_limit, retry, retry_with_delays_and_condition

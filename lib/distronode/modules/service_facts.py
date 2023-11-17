@@ -1,9 +1,10 @@
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # originally copied from AWX's scan_services module to bring this functionality
 # into Core
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -94,7 +95,6 @@ import platform
 import re
 from distronode.module_utils.basic import DistronodeModule
 from distronode.module_utils.common.locale import get_best_parsable_locale
-from distronode.module_utils.service import is_systemd_managed
 
 
 class BaseService(object):
@@ -245,7 +245,16 @@ class SystemctlScanService(BaseService):
     BAD_STATES = frozenset(['not-found', 'masked', 'failed'])
 
     def systemd_enabled(self):
-        return is_systemd_managed(self.module)
+        # Check if init is the systemd command, using comm as cmdline could be symlink
+        try:
+            f = open('/proc/1/comm', 'r')
+        except IOError:
+            # If comm doesn't exist, old kernel, no systemd
+            return False
+        for line in f:
+            if 'systemd' in line:
+                return True
+        return False
 
     def _list_from_units(self, systemctl_path, services):
 

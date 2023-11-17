@@ -6,7 +6,6 @@
 """
 The module file for vyos_facts
 """
-from __future__ import annotations
 
 
 DISTRONODE_METADATA = {

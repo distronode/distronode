@@ -1,3 +1,0 @@
----
-bugfixes:
-- interpreter_discovery - handle DistronodeError exception raised while interpreter discovery (https://github.com/distronode/distronode/issues/78264).

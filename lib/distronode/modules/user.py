@@ -3,7 +3,8 @@
 # Copyright: (c) 2012, Stephen Fromm <sfromm@gmail.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -89,7 +90,7 @@ options:
         description:
             - If provided, set the user's password to the provided encrypted hash (Linux) or plain text password (macOS).
             - B(Linux/Unix/POSIX:) Enter the hashed password as the value.
-            - See L(FAQ entry,https://distronode.github.io/docs/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
+            - See L(FAQ entry,https://distronode.khulnasoft.com/docs/distronode/latest/reference_appendices/faq.html#how-do-i-generate-encrypted-passwords-for-the-user-module)
               for details on various ways to generate the hash of a password.
             - To create an account with a locked/disabled password on Linux systems, set this to V('!') or V('*').
             - To create an account with a locked/disabled password on OpenBSD, set this to V('*************').
@@ -101,7 +102,7 @@ options:
     state:
         description:
             - Whether the account should exist or not, taking action if the state is different from what is stated.
-            - See this L(FAQ entry,https://distronode.github.io/docs/latest/reference_appendices/faq.html#running-on-macos-as-a-target)
+            - See this L(FAQ entry,https://distronode.khulnasoft.com/docs/distronode/latest/reference_appendices/faq.html#running-on-macos-as-a-target)
               for additional requirements when removing users on macOS systems.
         type: str
         choices: [ absent, present ]
@@ -304,11 +305,6 @@ EXAMPLES = r'''
     comment: John Doe
     uid: 1040
     group: admin
-
-- name: Create a user 'johnd' with a home directory
-  distronode.builtin.user:
-    name: johnd
-    create_home: yes
 
 - name: Add the user 'james' with a bash shell, appending the group 'admins' and 'developers' to the user's groups
   distronode.builtin.user:
@@ -635,9 +631,6 @@ class User(object):
                             maybe_invalid = True
                         # sha512
                         if fields[1] == '6' and len(fields[-1]) != 86:
-                            maybe_invalid = True
-                        # yescrypt
-                        if fields[1] == 'y' and len(fields[-1]) != 43:
                             maybe_invalid = True
                     else:
                         maybe_invalid = True

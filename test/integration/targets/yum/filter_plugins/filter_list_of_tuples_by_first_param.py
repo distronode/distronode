@@ -1,4 +1,5 @@
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 def filter_list_of_tuples_by_first_param(lst, search, startswith=False):

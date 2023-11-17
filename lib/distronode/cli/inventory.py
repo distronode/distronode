@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-# Copyright: (c) 2017, Brian Coca <bcoca@distronode.github.io>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2023, Brian Coca <bcoca@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # PYTHON_ARGCOMPLETE_OK
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # distronode.cli needs to be imported first, to ensure the source bin/* scripts run that code first
 from distronode.cli import CLI

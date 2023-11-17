@@ -1,5 +1,6 @@
 """Import the given python module(s) and report error(s) encountered."""
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 def main():
@@ -128,7 +129,7 @@ def main():
 
     if import_type == 'module':
         # pre-load an empty distronode package to prevent unwanted code in __init__.py from loading
-        # this more accurately reflects the environment that DistroallZ runs modules under
+        # this more accurately reflects the environment that AnsiballZ runs modules under
         # it also avoids issues with imports in the distronode package that are not allowed
         distronode_module = types.ModuleType(distronode.__name__)
         distronode_module.__file__ = distronode.__file__
@@ -540,6 +541,16 @@ def main():
                 warnings.filterwarnings(
                     "ignore",
                     "DistronodeCollectionFinder has already been configured")
+
+            if sys.version_info[0] == 2:
+                warnings.filterwarnings(
+                    "ignore",
+                    "Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography,"
+                    " and will be removed in a future release.")
+                warnings.filterwarnings(
+                    "ignore",
+                    "Python 2 is no longer supported by the Python core team. Support for it is now deprecated in cryptography,"
+                    " and will be removed in the next release.")
 
             try:
                 yield

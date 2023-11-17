@@ -49,6 +49,7 @@ def get_bundled_libs(paths):
     for filename in fnmatch.filter(paths, 'lib/distronode/compat/*/__init__.py'):
         bundled_libs.add(filename)
 
+    bundled_libs.add('lib/distronode/module_utils/compat/selectors.py')
     bundled_libs.add('lib/distronode/module_utils/distro/__init__.py')
     bundled_libs.add('lib/distronode/module_utils/six/__init__.py')
     # backports.ssl_match_hostname should be moved to its own file in the future

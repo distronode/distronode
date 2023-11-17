@@ -1,13 +1,14 @@
-# Copyright: (c) 2021, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import subprocess
 import sys
 
-from distronode.module_utils.common.text.converters import to_bytes
+from distronode.module_utils.common.text.converters import to_bytes, to_native
 
 
 def has_respawned():
@@ -71,16 +72,17 @@ def _create_payload():
     from distronode.module_utils import basic
     smuggled_args = getattr(basic, '_DISTRONODE_ARGS')
     if not smuggled_args:
-        raise Exception('unable to access distronode.module_utils.basic._DISTRONODE_ARGS (not launched by DistroallZ?)')
+        raise Exception('unable to access distronode.module_utils.basic._DISTRONODE_ARGS (not launched by AnsiballZ?)')
     module_fqn = sys.modules['__main__']._module_fqn
     modlib_path = sys.modules['__main__']._modlib_path
     respawn_code_template = '''
 import runpy
 import sys
 
-module_fqn = {module_fqn!r}
-modlib_path = {modlib_path!r}
-smuggled_args = {smuggled_args!r}
+module_fqn = '{module_fqn}'
+modlib_path = '{modlib_path}'
+smuggled_args = b"""{smuggled_args}""".strip()
+
 
 if __name__ == '__main__':
     sys.path.insert(0, modlib_path)
@@ -91,6 +93,6 @@ if __name__ == '__main__':
     runpy.run_module(module_fqn, init_globals=dict(_respawned=True), run_name='__main__', alter_sys=True)
     '''
 
-    respawn_code = respawn_code_template.format(module_fqn=module_fqn, modlib_path=modlib_path, smuggled_args=smuggled_args.strip())
+    respawn_code = respawn_code_template.format(module_fqn=module_fqn, modlib_path=modlib_path, smuggled_args=to_native(smuggled_args))
 
     return respawn_code

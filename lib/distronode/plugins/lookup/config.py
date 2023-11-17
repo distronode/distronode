@@ -1,46 +1,42 @@
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = """
     name: config
     author: Distronode Core Team
     version_added: "2.5"
-    short_description: Display the 'resolved' Distronode option values.
+    short_description: Lookup current Distronode configuration values
     description:
-      - Retrieves the value of an Distronode configuration setting, resolving all sources, from defaults, distronode.cfg, envirionmnet,
-        CLI, and variables, but not keywords.
-      - The values returned assume the context of the current host or C(inventory_hostname).
-      - You can use C(distronode-config list) to see the global available settings, add C(-t all) to also show plugin options.
+      - Retrieves the value of an Distronode configuration setting.
+      - You can use C(distronode-config list) to see all available settings.
     options:
       _terms:
-        description: The option(s) to look up.
+        description: The key(s) to look up
         required: True
       on_missing:
-        description: Action to take if term is missing from config
+        description:
+            - action to take if term is missing from config
+            - Error will raise a fatal error
+            - Skip will just ignore the term
+            - Warn will skip over it but issue a warning
         default: error
         type: string
-        choices:
-            error: Issue an error message and raise fatal signal
-            warn:  Issue a warning message and continue
-            skip:  Silently ignore
+        choices: ['error', 'skip', 'warn']
       plugin_type:
-        description: The type of the plugin referenced by 'plugin_name' option.
+        description: the type of the plugin referenced by 'plugin_name' option.
         choices: ['become', 'cache', 'callback', 'cliconf', 'connection', 'httpapi', 'inventory', 'lookup', 'netconf', 'shell', 'vars']
         type: string
         version_added: '2.12'
       plugin_name:
-        description: The name of the plugin for which you want to retrieve configuration settings.
+        description: name of the plugin for which you want to retrieve configuration settings.
         type: string
         version_added: '2.12'
       show_origin:
-        description: Set this to return what configuration subsystem the value came from
-                     (defaults, config file, environment, CLI, or variables).
+        description: toggle the display of what configuration subsystem the value came from
         type: bool
         version_added: '2.16'
-    notes:
-      - Be aware that currently this lookup cannot take keywords nor delegation into account,
-        so for options that support keywords or are affected by delegation, it is at best a good guess or approximation.
 """
 
 EXAMPLES = """

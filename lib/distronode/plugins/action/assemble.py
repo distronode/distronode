@@ -1,7 +1,7 @@
-# (c) 2013-2016, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2013-2016, KhulnaSoft Ltd <info@khulnasoft.com>
 #           Stephen Fromm <sfromm@gmail.com>
 #           Brian Coca  <briancoca+dev@gmail.com>
-#           Toshio Kuratomi  <tkuratomi@distronode.github.io>
+#           Toshio Kuratomi  <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -16,7 +16,8 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import codecs
 import os

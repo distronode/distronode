@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
 
 from units.compat import unittest
 from unittest.mock import MagicMock
@@ -24,6 +25,8 @@ from distronode.executor.task_queue_manager import TaskQueueManager
 from distronode.playbook import Playbook
 from distronode.plugins.callback import CallbackBase
 from distronode.utils import context_objects as co
+
+__metaclass__ = type
 
 
 class TestTaskQueueManagerCallbacks(unittest.TestCase):

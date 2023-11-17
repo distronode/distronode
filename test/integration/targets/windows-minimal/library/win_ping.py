@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>, and others
+# Copyright: (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>, and others
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # this is a windows documentation stub.  actual code lives in the .ps1

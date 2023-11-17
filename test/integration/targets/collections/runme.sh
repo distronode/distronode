@@ -72,11 +72,8 @@ cat out.txt
 
 test "$(grep out.txt -ce 'deprecation1' -ce 'deprecation2' -ce 'deprecation3')" == 3
 grep out.txt -e 'redirecting (type: filter) testns.testredirect.multi_redirect_filter to testns.testredirect.redirect_filter1'
-grep out.txt -e 'Filter "testns.testredirect.multi_redirect_filter"'
 grep out.txt -e 'redirecting (type: filter) testns.testredirect.redirect_filter1 to testns.testredirect.redirect_filter2'
-grep out.txt -e 'Filter "testns.testredirect.redirect_filter1"'
 grep out.txt -e 'redirecting (type: filter) testns.testredirect.redirect_filter2 to testns.testcoll.testfilter'
-grep out.txt -e 'Filter "testns.testredirect.redirect_filter2"'
 
 echo "--- validating collections support in playbooks/roles"
 # run test playbooks
@@ -113,8 +110,8 @@ distronode-playbook inventory_test.yml -i a.statichost.yml -i redirected.statich
 # test plugin loader redirect_list
 distronode-playbook test_redirect_list.yml -v "$@"
 
-# test distroallz cache dupe
-distronode-playbook distroallz_dupe/test_distroallz_cache_dupe_shortname.yml -v "$@"
+# test ansiballz cache dupe
+distronode-playbook ansiballz_dupe/test_ansiballz_cache_dupe_shortname.yml -v "$@"
 
 # test adjacent with --playbook-dir
 export DISTRONODE_COLLECTIONS_PATH=''

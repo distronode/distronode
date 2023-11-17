@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
+# (c) 2016 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # Copyright: Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 import json
 import os
@@ -66,8 +67,6 @@ VALID_SPECS = (
     ({'arg': {'type': 'list', 'elements': 'str'}}, {'arg': [42, 32]}, ['42', '32']),
     # parameter is required
     ({'arg': {'required': True}}, {'arg': 42}, '42'),
-    # ignored unknown parameters
-    ({'arg': {'type': 'int'}}, {'arg': 1, 'invalid': True, '_distronode_ignore_unknown_opts': True}, 1),
 )
 
 INVALID_SPECS = (

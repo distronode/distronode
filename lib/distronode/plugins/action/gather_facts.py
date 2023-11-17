@@ -1,7 +1,8 @@
 # Copyright (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import time
@@ -25,7 +26,7 @@ class ActionModule(ActionBase):
         # deal with 'setup specific arguments'
         if fact_module not in C._ACTION_SETUP:
 
-            # TODO: remove in favor of controller side argspec detecting valid arguments
+            # TODO: remove in favor of controller side argspec detecing valid arguments
             # network facts modules must support gather_subset
             try:
                 name = self._connection.distronode_name.removeprefix('distronode.netcommon.')
@@ -122,7 +123,7 @@ class ActionModule(ActionBase):
                 mod_args = self._get_module_args(fact_module, task_vars)
 
                 #  if module does not handle timeout, use timeout to handle module, hijack async_val as this is what async_wrapper uses
-                # TODO: make this action complain about async/async settings, use parallel option instead .. or remove parallel in favor of async settings?
+                # TODO: make this action compain about async/async settings, use parallel option instead .. or remove parallel in favor of async settings?
                 if timeout and 'gather_timeout' not in mod_args:
                     self._task.async_val = int(timeout)
                 elif async_val != 0:

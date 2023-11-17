@@ -1,2 +1,0 @@
-bugfixes:
-  - Fix handling missing urls in distronode.module_utils.urls.fetch_file for Python 3.

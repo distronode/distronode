@@ -2,32 +2,32 @@
 # (c) 2018 Matt Martz <matt@sivel.net>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 import datetime
 import os
-import urllib.request
-import http.client
 
-from distronode.module_utils.urls import (Request, open_url, cookiejar,
-                                       UnixHTTPHandler, UnixHTTPSConnection)
-from distronode.module_utils.urls import HTTPRedirectHandler
+from distronode.module_utils.urls import (Request, open_url, urllib_request, HAS_SSLCONTEXT, cookiejar, RequestWithMethod,
+                                       UnixHTTPHandler, UnixHTTPSConnection, httplib)
+from distronode.module_utils.urls import SSLValidationHandler, HTTPSClientAuthHandler, RedirectHandlerFactory
 
 import pytest
 from units.compat.mock import call
 
 
-import ssl
+if HAS_SSLCONTEXT:
+    import ssl
 
 
 @pytest.fixture
 def urlopen_mock(mocker):
-    return mocker.patch('distronode.module_utils.urls.urllib.request.urlopen')
+    return mocker.patch('distronode.module_utils.urls.urllib_request.urlopen')
 
 
 @pytest.fixture
 def install_opener_mock(mocker):
-    return mocker.patch('distronode.module_utils.urls.urllib.request.install_opener')
+    return mocker.patch('distronode.module_utils.urls.urllib_request.install_opener')
 
 
 def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
@@ -57,7 +57,7 @@ def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
     )
     fallback_mock = mocker.spy(request, '_fallback')
 
-    r = request.open('GET', 'https://distronode.github.io')
+    r = request.open('GET', 'https://distronode.khulnasoft.com')
 
     calls = [
         call(None, False),  # use_proxy
@@ -78,11 +78,10 @@ def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
         call(None, True),  # auto_decompress
         call(None, ['ECDHE-RSA-AES128-SHA256']),  # ciphers
         call(None, True),  # use_netrc
-        call(None, None),  # context
     ]
     fallback_mock.assert_has_calls(calls)
 
-    assert fallback_mock.call_count == 19  # All but headers use fallback
+    assert fallback_mock.call_count == 18  # All but headers use fallback
 
     args = urlopen_mock.call_args[0]
     assert args[1] is None  # data, this is handled in the Request not urlopen
@@ -100,7 +99,7 @@ def test_Request_fallback(urlopen_mock, install_opener_mock, mocker):
 
 
 def test_Request_open(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.github.io/')
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/')
     args = urlopen_mock.call_args[0]
     assert args[1] is None  # data, this is handled in the Request not urlopen
     assert args[2] == 10  # timeout
@@ -113,20 +112,41 @@ def test_Request_open(urlopen_mock, install_opener_mock):
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
-    expected_handlers = (
-        HTTPRedirectHandler(),
-    )
+    if not HAS_SSLCONTEXT:
+        expected_handlers = (
+            SSLValidationHandler,
+            RedirectHandlerFactory(),  # factory, get handler
+        )
+    else:
+        expected_handlers = (
+            RedirectHandlerFactory(),  # factory, get handler
+        )
 
     found_handlers = []
     for handler in handlers:
-        if handler.__class__.__name__ == 'HTTPRedirectHandler':
+        if isinstance(handler, SSLValidationHandler) or handler.__class__.__name__ == 'RedirectHandler':
             found_handlers.append(handler)
 
     assert len(found_handlers) == len(expected_handlers)
 
 
+def test_Request_open_http(urlopen_mock, install_opener_mock):
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/')
+    args = urlopen_mock.call_args[0]
+
+    opener = install_opener_mock.call_args[0][0]
+    handlers = opener.handlers
+
+    found_handlers = []
+    for handler in handlers:
+        if isinstance(handler, SSLValidationHandler):
+            found_handlers.append(handler)
+
+    assert len(found_handlers) == 0
+
+
 def test_Request_open_unix_socket(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.github.io/', unix_socket='/foo/bar/baz.sock')
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/', unix_socket='/foo/bar/baz.sock')
     args = urlopen_mock.call_args[0]
 
     opener = install_opener_mock.call_args[0][0]
@@ -140,10 +160,8 @@ def test_Request_open_unix_socket(urlopen_mock, install_opener_mock):
     assert len(found_handlers) == 1
 
 
-def test_Request_open_https_unix_socket(urlopen_mock, install_opener_mock, mocker):
-    do_open = mocker.patch.object(urllib.request.HTTPSHandler, 'do_open')
-
-    r = Request().open('GET', 'https://distronode.github.io/', unix_socket='/foo/bar/baz.sock')
+def test_Request_open_https_unix_socket(urlopen_mock, install_opener_mock):
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', unix_socket='/foo/bar/baz.sock')
     args = urlopen_mock.call_args[0]
 
     opener = install_opener_mock.call_args[0][0]
@@ -151,40 +169,38 @@ def test_Request_open_https_unix_socket(urlopen_mock, install_opener_mock, mocke
 
     found_handlers = []
     for handler in handlers:
-        if isinstance(handler, urllib.request.HTTPSHandler):
+        if isinstance(handler, HTTPSClientAuthHandler):
             found_handlers.append(handler)
 
     assert len(found_handlers) == 1
 
-    found_handlers[0].https_open(None)
-    args = do_open.call_args[0]
-    cls = args[0]
-    assert isinstance(cls, UnixHTTPSConnection)
+    inst = found_handlers[0]._build_https_connection('foo')
+    assert isinstance(inst, UnixHTTPSConnection)
 
 
 def test_Request_open_ftp(urlopen_mock, install_opener_mock, mocker):
     mocker.patch('distronode.module_utils.urls.ParseResultDottedDict.as_list', side_effect=AssertionError)
 
     # Using ftp scheme should prevent the AssertionError side effect to fire
-    r = Request().open('GET', 'ftp://foo@distronode.github.io/')
+    r = Request().open('GET', 'ftp://foo@khulnasoft.com/')
 
 
 def test_Request_open_headers(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.github.io/', headers={'Foo': 'bar'})
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/', headers={'Foo': 'bar'})
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert req.headers == {'Foo': 'bar'}
 
 
 def test_Request_open_username(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.github.io/', url_username='user')
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/', url_username='user')
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     expected_handlers = (
-        urllib.request.HTTPBasicAuthHandler,
-        urllib.request.HTTPDigestAuthHandler,
+        urllib_request.HTTPBasicAuthHandler,
+        urllib_request.HTTPDigestAuthHandler,
     )
 
     found_handlers = []
@@ -192,36 +208,36 @@ def test_Request_open_username(urlopen_mock, install_opener_mock):
         if isinstance(handler, expected_handlers):
             found_handlers.append(handler)
     assert len(found_handlers) == 2
-    assert found_handlers[0].passwd.passwd[None] == {(('distronode.github.io', '/'),): ('user', None)}
+    assert found_handlers[0].passwd.passwd[None] == {(('distronode.khulnasoft.com', '/'),): ('user', None)}
 
 
 def test_Request_open_username_in_url(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://user2@distronode.github.io/')
+    r = Request().open('GET', 'http://user2@khulnasoft.com/')
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     expected_handlers = (
-        urllib.request.HTTPBasicAuthHandler,
-        urllib.request.HTTPDigestAuthHandler,
+        urllib_request.HTTPBasicAuthHandler,
+        urllib_request.HTTPDigestAuthHandler,
     )
 
     found_handlers = []
     for handler in handlers:
         if isinstance(handler, expected_handlers):
             found_handlers.append(handler)
-    assert found_handlers[0].passwd.passwd[None] == {(('distronode.github.io', '/'),): ('user2', '')}
+    assert found_handlers[0].passwd.passwd[None] == {(('distronode.khulnasoft.com', '/'),): ('user2', '')}
 
 
 def test_Request_open_username_force_basic(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://distronode.github.io/', url_username='user', url_password='passwd', force_basic_auth=True)
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/', url_username='user', url_password='passwd', force_basic_auth=True)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     expected_handlers = (
-        urllib.request.HTTPBasicAuthHandler,
-        urllib.request.HTTPDigestAuthHandler,
+        urllib_request.HTTPBasicAuthHandler,
+        urllib_request.HTTPDigestAuthHandler,
     )
 
     found_handlers = []
@@ -237,17 +253,17 @@ def test_Request_open_username_force_basic(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_auth_in_netloc(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'http://user:passwd@distronode.github.io/')
+    r = Request().open('GET', 'http://user:passwd@khulnasoft.com/')
     args = urlopen_mock.call_args[0]
     req = args[0]
-    assert req.get_full_url() == 'http://distronode.github.io/'
+    assert req.get_full_url() == 'http://distronode.khulnasoft.com/'
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     expected_handlers = (
-        urllib.request.HTTPBasicAuthHandler,
-        urllib.request.HTTPDigestAuthHandler,
+        urllib_request.HTTPBasicAuthHandler,
+        urllib_request.HTTPDigestAuthHandler,
     )
 
     found_handlers = []
@@ -262,57 +278,54 @@ def test_Request_open_netrc(urlopen_mock, install_opener_mock, monkeypatch):
     here = os.path.dirname(__file__)
 
     monkeypatch.setenv('NETRC', os.path.join(here, 'fixtures/netrc'))
-    r = Request().open('GET', 'http://distronode.github.io/')
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert req.headers.get('Authorization') == b'Basic dXNlcjpwYXNzd2Q='
 
-    r = Request().open('GET', 'http://foo.distronode.github.io/')
+    r = Request().open('GET', 'http://foo.distronode.khulnasoft.com/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert 'Authorization' not in req.headers
 
     monkeypatch.setenv('NETRC', os.path.join(here, 'fixtures/netrc.nonexistant'))
-    r = Request().open('GET', 'http://distronode.github.io/')
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/')
     args = urlopen_mock.call_args[0]
     req = args[0]
     assert 'Authorization' not in req.headers
 
 
 def test_Request_open_no_proxy(urlopen_mock, install_opener_mock, mocker):
-    build_opener_mock = mocker.patch('distronode.module_utils.urls.urllib.request.build_opener')
+    build_opener_mock = mocker.patch('distronode.module_utils.urls.urllib_request.build_opener')
 
-    r = Request().open('GET', 'http://distronode.github.io/', use_proxy=False)
+    r = Request().open('GET', 'http://distronode.khulnasoft.com/', use_proxy=False)
 
     handlers = build_opener_mock.call_args[0]
     found_handlers = []
     for handler in handlers:
-        if isinstance(handler, urllib.request.ProxyHandler):
+        if isinstance(handler, urllib_request.ProxyHandler):
             found_handlers.append(handler)
 
     assert len(found_handlers) == 1
 
 
-def test_Request_open_no_validate_certs(urlopen_mock, install_opener_mock, mocker):
-    do_open = mocker.patch.object(urllib.request.HTTPSHandler, 'do_open')
-
-    r = Request().open('GET', 'https://distronode.github.io/', validate_certs=False)
+@pytest.mark.skipif(not HAS_SSLCONTEXT, reason="requires SSLContext")
+def test_Request_open_no_validate_certs(urlopen_mock, install_opener_mock):
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', validate_certs=False)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     ssl_handler = None
     for handler in handlers:
-        if isinstance(handler, urllib.request.HTTPSHandler):
+        if isinstance(handler, HTTPSClientAuthHandler):
             ssl_handler = handler
             break
 
     assert ssl_handler is not None
 
-    ssl_handler.https_open(None)
-    args = do_open.call_args[0]
-    cls = args[0]
-    assert cls is http.client.HTTPSConnection
+    inst = ssl_handler._build_https_connection('foo')
+    assert isinstance(inst, httplib.HTTPSConnection)
 
     context = ssl_handler._context
     # Differs by Python version
@@ -324,39 +337,40 @@ def test_Request_open_no_validate_certs(urlopen_mock, install_opener_mock, mocke
     assert context.check_hostname is False
 
 
-def test_Request_open_client_cert(urlopen_mock, install_opener_mock, mocker):
-    load_cert_chain = mocker.patch.object(ssl.SSLContext, 'load_cert_chain')
-
+def test_Request_open_client_cert(urlopen_mock, install_opener_mock):
     here = os.path.dirname(__file__)
 
     client_cert = os.path.join(here, 'fixtures/client.pem')
     client_key = os.path.join(here, 'fixtures/client.key')
 
-    r = Request().open('GET', 'https://distronode.github.io/', client_cert=client_cert, client_key=client_key)
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', client_cert=client_cert, client_key=client_key)
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     ssl_handler = None
     for handler in handlers:
-        if isinstance(handler, urllib.request.HTTPSHandler):
+        if isinstance(handler, HTTPSClientAuthHandler):
             ssl_handler = handler
             break
 
     assert ssl_handler is not None
 
-    load_cert_chain.assert_called_once_with(client_cert, keyfile=client_key)
+    assert ssl_handler.client_cert == client_cert
+    assert ssl_handler.client_key == client_key
+
+    ssl_handler._build_https_connection('distronode.khulnasoft.com')
 
 
 def test_Request_open_cookies(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.github.io/', cookies=cookiejar.CookieJar())
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', cookies=cookiejar.CookieJar())
 
     opener = install_opener_mock.call_args[0][0]
     handlers = opener.handlers
 
     cookies_handler = None
     for handler in handlers:
-        if isinstance(handler, urllib.request.HTTPCookieProcessor):
+        if isinstance(handler, urllib_request.HTTPCookieProcessor):
             cookies_handler = handler
             break
 
@@ -364,7 +378,7 @@ def test_Request_open_cookies(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_invalid_method(urlopen_mock, install_opener_mock):
-    r = Request().open('UNKNOWN', 'https://distronode.github.io/')
+    r = Request().open('UNKNOWN', 'https://distronode.khulnasoft.com/')
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -374,8 +388,17 @@ def test_Request_open_invalid_method(urlopen_mock, install_opener_mock):
     # assert r.status == 504
 
 
+def test_Request_open_custom_method(urlopen_mock, install_opener_mock):
+    r = Request().open('DELETE', 'https://distronode.khulnasoft.com/')
+
+    args = urlopen_mock.call_args[0]
+    req = args[0]
+
+    assert isinstance(req, RequestWithMethod)
+
+
 def test_Request_open_user_agent(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.github.io/', http_agent='distronode-tests')
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', http_agent='distronode-tests')
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -384,7 +407,7 @@ def test_Request_open_user_agent(urlopen_mock, install_opener_mock):
 
 
 def test_Request_open_force(urlopen_mock, install_opener_mock):
-    r = Request().open('GET', 'https://distronode.github.io/', force=True, last_mod_time=datetime.datetime.now())
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', force=True, last_mod_time=datetime.datetime.now())
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -395,7 +418,7 @@ def test_Request_open_force(urlopen_mock, install_opener_mock):
 
 def test_Request_open_last_mod(urlopen_mock, install_opener_mock):
     now = datetime.datetime.now()
-    r = Request().open('GET', 'https://distronode.github.io/', last_mod_time=now)
+    r = Request().open('GET', 'https://distronode.khulnasoft.com/', last_mod_time=now)
 
     args = urlopen_mock.call_args[0]
     req = args[0]
@@ -405,7 +428,7 @@ def test_Request_open_last_mod(urlopen_mock, install_opener_mock):
 
 def test_Request_open_headers_not_dict(urlopen_mock, install_opener_mock):
     with pytest.raises(ValueError):
-        Request().open('GET', 'https://distronode.github.io/', headers=['bob'])
+        Request().open('GET', 'https://distronode.khulnasoft.com/', headers=['bob'])
 
 
 def test_Request_init_headers_not_dict(urlopen_mock, install_opener_mock):
@@ -426,14 +449,14 @@ def test_methods(method, kwargs, mocker):
     expected = method.upper()
     open_mock = mocker.patch('distronode.module_utils.urls.Request.open')
     request = Request()
-    getattr(request, method)('https://distronode.github.io')
-    open_mock.assert_called_once_with(expected, 'https://distronode.github.io', **kwargs)
+    getattr(request, method)('https://distronode.khulnasoft.com')
+    open_mock.assert_called_once_with(expected, 'https://distronode.khulnasoft.com', **kwargs)
 
 
 def test_open_url(urlopen_mock, install_opener_mock, mocker):
     req_mock = mocker.patch('distronode.module_utils.urls.Request.open')
-    open_url('https://distronode.github.io/')
-    req_mock.assert_called_once_with('GET', 'https://distronode.github.io/', data=None, headers=None, use_proxy=True,
+    open_url('https://distronode.khulnasoft.com/')
+    req_mock.assert_called_once_with('GET', 'https://distronode.khulnasoft.com/', data=None, headers=None, use_proxy=True,
                                      force=False, last_mod_time=None, timeout=10, validate_certs=True,
                                      url_username=None, url_password=None, http_agent=None,
                                      force_basic_auth=False, follow_redirects='urllib2',

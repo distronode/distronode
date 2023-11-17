@@ -4,8 +4,9 @@
 # (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # utils
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 from distronode.module_utils.six import iteritems
 from distronode_collections.distronode.netcommon.plugins.module_utils.compat import (
     ipaddress,

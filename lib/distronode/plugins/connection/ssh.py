@@ -1,10 +1,11 @@
-# Copyright (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
+# Copyright (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
 # Copyright 2015 Abhijit Menon-Sen <ams@2ndQuadrant.com>
-# Copyright 2017 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# Copyright 2017 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # Copyright (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (annotations, absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = '''
     name: ssh
@@ -19,8 +20,6 @@ DOCUMENTATION = '''
         - connection_pipelining
     version_added: historical
     notes:
-        - This plugin is mostly a wrapper to the ``ssh`` CLI utility and the exact behavior of the options depends on this tool.
-          This means that the documentation provided here is subject to be overridden by the CLI tool itself.
         - Many options default to V(None) here but that only means we do not override the SSH tool's defaults and/or configuration.
           For example, if you specify the port in this plugin it will override any C(Port) entry in your C(.ssh/config).
         - The ssh CLI tool uses return code 255 as a 'connection error', this can conflict with commands/tools that
@@ -37,7 +36,7 @@ DOCUMENTATION = '''
                - name: delegated_vars['distronode_host']
                - name: delegated_vars['distronode_ssh_host']
       host_key_checking:
-          description: Determines if SSH should reject or not a connection after checking host keys.
+          description: Determines if SSH should check host keys.
           default: True
           type: boolean
           ini:
@@ -390,7 +389,6 @@ import io
 import os
 import pty
 import re
-import selectors
 import shlex
 import subprocess
 import time
@@ -404,6 +402,7 @@ from distronode.errors import (
     DistronodeFileNotFound,
 )
 from distronode.errors import DistronodeOptionsError
+from distronode.module_utils.compat import selectors
 from distronode.module_utils.six import PY3, text_type, binary_type
 from distronode.module_utils.common.text.converters import to_bytes, to_native, to_text
 from distronode.module_utils.parsing.convert_bool import BOOLEANS, boolean

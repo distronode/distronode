@@ -2,9 +2,9 @@
 
 # Copyright: (c) 2015, Paul Durivage <paul.durivage@rackspace.com>
 # Copyright: (c) 2015, Tal Auslander <tal@cloudshare.com>
-# Copyright: (c) 2017, Dag Wieers <dag@wieers.com>
-# Copyright: (c) 2019, Viktor Utkin <viktor_utkin@epam.com>
-# Copyright: (c) 2019, Uladzimir Klybik <uladzimir_klybik@epam.com>
+# Copyright: (c) 2023, Dag Wieers <dag@wieers.com>
+# Copyright: (c) 2023, Viktor Utkin <viktor_utkin@epam.com>
+# Copyright: (c) 2023, Uladzimir Klybik <uladzimir_klybik@epam.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 #DistronodeRequires -CSharpUtil Distronode.Basic

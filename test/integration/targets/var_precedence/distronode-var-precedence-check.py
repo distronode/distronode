@@ -3,7 +3,8 @@
 # A tool to check the order of precedence for distronode variables
 # https://github.com/distronode/distronode/blob/devel/test/integration/test_var_precedence.yml
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import json
 import os

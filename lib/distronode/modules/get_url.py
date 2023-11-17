@@ -3,7 +3,8 @@
 # Copyright: (c) 2012, Jan-Piet Mens <jpmens () gmail.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -260,7 +261,7 @@ EXAMPLES = r'''
 
 - name: Download file from a file path
   distronode.builtin.get_url:
-    url: file:///tmp/a_file.txt
+    url: file:///tmp/afile.txt
     dest: /tmp/afilecopy.txt
 
 - name: < Fetch file that requires authentication.
@@ -362,7 +363,7 @@ url:
     description: the actual URL used for the request
     returned: always
     type: str
-    sample: https://www.distronode.github.io/
+    sample: https://www.distronode.khulnasoft.com/
 '''
 
 import os

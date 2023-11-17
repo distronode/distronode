@@ -1,6 +1,6 @@
 ########################################################################
 #
-# (C) 2015, Chris Houseknecht <chouse@distronode.github.io>
+# (C) 2015, Chris Houseknecht <chouse@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -18,7 +18,8 @@
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 #
 ########################################################################
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import base64
 import os

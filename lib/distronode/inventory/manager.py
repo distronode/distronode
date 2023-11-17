@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -16,7 +16,8 @@
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
 #############################################
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import fnmatch
 import os

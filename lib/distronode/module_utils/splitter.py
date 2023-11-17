@@ -4,7 +4,7 @@
 # still belong to the author of the module, and may assign their own license
 # to the complete work.
 #
-# Copyright (c), Michael DeHaan <michael.dehaan@gmail.com>, 2012-2013
+# Copyright (c), KhulnaSoft Ltd <info@khulnasoft.com>, 2012-2013
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without modification,
@@ -26,7 +26,8 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 
 def _get_quote_state(token, quote_char):

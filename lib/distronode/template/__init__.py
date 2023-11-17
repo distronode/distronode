@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import ast
 import datetime
@@ -480,7 +482,7 @@ class JinjaPluginIntercept(MutableMapping):
             self._seen_it.remove(key)
             raise TemplateSyntaxError('Could not load "%s": %s' % (key, to_native(original_exc or e)), 0)
 
-        # if i do have func and it is a filter, it needs wrapping
+        # if i do have func and it is a filter, it nees wrapping
         if self._pluginloader.type == 'filter':
             # filter need wrapping
             if key in C.STRING_TYPE_FILTERS:

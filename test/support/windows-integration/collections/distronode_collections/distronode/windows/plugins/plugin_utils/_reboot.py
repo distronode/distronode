@@ -1,4 +1,4 @@
-# Copyright: (c) 2021, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 """Reboot action for Windows hosts
@@ -13,7 +13,6 @@ interface is not final and count be subject to change.
 # and may not remain stable to outside uses. Changes may be made in ANY release, even a bugfix release.
 # See also: https://github.com/distronode/community/issues/539#issuecomment-780839686
 # Please open an issue if you have questions about this.
-from __future__ import annotations
 
 import datetime
 import json

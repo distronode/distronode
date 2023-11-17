@@ -1,4 +1,5 @@
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode_collections.testns.testcoll.plugins.module_utils import secondary
 import distronode_collections.testns.testcoll.plugins.module_utils.secondary

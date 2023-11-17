@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,8 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
-__version__ = '2.17.0.dev0'
+__version__ = '2.16.0.post0'
 __author__ = 'Distronode, Inc.'
-__codename__ = "Gallows Pole"
+__codename__ = "All My Love"

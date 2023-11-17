@@ -7,7 +7,9 @@
 # successful, the code in six will be available under six's more liberal license:
 # https://mail.python.org/pipermail/python-porting/2018-July/000539.html
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import sys

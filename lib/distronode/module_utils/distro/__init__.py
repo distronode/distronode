@@ -1,4 +1,4 @@
-# (c) 2018 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2018 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,12 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 '''
 Compat distro library.
 '''
-from __future__ import annotations
-
 # The following makes it easier for us to script updates of the bundled code
 _BUNDLED_METADATA = {"pypi_name": "distro", "version": "1.6.0"}
 

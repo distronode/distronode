@@ -1,8 +1,9 @@
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2015, 2017 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# (c) 2015, 2017 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (annotations, absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = '''
     name: local
@@ -21,13 +22,13 @@ import fcntl
 import getpass
 import os
 import pty
-import selectors
 import shutil
 import subprocess
 import typing as t
 
 import distronode.constants as C
 from distronode.errors import DistronodeError, DistronodeFileNotFound
+from distronode.module_utils.compat import selectors
 from distronode.module_utils.six import text_type, binary_type
 from distronode.module_utils.common.text.converters import to_bytes, to_native, to_text
 from distronode.plugins.connection import ConnectionBase
@@ -89,7 +90,7 @@ class Connection(ConnectionBase):
         master = None
         stdin = subprocess.PIPE
         if sudoable and self.become and self.become.expect_prompt() and not self.get_option('pipelining'):
-            # Create a pty if sudoable for privilege escalation that needs it.
+            # Create a pty if sudoable for privlege escalation that needs it.
             # Falls back to using a standard pipe if this fails, which may
             # cause the command to fail in certain situations where we are escalating
             # privileges or the command otherwise needs a pty.

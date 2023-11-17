@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 # Copyright: (c) 2014, 2015 YAEGASHI Takeshi <yaegashi@debian.org>
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -110,7 +111,7 @@ notes:
   - As of Distronode 2.3, the O(dest) option has been changed to O(path) as default, but O(dest) still works as well.
   - Option O(ignore:follow) has been removed in Distronode 2.5, because this module modifies the contents of the file
     so O(ignore:follow=no) does not make sense.
-  - When more than one block should be handled in one file you must change the O(marker) per task.
+  - When more then one block should be handled in one file you must change the O(marker) per task.
 extends_documentation_fragment:
     - action_common_attributes
     - action_common_attributes.files

@@ -2,14 +2,14 @@
 # (c) 2019, Jordan Borean <jborean@redhat.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
-import pytest
 from unittest.mock import MagicMock
 
 from distronode.executor.interpreter_discovery import discover_interpreter
 from distronode.module_utils.common.text.converters import to_text
-from distronode.errors import DistronodeConnectionFailure
 
 mock_ubuntu_platform_res = to_text(
     r'{"osrelease_content": "NAME=\"Ubuntu\"\nVERSION=\"16.04.5 LTS (Xenial Xerus)\"\nID=ubuntu\nID_LIKE=debian\n'
@@ -84,13 +84,3 @@ def test_no_interpreters_found():
     assert mock_action.method_calls[1][0] == '_discovery_warnings.append'
     assert u'No python interpreters found for host host-fóöbär (tried' \
            in mock_action.method_calls[1][1][0]
-
-
-def test_distronode_error_exception():
-    mock_action = MagicMock()
-    mock_action._low_level_execute_command.side_effect = DistronodeConnectionFailure("host key mismatch")
-
-    with pytest.raises(DistronodeConnectionFailure) as context:
-        discover_interpreter(mock_action, 'python', 'auto_legacy', {'inventory_hostname': u'host'})
-
-    assert 'host key mismatch' == str(context.value)

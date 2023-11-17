@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from distronode.plugins.vars import BaseVarsPlugin
 
 

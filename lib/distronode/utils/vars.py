@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import keyword
 import random
@@ -83,11 +85,11 @@ def combine_vars(a, b, merge=None):
 
     if merge or merge is None and C.DEFAULT_HASH_BEHAVIOUR == "merge":
         return merge_hash(a, b)
-
-    # HASH_BEHAVIOUR == 'replace'
-    _validate_mutable_mappings(a, b)
-    result = a | b
-    return result
+    else:
+        # HASH_BEHAVIOUR == 'replace'
+        _validate_mutable_mappings(a, b)
+        result = a | b
+        return result
 
 
 def merge_hash(x, y, recursive=True, list_merge='replace'):

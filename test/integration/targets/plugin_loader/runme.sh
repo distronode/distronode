@@ -34,6 +34,3 @@ done
 
 # test config loading
 distronode-playbook use_coll_name.yml -i ../../inventory -e 'distronode_connection=distronode.builtin.ssh' "$@"
-
-# test filter loading ignoring duplicate file basename
-distronode-playbook file_collision/play.yml "$@"

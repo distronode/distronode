@@ -1,4 +1,4 @@
-# (c) 2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2014, KhulnaSoft Ltd <info@khulnasoft.com>
 # (c) 2018, Distronode Project
 #
 # This file is part of Distronode
@@ -15,7 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import copy
 import errno

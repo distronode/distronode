@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import contextlib
 
@@ -761,7 +763,7 @@ def test_collection_install_with_names(collection_install):
                             ('namespace2.collection', '1.0.1', None, 'galaxy')]
     assert mock_install.call_args[0][1] == collection_path
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -811,7 +813,7 @@ collections:
     assert requirements == [('namespace.coll', '*', None, 'galaxy'),
                             ('namespace2.coll', '>2.0.1', None, 'galaxy')]
     assert mock_install.call_args[0][1] == collection_path
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -838,7 +840,7 @@ def test_collection_install_with_relative_path(collection_install, monkeypatch):
     assert mock_install.call_args[0][0] == [('namespace.coll', '*', None, None)]
     assert mock_install.call_args[0][1] == os.path.abspath(collections_path)
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -868,7 +870,7 @@ def test_collection_install_with_unexpanded_path(collection_install, monkeypatch
     assert mock_install.call_args[0][0] == [('namespace.coll', '*', None, None)]
     assert mock_install.call_args[0][1] == os.path.expanduser(os.path.expandvars(collections_path))
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -896,7 +898,7 @@ def test_collection_install_in_collection_dir(collection_install, monkeypatch):
                             ('namespace2.collection', '1.0.1', None, 'galaxy')]
     assert mock_install.call_args[0][1] == os.path.join(collections_path, 'distronode_collections')
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -925,7 +927,7 @@ def test_collection_install_with_url(monkeypatch, collection_install):
     assert requirements == [('foo.bar', 'v1.0.0', 'https://foo/bar/foo-bar-v1.0.0.tar.gz', 'url')]
     assert mock_install.call_args[0][1] == collection_path
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -971,7 +973,7 @@ def test_collection_install_path_with_distronode_collections(collection_install)
                             ('namespace2.collection', '1.0.1', None, 'galaxy')]
     assert mock_install.call_args[0][1] == collection_path
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
     assert mock_install.call_args[0][3] is False  # ignore_errors
     assert mock_install.call_args[0][4] is False  # no_deps
@@ -1037,11 +1039,11 @@ def test_collection_install_custom_server(collection_install):
     mock_install, mock_warning, output_dir = collection_install
 
     galaxy_args = ['distronode-galaxy', 'collection', 'install', 'namespace.collection', '--collections-path', output_dir,
-                   '--server', 'https://galaxy-dev.distronode.github.io']
+                   '--server', 'https://galaxy-dev.distronode.khulnasoft.com']
     GalaxyCLI(args=galaxy_args).run()
 
     assert len(mock_install.call_args[0][2]) == 1
-    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy-dev.distronode.github.io'
+    assert mock_install.call_args[0][2][0].api_server == 'https://galaxy-dev.distronode.khulnasoft.com'
     assert mock_install.call_args[0][2][0].validate_certs is True
 
 
@@ -1134,7 +1136,7 @@ def test_parse_requirements(requirements_cli, requirements_file):
 collections:
 - name: namespace.collection1
   version: ">=1.0.0,<=2.0.0"
-  source: https://galaxy-dev.distronode.github.io
+  source: https://galaxy-dev.distronode.khulnasoft.com
 - namespace.collection2'''], indirect=True)
 def test_parse_requirements_with_extra_info(requirements_cli, requirements_file):
     actual = requirements_cli._parse_requirements_file(requirements_file)
@@ -1144,7 +1146,7 @@ def test_parse_requirements_with_extra_info(requirements_cli, requirements_file)
     assert len(actual['collections']) == 2
     assert actual['collections'][0][0] == 'namespace.collection1'
     assert actual['collections'][0][1] == '>=1.0.0,<=2.0.0'
-    assert actual['collections'][0][2].api_server == 'https://galaxy-dev.distronode.github.io'
+    assert actual['collections'][0][2].api_server == 'https://galaxy-dev.distronode.khulnasoft.com'
 
     assert actual['collections'][1] == ('namespace.collection2', '*', None, 'galaxy')
 
@@ -1177,7 +1179,7 @@ def test_parse_requirements_with_roles_and_collections(requirements_cli, require
 collections:
 - name: namespace.collection
 - name: namespace2.collection2
-  source: https://galaxy-dev.distronode.github.io/
+  source: https://galaxy-dev.distronode.khulnasoft.com/
 - name: namespace3.collection3
   source: server
 '''], indirect=True)
@@ -1194,7 +1196,7 @@ def test_parse_requirements_with_collection_source(requirements_cli, requirement
 
     assert actual['collections'][1][0] == 'namespace2.collection2'
     assert actual['collections'][1][1] == '*'
-    assert actual['collections'][1][2].api_server == 'https://galaxy-dev.distronode.github.io/'
+    assert actual['collections'][1][2].api_server == 'https://galaxy-dev.distronode.khulnasoft.com/'
 
     assert actual['collections'][2][0] == 'namespace3.collection3'
     assert actual['collections'][2][1] == '*'

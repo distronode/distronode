@@ -2,7 +2,8 @@
 # Copyright (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (annotations, absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = """
     author: Distronode Core Team
@@ -147,8 +148,8 @@ DOCUMENTATION = """
               seconds higher than the WS-Man operation timeout, thus make the connection more
               robust on networks with long latency and/or many hops between server and client
               network wise.
-            - Setting the difference between the operation and the read timeout to 10 seconds
-              aligns it to the defaults used in the winrm-module and the PSRP-module which also
+            - Setting the difference bewteen the operation and the read timeout to 10 seconds
+              alligns it to the defaults used in the winrm-module and the PSRP-module which also
               uses 10 seconds (30 seconds for read timeout and 20 seconds for operation timeout)
             - Corresponds to the C(operation_timeout_sec) and
               C(read_timeout_sec) args in pywinrm so avoid setting these vars
