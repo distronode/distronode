@@ -1,6 +1,6 @@
 #!powershell
 
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 
 #Requires -Module Distronode.ModuleUtils.Legacy
 

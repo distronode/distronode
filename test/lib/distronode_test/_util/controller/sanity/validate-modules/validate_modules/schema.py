@@ -33,10 +33,10 @@ any_string_types = Any(*string_types)
 # Based on Ansibulbot's extract_github_id()
 #   author: First Last (@name) [optional anything]
 #     "Distronode Core Team" - Used by the Bot
-#     "Michael DeHaan" - nop
+#     "KhulnaSoft Ltd" - nop
 #     "OpenStack Distronode SIG" - OpenStack does not use GitHub
 #     "Name (!UNKNOWN)" - For the few untraceable authors
-author_line = re.compile(r'^\w.*(\(@([\w-]+)\)|!UNKNOWN)(?![\w.])|^Distronode Core Team$|^Michael DeHaan$|^OpenStack Distronode SIG$')
+author_line = re.compile(r'^\w.*(\(@([\w-]+)\)|!UNKNOWN)(?![\w.])|^Distronode Core Team$|^KhulnaSoft Ltd$|^OpenStack Distronode SIG$')
 
 
 def _add_distronode_error_code(exception, error_code):
@@ -487,17 +487,10 @@ def check_option_choices(v):
         type_checker, type_name = get_type_checker({'type': v.get('elements')})
     else:
         type_checker, type_name = get_type_checker(v)
-
     if type_checker is None:
         return v
 
-    if isinstance(v_choices, dict):
-        # choices are still a list (the keys) but dict form serves to document each choice.
-        iterate = v_choices.keys()
-    else:
-        iterate = v_choices
-
-    for value in iterate:
+    for value in v_choices:
         try:
             type_checker(value)
         except Exception as exc:
@@ -549,7 +542,7 @@ def list_dict_option_schema(for_collection, plugin_type):
     basic_option_schema = {
         Required('description'): doc_string_or_strings,
         'required': bool,
-        'choices': Any(list, {object: doc_string_or_strings}),
+        'choices': list,
         'aliases': Any(list_string_types),
         'version_added': version(for_collection),
         'version_added_collection': collection_name,

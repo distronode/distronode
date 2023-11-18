@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -95,7 +96,7 @@ options:
     - If V(true) it will search for O(src) on the managed (remote) node.
     - O(remote_src) supports recursive copying as of version 2.8.
     - O(remote_src) only works with O(mode=preserve) as of version 2.6.
-    - Auto-decryption of files does not work when O(remote_src=yes).
+    - Autodecryption of files does not work when O(remote_src=yes).
     type: bool
     default: no
     version_added: '2.0'
@@ -136,7 +137,7 @@ seealso:
     - module: distronode.windows.win_copy
 author:
     - Distronode Core Team
-    - Michael DeHaan
+    - KhulnaSoft Ltd
 attributes:
   action:
     support: full

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from distronode.module_utils.pycompat24 import get_exception
 
 

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019-2021, Distronode Project
+# Copyright: (c) 2023-2021, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 """Installed collections management package."""
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import errno
 import fnmatch
@@ -83,7 +84,7 @@ if t.TYPE_CHECKING:
     FilesManifestType = t.Dict[t.Literal['files', 'format'], t.Union[t.List[FileManifestEntryType], int]]
 
 import distronode.constants as C
-from distronode.github.iopat.importlib_resources import files
+from distronode.khulnasoft.compat.importlib_resources import files
 from distronode.errors import DistronodeError
 from distronode.galaxy.api import GalaxyAPI
 from distronode.galaxy.collection.concrete_artifact_manager import (
@@ -543,7 +544,7 @@ def download_collections(
         for fqcn, concrete_coll_pin in dep_map.copy().items():  # FIXME: move into the provider
             if concrete_coll_pin.is_virtual:
                 display.display(
-                    '{coll!s} is not downloadable'.
+                    'Virtual collection {coll!s} is not downloadable'.
                     format(coll=to_text(concrete_coll_pin)),
                 )
                 continue
@@ -616,7 +617,7 @@ def publish_collection(collection_path, api, wait, timeout):
     if wait:
         # Galaxy returns a url fragment which differs between v2 and v3.  The second to last entry is
         # always the task_id, though.
-        # v2: {"task": "https://galaxy-dev.distronode.github.io/api/v2/collection-imports/35573/"}
+        # v2: {"task": "https://galaxy-dev.distronode.khulnasoft.com/api/v2/collection-imports/35573/"}
         # v3: {"task": "/api/automation-hub/v3/imports/collections/838d1308-a8f4-402c-95cb-7823f3806cd8/"}
         task_id = None
         for path_segment in reversed(import_uri.split('/')):
@@ -740,7 +741,7 @@ def install_collections(
         for fqcn, concrete_coll_pin in dependency_map.items():
             if concrete_coll_pin.is_virtual:
                 display.vvvv(
-                    "Encountered {coll!s}, skipping.".
+                    "'{coll!s}' is virtual, skipping.".
                     format(coll=to_text(concrete_coll_pin)),
                 )
                 continue
@@ -1202,17 +1203,10 @@ def _build_files_manifest_walk(b_collection_path, namespace, name, ignore_patter
 
     manifest = _make_manifest()
 
-    def _discover_relative_base_directory(b_path: bytes, b_top_level_dir: bytes) -> bytes:
-        if b_path == b_top_level_dir:
-            return b''
-        common_prefix = os.path.commonpath((b_top_level_dir, b_path))
-        b_rel_base_dir = os.path.relpath(b_path, common_prefix)
-        return b_rel_base_dir.lstrip(os.path.sep.encode())
-
     def _walk(b_path, b_top_level_dir):
-        b_rel_base_dir = _discover_relative_base_directory(b_path, b_top_level_dir)
         for b_item in os.listdir(b_path):
             b_abs_path = os.path.join(b_path, b_item)
+            b_rel_base_dir = b'' if b_path == b_top_level_dir else b_path[len(b_top_level_dir) + 1:]
             b_rel_path = os.path.join(b_rel_base_dir, b_item)
             rel_path = to_text(b_rel_path, errors='surrogate_or_strict')
 
@@ -1867,7 +1861,8 @@ def _resolve_depenency_map(
         raise DistronodeError('\n'.join(error_msg_lines)) from dep_exc
     except CollectionDependencyInconsistentCandidate as dep_exc:
         parents = [
-            str(p) for p in dep_exc.criterion.iter_parent()
+            "%s.%s:%s" % (p.namespace, p.name, p.ver)
+            for p in dep_exc.criterion.iter_parent()
             if p is not None
         ]
 

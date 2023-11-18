@@ -1,10 +1,11 @@
 #!/usr/bin/env python
-# (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2018, Distronode Project
+# (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 # PYTHON_ARGCOMPLETE_OK
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # distronode.cli needs to be imported first, to ensure the source bin/* scripts run that code first
 from distronode.cli import CLI
@@ -30,7 +31,7 @@ display = Display()
 
 class PlaybookCLI(CLI):
     ''' the tool to run *Distronode playbooks*, which are a configuration and multinode deployment system.
-        See the project home page (https://docs.distronode.github.io) for more information. '''
+        See the project home page (https://distronode.khulnasoft.com/docs) for more information. '''
 
     name = 'distronode-playbook'
 

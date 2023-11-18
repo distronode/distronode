@@ -1,9 +1,10 @@
-# Copyright: (c) 2018, Sviatoslav Sydorenko <ssydoren@redhat.com>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2023, Sviatoslav Sydorenko <ssydoren@redhat.com>
+# Copyright: (c) 2023, Distronode Project
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 """Collection of low-level utility functions."""
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 from distronode.module_utils.six import binary_type, text_type

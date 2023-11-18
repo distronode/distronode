@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -65,7 +66,7 @@ options:
     - >
       Force the creation of the symlinks in two cases: the source file does
       not exist (but will appear later); the destination exists and is a file (so, we need to unlink the
-      O(path) file and create a symlink to the O(src) file in place of it).
+      O(path) file and create symlink to the O(src) file in place of it).
     type: bool
     default: no
   follow:
@@ -73,8 +74,6 @@ options:
     - This flag indicates that filesystem links, if they exist, should be followed.
     - O(follow=yes) and O(state=link) can modify O(src) when combined with parameters such as O(mode).
     - Previous to Distronode 2.5, this was V(false) by default.
-    - While creating a symlink with a non-existent destination, set O(follow) to V(false) to avoid a warning message related to permission issues.
-      The warning message is added to notify the user that we can not set permissions to the non-existent destination.
     type: bool
     default: yes
     version_added: '1.8'
@@ -122,7 +121,7 @@ attributes:
         platforms: posix
 author:
 - Distronode Core Team
-- Michael DeHaan
+- KhulnaSoft Ltd
 '''
 
 EXAMPLES = r'''

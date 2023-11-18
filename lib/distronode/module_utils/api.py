@@ -4,7 +4,7 @@
 # still belong to the author of the module, and may assign their own license
 # to the complete work.
 #
-# Copyright: (c) 2015, Brian Coca, <bcoca@distronode.github.io>
+# Copyright: (c) 2015, Brian Coca, <bcoca@khulnasoft.com>
 #
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause)
 """
@@ -23,7 +23,8 @@ The 'api' module provides the following common argument specs:
         - retries: number of attempts
         - retry_pause: delay between attempts in seconds
 """
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import copy
 import functools

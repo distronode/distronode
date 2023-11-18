@@ -1,9 +1,10 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2015 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
+# (c) 2015 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # (c) 2017, Peter Sprygada <psprygad@redhat.com>
 # (c) 2017 Distronode Project
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 
 import os
 

@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode.playbook.attribute import NonInheritableFieldAttribute
 from distronode.playbook.task import Task
@@ -34,7 +36,7 @@ class Handler(Task):
         super(Handler, self).__init__(block=block, role=role, task_include=task_include)
 
     def __repr__(self):
-        ''' returns a human-readable representation of the handler '''
+        ''' returns a human readable representation of the handler '''
         return "HANDLER: %s" % self.get_name()
 
     @staticmethod

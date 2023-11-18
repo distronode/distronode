@@ -1,8 +1,9 @@
-# Copyright: (c) 2015, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2015, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import shutil

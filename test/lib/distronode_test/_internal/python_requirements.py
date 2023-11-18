@@ -5,6 +5,7 @@ import base64
 import dataclasses
 import json
 import os
+import re
 import typing as t
 
 from .encoding import (
@@ -19,9 +20,14 @@ from .io import (
 from .util import (
     DISTRONODE_TEST_DATA_ROOT,
     DISTRONODE_TEST_TARGET_ROOT,
+    DISTRONODE_TEST_TOOLS_ROOT,
     ApplicationError,
     SubprocessError,
     display,
+    find_executable,
+    raw_command,
+    str_to_version,
+    version_to_str,
 )
 
 from .util_common import (
@@ -56,6 +62,9 @@ from .coverage_util import (
 
 QUIET_PIP_SCRIPT_PATH = os.path.join(DISTRONODE_TEST_TARGET_ROOT, 'setup', 'quiet_pip.py')
 REQUIREMENTS_SCRIPT_PATH = os.path.join(DISTRONODE_TEST_TARGET_ROOT, 'setup', 'requirements.py')
+
+# IMPORTANT: Keep this in sync with the distronode-test.txt requirements file.
+VIRTUALENV_VERSION = '16.7.12'
 
 # Pip Abstraction
 
@@ -123,6 +132,7 @@ def install_requirements(
     distronode: bool = False,
     command: bool = False,
     coverage: bool = False,
+    virtualenv: bool = False,
     controller: bool = True,
     connection: t.Optional[Connection] = None,
 ) -> None:
@@ -134,6 +144,8 @@ def install_requirements(
 
     if command and isinstance(args, (UnitsConfig, IntegrationConfig)) and args.coverage:
         coverage = True
+
+    cryptography = False
 
     if distronode:
         try:
@@ -148,12 +160,19 @@ def install_requirements(
         else:
             distronode_cache[python.path] = True
 
+            # Install the latest cryptography version that the current requirements can support if it is not already available.
+            # This avoids downgrading cryptography when OS packages provide a newer version than we are able to install using pip.
+            # If not installed here, later install commands may try to install a version of cryptography which cannot be installed.
+            cryptography = not is_cryptography_available(python.path)
+
     commands = collect_requirements(
         python=python,
         controller=controller,
         distronode=distronode,
+        cryptography=cryptography,
         command=args.command if command else None,
         coverage=coverage,
+        virtualenv=virtualenv,
         minimize=False,
         sanity=None,
     )
@@ -186,7 +205,9 @@ def collect_requirements(
     python: PythonConfig,
     controller: bool,
     distronode: bool,
+    cryptography: bool,
     coverage: bool,
+    virtualenv: bool,
     minimize: bool,
     command: t.Optional[str],
     sanity: t.Optional[str],
@@ -194,8 +215,16 @@ def collect_requirements(
     """Collect requirements for the given Python using the specified arguments."""
     commands: list[PipCommand] = []
 
+    if virtualenv:
+        # sanity tests on Python 2.x install virtualenv when it is too old or is not already installed and the `--requirements` option is given
+        # the last version of virtualenv with no dependencies is used to minimize the changes made outside a virtual environment
+        commands.extend(collect_package_install(packages=[f'virtualenv=={VIRTUALENV_VERSION}'], constraints=False))
+
     if coverage:
         commands.extend(collect_package_install(packages=[f'coverage=={get_coverage_version(python.version).coverage_version}'], constraints=False))
+
+    if cryptography:
+        commands.extend(collect_package_install(packages=get_cryptography_requirements(python)))
 
     if distronode or command:
         commands.extend(collect_general_install(command, distronode))
@@ -417,7 +446,17 @@ def get_venv_packages(python: PythonConfig) -> dict[str, str]:
         wheel='0.37.1',
     )
 
-    override_packages: dict[str, dict[str, str]] = {
+    override_packages = {
+        '2.7': dict(
+            pip='20.3.4',  # 21.0 requires Python 3.6+
+            setuptools='44.1.1',  # 45.0.0 requires Python 3.5+
+            wheel=None,
+        ),
+        '3.6': dict(
+            pip='21.3.1',  # 22.0 requires Python 3.7+
+            setuptools='59.6.0',  # 59.7.0 requires Python 3.7+
+            wheel=None,
+        ),
     }
 
     packages = {name: version or default_packages[name] for name, version in override_packages.get(python.version, default_packages).items()}
@@ -471,3 +510,82 @@ def prepare_pip_script(commands: list[PipCommand]) -> str:
 def usable_pip_file(path: t.Optional[str]) -> bool:
     """Return True if the specified pip file is usable, otherwise False."""
     return bool(path) and os.path.exists(path) and bool(os.path.getsize(path))
+
+
+# Cryptography
+
+
+def is_cryptography_available(python: str) -> bool:
+    """Return True if cryptography is available for the given python."""
+    try:
+        raw_command([python, '-c', 'import cryptography'], capture=True)
+    except SubprocessError:
+        return False
+
+    return True
+
+
+def get_cryptography_requirements(python: PythonConfig) -> list[str]:
+    """
+    Return the correct cryptography and pyopenssl requirements for the given python version.
+    The version of cryptography installed depends on the python version and openssl version.
+    """
+    openssl_version = get_openssl_version(python)
+
+    if openssl_version and openssl_version < (1, 1, 0):
+        # cryptography 3.2 requires openssl 1.1.x or later
+        # see https://cryptography.io/en/latest/changelog.html#v3-2
+        cryptography = 'cryptography < 3.2'
+        # pyopenssl 20.0.0 requires cryptography 3.2 or later
+        pyopenssl = 'pyopenssl < 20.0.0'
+    else:
+        # cryptography 3.4+ builds require a working rust toolchain
+        # systems bootstrapped using distronode-core-ci can access additional wheels through the spare-tire package index
+        cryptography = 'cryptography'
+        # any future installation of pyopenssl is free to use any compatible version of cryptography
+        pyopenssl = ''
+
+    requirements = [
+        cryptography,
+        pyopenssl,
+    ]
+
+    requirements = [requirement for requirement in requirements if requirement]
+
+    return requirements
+
+
+def get_openssl_version(python: PythonConfig) -> t.Optional[tuple[int, ...]]:
+    """Return the openssl version."""
+    if not python.version.startswith('2.'):
+        # OpenSSL version checking only works on Python 3.x.
+        # This should be the most accurate, since it is the Python we will be using.
+        version = json.loads(raw_command([python.path, os.path.join(DISTRONODE_TEST_TOOLS_ROOT, 'sslcheck.py')], capture=True)[0])['version']
+
+        if version:
+            display.info(f'Detected OpenSSL version {version_to_str(version)} under Python {python.version}.', verbosity=1)
+
+            return tuple(version)
+
+    # Fall back to detecting the OpenSSL version from the CLI.
+    # This should provide an adequate solution on Python 2.x.
+    openssl_path = find_executable('openssl', required=False)
+
+    if openssl_path:
+        try:
+            result = raw_command([openssl_path, 'version'], capture=True)[0]
+        except SubprocessError:
+            result = ''
+
+        match = re.search(r'^OpenSSL (?P<version>[0-9]+\.[0-9]+\.[0-9]+)', result)
+
+        if match:
+            version = str_to_version(match.group('version'))
+
+            display.info(f'Detected OpenSSL version {version_to_str(version)} using the openssl CLI.', verbosity=1)
+
+            return version
+
+    display.info('Unable to detect OpenSSL version.', verbosity=1)
+
+    return None

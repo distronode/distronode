@@ -12,7 +12,7 @@ Add-Type -TypeDefinition @'
 using System.IO;
 using System.Threading;
 
-namespace distronode.github.iomand
+namespace distronode.khulnasoft.command
 {
     public static class NativeUtil
     {
@@ -52,7 +52,7 @@ Function Invoke-Process($executable, $arguments) {
     $proc.Start() > $null # will always return $true for non shell-exec cases
     $stdout = $stderr = [string] $null
 
-    [distronode.github.iomand.NativeUtil]::GetProcessOutput($proc.StandardOutput, $proc.StandardError, [ref] $stdout, [ref] $stderr) > $null
+    [distronode.khulnasoft.command.NativeUtil]::GetProcessOutput($proc.StandardOutput, $proc.StandardError, [ref] $stdout, [ref] $stderr) > $null
     $proc.WaitForExit() > $null
     $actual_args = $stdout.Substring(0, $stdout.Length - 2) -split "`r`n"
 

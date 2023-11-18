@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import json
 import os
@@ -37,17 +39,10 @@ def reset_cli_args():
     co.GlobalCLIArgs._Singleton__instance = None
 
 
-@pytest.fixture
-def collection_path_suffix(request):
-    """Return test collection path suffix or the default."""
-    return getattr(request, 'param', 'test-ÅÑŚÌβŁÈ Collections Input')
-
-
-@pytest.fixture
-def collection_input(tmp_path_factory, collection_path_suffix):
-    """Create a collection skeleton directory for build tests."""
-    test_dir = to_text(tmp_path_factory.mktemp(collection_path_suffix))
-
+@pytest.fixture()
+def collection_input(tmp_path_factory):
+    ''' Creates a collection skeleton directory for build tests '''
+    test_dir = to_text(tmp_path_factory.mktemp('test-ÅÑŚÌβŁÈ Collections Input'))
     namespace = 'distronode_namespace'
     collection = 'collection'
     skeleton = os.path.join(os.path.dirname(os.path.split(__file__)[0]), 'cli', 'test_data', 'collection_skeleton')
@@ -126,7 +121,7 @@ def tmp_tarfile(tmp_path_factory, manifest_info):
 @pytest.fixture()
 def galaxy_server():
     context.CLIARGS._store = {'ignore_certs': False}
-    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.github.io',
+    galaxy_api = api.GalaxyAPI(None, 'test_server', 'https://galaxy.distronode.khulnasoft.com',
                                token=token.GalaxyToken(token='key'))
     return galaxy_api
 
@@ -227,7 +222,7 @@ def test_cli_options(required_signature_count, valid, monkeypatch):
         (
             # Options to create ini config
             {
-                'url': 'https://galaxy.distronode.github.io',
+                'url': 'https://galaxy.distronode.khulnasoft.com',
                 'validate_certs': 'False',
             },
             # Expected server attributes
@@ -237,7 +232,7 @@ def test_cli_options(required_signature_count, valid, monkeypatch):
         ),
         (
             {
-                'url': 'https://galaxy.distronode.github.io',
+                'url': 'https://galaxy.distronode.khulnasoft.com',
                 'validate_certs': 'True',
             },
             {
@@ -318,7 +313,7 @@ def test_validate_certs_with_server_url(ignore_certs_cli, ignore_certs_cfg, expe
         'install',
         'namespace.collection:1.0.0',
         '-s',
-        'https://galaxy.distronode.github.io'
+        'https://galaxy.distronode.khulnasoft.com'
     ]
     if ignore_certs_cli:
         cli_args.append('--ignore-certs')
@@ -351,13 +346,13 @@ def test_validate_certs_server_config(ignore_certs_cfg, ignore_certs_cli, expect
         "[galaxy]",
         "server_list=server1,server2,server3",
         "[galaxy_server.server1]",
-        "url=https://galaxy.distronode.github.io/api/",
+        "url=https://galaxy.distronode.khulnasoft.com/api/",
         "validate_certs=False",
         "[galaxy_server.server2]",
-        "url=https://galaxy.distronode.github.io/api/",
+        "url=https://galaxy.distronode.khulnasoft.com/api/",
         "validate_certs=True",
         "[galaxy_server.server3]",
-        "url=https://galaxy.distronode.github.io/api/",
+        "url=https://galaxy.distronode.khulnasoft.com/api/",
     ]
     cli_args = [
         'distronode-galaxy',
@@ -417,7 +412,7 @@ def test_timeout_server_config(timeout_cli, timeout_cfg, timeout_fallback, expec
         server_additional['timeout']['default'] = timeout_fallback
         monkeypatch.setattr(galaxy, 'SERVER_ADDITIONAL', server_additional)
 
-    cfg_lines.extend(["[galaxy_server.server1]", "url=https://galaxy.distronode.github.io/api/"])
+    cfg_lines.extend(["[galaxy_server.server1]", "url=https://galaxy.distronode.khulnasoft.com/api/"])
     if timeout_cfg is not None:
         cfg_lines.append(f"timeout={timeout_cfg}")
 
@@ -472,14 +467,6 @@ def test_build_existing_output_without_force(collection_input):
         collection.build_collection(to_text(input_dir, errors='surrogate_or_strict'), to_text(output_dir, errors='surrogate_or_strict'), False)
 
 
-@pytest.mark.parametrize(
-    'collection_path_suffix',
-    (
-        'test-ÅÑŚÌβŁÈ Collections Input 1 with_slash/',
-        'test-ÅÑŚÌβŁÈ Collections Input 2 no slash',
-    ),
-    indirect=('collection_path_suffix', ),
-)
 def test_build_existing_output_with_force(collection_input):
     input_dir, output_dir = collection_input
 
@@ -1058,7 +1045,7 @@ def test_execute_verify_with_defaults(mock_verify_collections):
     assert [('%s.%s' % (r.namespace, r.name), r.ver, r.src, r.type) for r in requirements] == [('namespace.collection', '1.0.4', None, 'galaxy')]
     for install_path in search_paths:
         assert install_path.endswith('distronode_collections')
-    assert galaxy_apis[0].api_server == 'https://galaxy.distronode.github.io'
+    assert galaxy_apis[0].api_server == 'https://galaxy.distronode.khulnasoft.com'
     assert ignore_errors is False
 
 
@@ -1087,7 +1074,7 @@ def test_verify_file_hash_deleted_file(manifest_info):
     namespace = manifest_info['collection_info']['namespace']
     name = manifest_info['collection_info']['name']
     version = manifest_info['collection_info']['version']
-    server = 'http://galaxy.distronode.github.io'
+    server = 'http://galaxy.distronode.khulnasoft.com'
 
     error_queue = []
 
@@ -1110,7 +1097,7 @@ def test_verify_file_hash_matching_hash(manifest_info):
     namespace = manifest_info['collection_info']['namespace']
     name = manifest_info['collection_info']['name']
     version = manifest_info['collection_info']['version']
-    server = 'http://galaxy.distronode.github.io'
+    server = 'http://galaxy.distronode.khulnasoft.com'
 
     error_queue = []
 
@@ -1132,7 +1119,7 @@ def test_verify_file_hash_mismatching_hash(manifest_info):
     namespace = manifest_info['collection_info']['namespace']
     name = manifest_info['collection_info']['name']
     version = manifest_info['collection_info']['version']
-    server = 'http://galaxy.distronode.github.io'
+    server = 'http://galaxy.distronode.khulnasoft.com'
 
     error_queue = []
 

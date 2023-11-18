@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2020-2021, Distronode Project
+# Copyright: (c) 2023-2021, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 """Dependency structs."""
 # FIXME: add caching all over the place
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import typing as t
@@ -462,8 +463,8 @@ class _ComputedReqKindsMixin:
     def __unicode__(self):
         if self.fqcn is None:
             return (
-                f'{self.type} collection from a Git repo' if self.is_scm
-                else f'{self.type} collection from a namespace'
+                u'"virtual collection Git repo"' if self.is_scm
+                else u'"virtual collection namespace"'
             )
 
         return (
@@ -503,14 +504,14 @@ class _ComputedReqKindsMixin:
     @property
     def namespace(self):
         if self.is_virtual:
-            raise TypeError(f'{self.type} collections do not have a namespace')
+            raise TypeError('Virtual collections do not have a namespace')
 
         return self._get_separate_ns_n_name()[0]
 
     @property
     def name(self):
         if self.is_virtual:
-            raise TypeError(f'{self.type} collections do not have a name')
+            raise TypeError('Virtual collections do not have a name')
 
         return self._get_separate_ns_n_name()[-1]
 

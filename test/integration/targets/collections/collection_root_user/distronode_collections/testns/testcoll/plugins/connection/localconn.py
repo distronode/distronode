@@ -1,4 +1,5 @@
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode.module_utils.common.text.converters import to_native
 from distronode.plugins.connection import ConnectionBase

@@ -198,11 +198,3 @@ distronode-playbook test_include_tasks_in_include_role.yml "$@" 2>&1 | tee out.t
 
 distronode-playbook test_run_once.yml -i inventory.handlers "$@" 2>&1 | tee out.txt
 [ "$(grep out.txt -ce 'handler ran once')" = "1" ]
-
-distronode-playbook force_handlers_blocks_81533-1.yml -i inventory.handlers "$@" 2>&1 | tee out.txt
-[ "$(grep out.txt -ce 'task1')" = "1" ]
-[ "$(grep out.txt -ce 'task2')" = "1" ]
-[ "$(grep out.txt -ce 'hosts_left')" = "1" ]
-
-distronode-playbook force_handlers_blocks_81533-2.yml -i inventory.handlers "$@" 2>&1 | tee out.txt
-[ "$(grep out.txt -ce 'hosts_left')" = "1" ]

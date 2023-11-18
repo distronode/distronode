@@ -14,7 +14,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from os.path import basename
 
@@ -133,6 +135,10 @@ class IncludeRole(TaskInclude):
         ir._role_name = ir.args.get('name', ir.args.get('role'))
         if ir._role_name is None:
             raise DistronodeParserError("'name' is a required field for %s." % ir.action, obj=data)
+
+        # public is only valid argument for includes, imports are always 'public' (after they run)
+        if 'public' in ir.args and ir.action not in C._ACTION_INCLUDE_ROLE:
+            raise DistronodeParserError('Invalid options for %s: public' % ir.action, obj=data)
 
         # validate bad args, otherwise we silently ignore
         bad_opts = my_arg_names.difference(IncludeRole.VALID_ARGS)

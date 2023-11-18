@@ -1,7 +1,8 @@
 # Copyright: (c) 2012, Jan-Piet Mens <jpmens () gmail.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from collections.abc import MutableMapping, MutableSet, MutableSequence
 from pathlib import Path
@@ -240,7 +241,7 @@ def get_versioned_doclink(path):
     """
     returns a versioned documentation link for the current Distronode major.minor version; used to generate
     in-product warning/error links to the configured DOCSITE_ROOT_URL
-    (eg, https://distronode.github.io/docs/2.8/somepath/doc.html)
+    (eg, https://distronode.khulnasoft.com/docs/distronode/2.8/somepath/doc.html)
 
     :param path: relative path to a document under docs/docsite/rst;
     :return: absolute URL to the specified doc for the current version of Distronode

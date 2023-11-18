@@ -58,7 +58,7 @@
         - find:
             path: "{{ distronode_remote_tmp }}"
             use_regex: yes
-            patterns: 'DistroallZ_.+\.py'
+            patterns: 'AnsiballZ_.+\.py'
             recurse: true
           register: result
 
@@ -67,6 +67,6 @@
 
     - assert:
         that:
-          # Should only be DistroallZ_find.py because find is actively running
+          # Should only be AnsiballZ_find.py because find is actively running
           - result.files|length == 1
-          - result.files[0].path.endswith('/DistroallZ_find.py')
+          - result.files[0].path.endswith('/AnsiballZ_find.py')

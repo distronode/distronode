@@ -1,7 +1,8 @@
 # (c) 2018 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import base64
 import errno
@@ -10,13 +11,13 @@ import os
 import pkgutil
 import random
 import re
-from importlib import import_module
 
 from distronode.module_utils.compat.version import LooseVersion
 
 from distronode import constants as C
 from distronode.errors import DistronodeError
 from distronode.module_utils.common.text.converters import to_bytes, to_native, to_text
+from distronode.module_utils.compat.importlib import import_module
 from distronode.plugins.loader import ps_module_utils_loader
 from distronode.utils.collection_loader import resource_from_fqcr
 

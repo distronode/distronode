@@ -1,9 +1,11 @@
 # coding: utf-8
-# Copyright: (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import base64
 import json
@@ -100,7 +102,7 @@ class ActionBase(ABC):
             etc) associated with this task.
         :returns: dictionary of results from the module
 
-        Implementers of action modules may find the following variables especially useful:
+        Implementors of action modules may find the following variables especially useful:
 
         * Module parameters.  These are stored in self._task.args
         """
@@ -849,13 +851,10 @@ class ActionBase(ABC):
             path=path,
             follow=follow,
             get_checksum=checksum,
-            get_size=False,  # distronode.windows.win_stat added this in 1.11.0
             checksum_algorithm='sha1',
         )
-        # Unknown opts are ignored as module_args could be specific for the
-        # module that is being executed.
         mystat = self._execute_module(module_name='distronode.legacy.stat', module_args=module_args, task_vars=all_vars,
-                                      wrap_async=False, ignore_unknown_opts=True)
+                                      wrap_async=False)
 
         if mystat.get('failed'):
             msg = mystat.get('module_stderr')
@@ -939,7 +938,7 @@ class ActionBase(ABC):
             data = re.sub(r'^((\r)?\n)?BECOME-SUCCESS.*(\r)?\n', '', data)
         return data
 
-    def _update_module_args(self, module_name, module_args, task_vars, ignore_unknown_opts: bool = False):
+    def _update_module_args(self, module_name, module_args, task_vars):
 
         # set check mode in the module arguments, if required
         if self._task.check_mode:
@@ -997,11 +996,7 @@ class ActionBase(ABC):
         # make sure the remote_tmp value is sent through in case modules needs to create their own
         module_args['_distronode_remote_tmp'] = self.get_shell_option('remote_tmp', default='~/.distronode/tmp')
 
-        # tells the module to ignore options that are not in its argspec.
-        module_args['_distronode_ignore_unknown_opts'] = ignore_unknown_opts
-
-    def _execute_module(self, module_name=None, module_args=None, tmp=None, task_vars=None, persist_files=False, delete_remote_tmp=None, wrap_async=False,
-                        ignore_unknown_opts: bool = False):
+    def _execute_module(self, module_name=None, module_args=None, tmp=None, task_vars=None, persist_files=False, delete_remote_tmp=None, wrap_async=False):
         '''
         Transfer and run a module along with its arguments.
         '''
@@ -1037,7 +1032,7 @@ class ActionBase(ABC):
         if module_args is None:
             module_args = self._task.args
 
-        self._update_module_args(module_name, module_args, task_vars, ignore_unknown_opts=ignore_unknown_opts)
+        self._update_module_args(module_name, module_args, task_vars)
 
         remove_async_dir = None
         if wrap_async or self._task.async_val:
@@ -1061,7 +1056,7 @@ class ActionBase(ABC):
                 tmpdir = self._connection._shell.tmpdir
 
             remote_module_filename = self._connection._shell.get_remote_filename(module_path)
-            remote_module_path = self._connection._shell.join_path(tmpdir, 'DistroallZ_%s' % remote_module_filename)
+            remote_module_path = self._connection._shell.join_path(tmpdir, 'AnsiballZ_%s' % remote_module_filename)
 
         args_file_path = None
         if module_style in ('old', 'non_native_want_json', 'binary'):

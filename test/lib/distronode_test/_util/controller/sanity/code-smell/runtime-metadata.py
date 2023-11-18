@@ -153,7 +153,7 @@ def validate_metadata_file(path, is_distronode, check_deprecation_dates=False):
         current_version = get_collection_version()
 
     # Updates to schema MUST also be reflected in the documentation
-    # ~https://distronode.github.io/docs-core/devel/dev_guide/developing_collections.html
+    # ~https://distronode.khulnasoft.com/docs/distronode-core/devel/dev_guide/developing_collections.html
 
     # plugin_routing schema
 

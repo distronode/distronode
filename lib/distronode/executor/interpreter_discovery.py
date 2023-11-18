@@ -1,7 +1,8 @@
-# Copyright: (c) 2018 Distronode Project
+# Copyright: (c) 2023 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import bisect
 import json
@@ -9,7 +10,6 @@ import pkgutil
 import re
 
 from distronode import constants as C
-from distronode.errors import DistronodeError
 from distronode.module_utils.common.text.converters import to_native, to_text
 from distronode.module_utils.distro import LinuxDistribution
 from distronode.utils.display import Display
@@ -150,8 +150,6 @@ def discover_interpreter(action, interpreter_name, discovery_mode, task_vars):
         return platform_interpreter
     except NotImplementedError as ex:
         display.vvv(msg=u'Python interpreter discovery fallback ({0})'.format(to_text(ex)), host=host)
-    except DistronodeError:
-        raise
     except Exception as ex:
         if not is_silent:
             display.warning(msg=u'Unhandled error in Python interpreter discovery for host {0}: {1}'.format(host, to_text(ex)))

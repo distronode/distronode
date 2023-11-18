@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2020-2021, Distronode Project
+# Copyright: (c) 2023-2021, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 """Requirement provider interfaces."""
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import functools
 import typing as t
@@ -135,7 +136,7 @@ class CollectionDependencyProviderBase(AbstractProvider):
 
         :param resolutions: Mapping of identifier, candidate pairs.
 
-        :param candidates: Possible candidates for the identifier.
+        :param candidates: Possible candidates for the identifer.
             Mapping of identifier, list of candidate pairs.
 
         :param information: Requirement information of each package.
@@ -442,7 +443,7 @@ class CollectionDependencyProviderBase(AbstractProvider):
 
         # NOTE: This guard expression MUST perform an early exit only
         # NOTE: after the `get_collection_dependencies()` call because
-        # NOTE: internally it populates the artifact URL of the candidate,
+        # NOTE: internally it polulates the artifact URL of the candidate,
         # NOTE: its SHA hash and the Galaxy API token. These are still
         # NOTE: necessary with `--no-deps` because even with the disabled
         # NOTE: dependency resolution the outer layer will still need to

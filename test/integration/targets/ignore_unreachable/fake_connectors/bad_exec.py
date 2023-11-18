@@ -1,4 +1,5 @@
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import distronode.plugins.connection.local as distronode_local
 from distronode.errors import DistronodeConnectionFailure

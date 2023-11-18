@@ -1,2 +1,0 @@
-bugfixes:
-- Harden python templates for respawn and distroallz around str literal quoting

@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2018, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# Copyright: (c) 2023, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode import context
 

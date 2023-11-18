@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2022, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 """Signature verification helpers."""
-from __future__ import annotations
 
 from distronode.errors import DistronodeError
 from distronode.galaxy.user_agent import user_agent
 from distronode.module_utils.urls import open_url
 
 import contextlib
-import inspect
 import os
 import subprocess
 import sys
@@ -138,8 +136,8 @@ class GpgBaseError(Exception):
         return ' '.join(cls.__doc__.split())
 
     def __post_init__(self):
-        for field_name, field_type in inspect.get_annotations(type(self), eval_str=True).items():
-            super(GpgBaseError, self).__setattr__(field_name, field_type(getattr(self, field_name)))
+        for field in dc_fields(self):
+            super(GpgBaseError, self).__setattr__(field.name, field.type(getattr(self, field.name)))
 
 
 @frozen_dataclass

@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
 # Copyright: (c) 2014, Ruggero Marchei <ruggero.marchei@daemonzone.net>
-# Copyright: (c) 2015, Brian Coca <bcoca@distronode.github.io>
-# Copyright: (c) 2016-2017, Konstantin Shalygin <k0ste@k0ste.ru>
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2015, Brian Coca <bcoca@khulnasoft.com>
+# Copyright: (c) 2023-2017, Konstantin Shalygin <k0ste@k0ste.ru>
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''

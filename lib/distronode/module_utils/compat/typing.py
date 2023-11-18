@@ -1,5 +1,6 @@
 """Compatibility layer for the `typing` module, providing all Python versions access to the newest type-hinting features."""
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # pylint: disable=wildcard-import,unused-wildcard-import
 

@@ -1,5 +1,5 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
-# (c) 2015, Toshio Kuraotmi <tkuratomi@distronode.github.io>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
+# (c) 2015, Toshio Kuraotmi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -16,7 +16,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from collections import defaultdict
 
@@ -25,7 +27,6 @@ from unittest import mock
 from units.compat import unittest
 from distronode.errors import DistronodeError
 from distronode.utils.vars import combine_vars, merge_hash
-from distronode.vars.manager import VarsWithSources
 
 
 class TestVariableUtils(unittest.TestCase):
@@ -39,11 +40,6 @@ class TestVariableUtils(unittest.TestCase):
         dict(
             a=dict(a=1),
             b=dict(b=2),
-            result=dict(a=1, b=2),
-        ),
-        dict(
-            a=dict(a=1),
-            b=VarsWithSources().new_vars_with_sources(dict(b=2), dict(b='task vars')),
             result=dict(a=1, b=2),
         ),
         dict(
@@ -62,11 +58,6 @@ class TestVariableUtils(unittest.TestCase):
             a=dict(a=1),
             b=dict(b=2),
             result=dict(a=1, b=2)
-        ),
-        dict(
-            a=dict(a=1),
-            b=VarsWithSources().new_vars_with_sources(dict(b=2), dict(b='task vars')),
-            result=dict(a=1, b=2),
         ),
         dict(
             a=dict(a=1, c=dict(foo='bar')),

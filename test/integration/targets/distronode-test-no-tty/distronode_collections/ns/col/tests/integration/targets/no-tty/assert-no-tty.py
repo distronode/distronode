@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 """Assert no TTY is available."""
-from __future__ import annotations
 
 import sys
 

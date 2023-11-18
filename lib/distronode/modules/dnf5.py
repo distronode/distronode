@@ -2,8 +2,9 @@
 # Copyright 2023 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 
 DOCUMENTATION = """
 module: dnf5
@@ -356,15 +357,9 @@ def is_installed(base, spec):
 
 
 def is_newer_version_installed(base, spec):
-    # FIXME investigate whether this function can be replaced by dnf5's allow_downgrade option
-    if "/" in spec:
-        spec = spec.split("/")[-1]
-        if spec.endswith(".rpm"):
-            spec = spec[:-4]
-
     try:
         spec_nevra = next(iter(libdnf5.rpm.Nevra.parse(spec)))
-    except (RuntimeError, StopIteration):
+    except RuntimeError:
         return False
     spec_name = spec_nevra.get_name()
     v = spec_nevra.get_version()

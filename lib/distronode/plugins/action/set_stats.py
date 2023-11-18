@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode.module_utils.parsing.convert_bool import boolean
 from distronode.plugins.action import ActionBase

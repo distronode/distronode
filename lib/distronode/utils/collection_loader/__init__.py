@@ -4,7 +4,8 @@
 # CAUTION: This implementation of the collection loader is used by distronode-test.
 #          Because of this, it must be compatible with all Python versions supported on the controller or remote.
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # FIXME: decide what of this we want to actually be public/toplevel, put other stuff on a utility class?
 from ._collection_config import DistronodeCollectionConfig

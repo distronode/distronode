@@ -1,8 +1,9 @@
-# Copyright: (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# Copyright: (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode import constants as C
 from distronode.parsing.dataloader import DataLoader

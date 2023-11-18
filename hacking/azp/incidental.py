@@ -18,7 +18,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 """CLI tool for reporting on incidental test coverage."""
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 # noinspection PyCompatibility
 import argparse

@@ -1,7 +1,8 @@
-# Copyright: (c) 2017, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import atexit
 import configparser
@@ -256,7 +257,7 @@ def find_ini_config_file(warnings=None):
         warnings.add(u"Distronode is being run in a world writable directory (%s),"
                      u" ignoring it as an distronode.cfg source."
                      u" For more information see"
-                     u" https://distronode.github.io/docs/devel/reference_appendices/config.html#cfg-in-world-writable-dir"
+                     u" https://distronode.khulnasoft.com/docs/distronode/devel/reference_appendices/config.html#cfg-in-world-writable-dir"
                      % to_text(cwd))
 
     return path

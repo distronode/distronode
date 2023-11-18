@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright 2017 Chris Meyers <cmeyers@distronode.github.io>
+# Copyright 2017 Chris Meyers <cmeyers@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -17,7 +17,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import pytest
 from unittest import mock

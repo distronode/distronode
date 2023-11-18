@@ -1,8 +1,9 @@
 #!/usr/bin/python
 """Distronode module to detect the presence of both the normal and Distronode-specific versions of Paramiko."""
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
 
+__metaclass__ = type
 
 from distronode.module_utils.basic import DistronodeModule
 

@@ -1,4 +1,4 @@
-# (c) 2014, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2014, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,9 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
+
 '''
 Compat library for distronode.  This contains compatibility definitions for older python
 When we need to import a module differently depending on python version, do it
 here.  Then in the code we can simply import from compat in order to get what we want.
 '''
-from __future__ import annotations

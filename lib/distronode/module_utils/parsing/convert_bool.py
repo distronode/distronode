@@ -1,7 +1,8 @@
 # Copyright: 2017, Distronode Project
 # Simplified BSD License (see licenses/simplified_bsd.txt or https://opensource.org/licenses/BSD-2-Clause )
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from distronode.module_utils.six import binary_type, text_type
 from distronode.module_utils.common.text.converters import to_text

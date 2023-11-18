@@ -13,6 +13,6 @@ The mailing list and irc are great ways to ask questions, or post if you don't t
 
 Or check this page for a more complete list of communication channels and their purposes:
 
-* https://distronode.github.io/docs/latest/community/communication.html
+* https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html
 
 Thank you!

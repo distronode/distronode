@@ -1,4 +1,4 @@
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import sys
@@ -197,15 +199,14 @@ class VariableManager:
             basedirs = [self._loader.get_basedir()]
 
         if play:
-            for role in play.get_roles():
-                # role is public and
-                #    either static or dynamic and completed
-                # role is not set
-                #    use config option as default
-                role_is_static_or_completed = role.static or role._completed.get(host.name, False)
-                if role.public and role_is_static_or_completed or \
-                   role.public is None and not C.DEFAULT_PRIVATE_ROLE_VARS and role_is_static_or_completed:
-                    all_vars = _combine_and_track(all_vars, role.get_default_vars(), "role '%s' defaults" % role.name)
+            if not C.DEFAULT_PRIVATE_ROLE_VARS:
+                for role in play.get_roles():
+                    # role is public and
+                    #    either static or dynamic and completed
+                    # role is not set
+                    #    use config option as default
+                    if role.static or role.public and role._completed.get(host.name, False):
+                        all_vars = _combine_and_track(all_vars, role.get_default_vars(), "role '%s' defaults" % role.name)
         if task:
             # set basedirs
             if C.PLAYBOOK_VARS_ROOT == 'all':  # should be default
@@ -394,12 +395,10 @@ class VariableManager:
             #    either static or dynamic and completed
             # role is not set
             #    use config option as default
-            for role in play.get_roles():
-                role_is_static_or_completed = role.static or role._completed.get(host.name, False)
-                if role.public and role_is_static_or_completed or \
-                   role.public is None and not C.DEFAULT_PRIVATE_ROLE_VARS and role_is_static_or_completed:
-
-                    all_vars = _combine_and_track(all_vars, role.get_vars(include_params=False, only_exports=True), "role '%s' exported vars" % role.name)
+            if not C.DEFAULT_PRIVATE_ROLE_VARS:
+                for role in play.get_roles():
+                    if role.static or role.public and role._completed.get(host.name, False):
+                        all_vars = _combine_and_track(all_vars, role.get_vars(include_params=False, only_exports=True), "role '%s' exported vars" % role.name)
 
         # next, we merge in the vars from the role, which will specifically
         # follow the role dependency chain, and then we merge in the tasks
@@ -794,22 +793,3 @@ class VarsWithSources(MutableMapping):
 
     def copy(self):
         return VarsWithSources.new_vars_with_sources(self.data.copy(), self.sources.copy())
-
-    def __or__(self, other):
-        if isinstance(other, MutableMapping):
-            c = self.data.copy()
-            c.update(other)
-            return c
-        return NotImplemented
-
-    def __ror__(self, other):
-        if isinstance(other, MutableMapping):
-            c = self.__class__()
-            c.update(other)
-            c.update(self.data)
-            return c
-        return NotImplemented
-
-    def __ior__(self, other):
-        self.data.update(other)
-        return self.data

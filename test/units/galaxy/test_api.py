@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Copyright: (c) 2019, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import json
 import os
@@ -136,7 +138,7 @@ def get_collection_versions(namespace='namespace', name='collection'):
             "name": name,
             "namespace": {
                 "id": 30000,
-                "href": "https://galaxy.distronode.github.io/api/v1/namespaces/30000/",
+                "href": "https://galaxy.distronode.khulnasoft.com/api/v1/namespaces/30000/",
                 "name": namespace,
             },
             "versions_url": versions_url,
@@ -179,7 +181,7 @@ def get_collection_versions(namespace='namespace', name='collection'):
 
 
 def test_api_no_auth():
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/")
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/")
     actual = {}
     api._add_auth_token(actual, "")
     assert actual == {}
@@ -188,12 +190,12 @@ def test_api_no_auth():
 def test_api_no_auth_but_required():
     expected = "No access token or username set. A token can be set with --api-key or at "
     with pytest.raises(DistronodeError, match=expected):
-        GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/")._add_auth_token({}, "", required=True)
+        GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/")._add_auth_token({}, "", required=True)
 
 
 def test_api_token_auth():
     token = GalaxyToken(token=u"my_token")
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
     api._add_auth_token(actual, "", required=True)
     assert actual == {'Authorization': 'Token my_token'}
@@ -204,7 +206,7 @@ def test_api_token_auth_with_token_type(monkeypatch):
     mock_token_get = MagicMock()
     mock_token_get.return_value = 'my_token'
     monkeypatch.setattr(token, 'get', mock_token_get)
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
     api._add_auth_token(actual, "", token_type="Bearer", required=True)
     assert actual == {'Authorization': 'Bearer my_token'}
@@ -215,24 +217,24 @@ def test_api_token_auth_with_v3_url(monkeypatch):
     mock_token_get = MagicMock()
     mock_token_get.return_value = 'my_token'
     monkeypatch.setattr(token, 'get', mock_token_get)
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
-    api._add_auth_token(actual, "https://galaxy.distronode.github.io/api/v3/resource/name", required=True)
+    api._add_auth_token(actual, "https://galaxy.distronode.khulnasoft.com/api/v3/resource/name", required=True)
     assert actual == {'Authorization': 'Bearer my_token'}
 
 
 def test_api_token_auth_with_v2_url():
     token = GalaxyToken(token=u"my_token")
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
     # Add v3 to random part of URL but response should only see the v2 as the full URI path segment.
-    api._add_auth_token(actual, "https://galaxy.distronode.github.io/api/v2/resourcev3/name", required=True)
+    api._add_auth_token(actual, "https://galaxy.distronode.khulnasoft.com/api/v2/resourcev3/name", required=True)
     assert actual == {'Authorization': 'Token my_token'}
 
 
 def test_api_basic_auth_password():
     token = BasicAuthToken(username=u"user", password=u"pass")
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
     api._add_auth_token(actual, "", required=True)
     assert actual == {'Authorization': 'Basic dXNlcjpwYXNz'}
@@ -240,14 +242,14 @@ def test_api_basic_auth_password():
 
 def test_api_basic_auth_no_password():
     token = BasicAuthToken(username=u"user")
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
     actual = {}
     api._add_auth_token(actual, "", required=True)
     assert actual == {'Authorization': 'Basic dXNlcjo='}
 
 
 def test_api_dont_override_auth_header():
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/")
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/")
     actual = {'Authorization': 'Custom token'}
     api._add_auth_token(actual, "", required=True)
     assert actual == {'Authorization': 'Custom token'}
@@ -261,7 +263,7 @@ def test_initialise_galaxy(monkeypatch):
     ]
     monkeypatch.setattr(galaxy_api, 'open_url', mock_open)
 
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/")
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/")
     actual = api.authenticate("github_token")
 
     assert len(api.available_api_versions) == 2
@@ -269,9 +271,9 @@ def test_initialise_galaxy(monkeypatch):
     assert api.available_api_versions['v2'] == u'v2/'
     assert actual == {u'token': u'my token'}
     assert mock_open.call_count == 2
-    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.github.io/api/'
+    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/'
     assert 'distronode-galaxy' in mock_open.mock_calls[0][2]['http_agent']
-    assert mock_open.mock_calls[1][1][0] == 'https://galaxy.distronode.github.io/api/v1/tokens/'
+    assert mock_open.mock_calls[1][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/v1/tokens/'
     assert 'distronode-galaxy' in mock_open.mock_calls[1][2]['http_agent']
     assert mock_open.mock_calls[1][2]['data'] == 'github_token=github_token'
 
@@ -284,7 +286,7 @@ def test_initialise_galaxy_with_auth(monkeypatch):
     ]
     monkeypatch.setattr(galaxy_api, 'open_url', mock_open)
 
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=GalaxyToken(token='my_token'))
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=GalaxyToken(token='my_token'))
     actual = api.authenticate("github_token")
 
     assert len(api.available_api_versions) == 2
@@ -292,9 +294,9 @@ def test_initialise_galaxy_with_auth(monkeypatch):
     assert api.available_api_versions['v2'] == u'v2/'
     assert actual == {u'token': u'my token'}
     assert mock_open.call_count == 2
-    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.github.io/api/'
+    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/'
     assert 'distronode-galaxy' in mock_open.mock_calls[0][2]['http_agent']
-    assert mock_open.mock_calls[1][1][0] == 'https://galaxy.distronode.github.io/api/v1/tokens/'
+    assert mock_open.mock_calls[1][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/v1/tokens/'
     assert 'distronode-galaxy' in mock_open.mock_calls[1][2]['http_agent']
     assert mock_open.mock_calls[1][2]['data'] == 'github_token=github_token'
 
@@ -310,13 +312,13 @@ def test_initialise_automation_hub(monkeypatch):
     mock_token_get.return_value = 'my_token'
     monkeypatch.setattr(token, 'get', mock_token_get)
 
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=token)
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=token)
 
     assert len(api.available_api_versions) == 2
     assert api.available_api_versions['v2'] == u'v2/'
     assert api.available_api_versions['v3'] == u'v3/'
 
-    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.github.io/api/'
+    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/'
     assert 'distronode-galaxy' in mock_open.mock_calls[0][2]['http_agent']
     assert mock_open.mock_calls[0][2]['headers'] == {'Authorization': 'Bearer my_token'}
 
@@ -324,12 +326,12 @@ def test_initialise_automation_hub(monkeypatch):
 def test_initialise_unknown(monkeypatch):
     mock_open = MagicMock()
     mock_open.side_effect = [
-        urllib_error.HTTPError('https://galaxy.distronode.github.io/api/', 500, 'msg', {}, StringIO(u'{"msg":"raw error"}')),
-        urllib_error.HTTPError('https://galaxy.distronode.github.io/api/api/', 500, 'msg', {}, StringIO(u'{"msg":"raw error"}')),
+        urllib_error.HTTPError('https://galaxy.distronode.khulnasoft.com/api/', 500, 'msg', {}, StringIO(u'{"msg":"raw error"}')),
+        urllib_error.HTTPError('https://galaxy.distronode.khulnasoft.com/api/api/', 500, 'msg', {}, StringIO(u'{"msg":"raw error"}')),
     ]
     monkeypatch.setattr(galaxy_api, 'open_url', mock_open)
 
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/", token=GalaxyToken(token='my_token'))
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/", token=GalaxyToken(token='my_token'))
 
     expected = "Error when finding available api versions from test (%s) (HTTP Code: 500, Message: msg)" \
         % api.api_server
@@ -344,14 +346,14 @@ def test_get_available_api_versions(monkeypatch):
     ]
     monkeypatch.setattr(galaxy_api, 'open_url', mock_open)
 
-    api = GalaxyAPI(None, "test", "https://galaxy.distronode.github.io/api/")
+    api = GalaxyAPI(None, "test", "https://galaxy.distronode.khulnasoft.com/api/")
     actual = api.available_api_versions
     assert len(actual) == 2
     assert actual['v1'] == u'v1/'
     assert actual['v2'] == u'v2/'
 
     assert mock_open.call_count == 1
-    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.github.io/api/'
+    assert mock_open.mock_calls[0][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/'
     assert 'distronode-galaxy' in mock_open.mock_calls[0][2]['http_agent']
 
 
@@ -359,7 +361,7 @@ def test_publish_collection_missing_file():
     fake_path = u'/fake/ÅÑŚÌβŁÈ/path'
     expected = to_native("The collection path specified '%s' does not exist." % fake_path)
 
-    api = get_test_galaxy_api("https://galaxy.distronode.github.io/api/", "v2")
+    api = get_test_galaxy_api("https://galaxy.distronode.khulnasoft.com/api/", "v2")
     with pytest.raises(DistronodeError, match=expected):
         api.publish_collection(fake_path)
 
@@ -368,7 +370,7 @@ def test_publish_collection_not_a_tarball():
     expected = "The collection path specified '{0}' is not a tarball, use 'distronode-galaxy collection build' to " \
                "create a proper release artifact."
 
-    api = get_test_galaxy_api("https://galaxy.distronode.github.io/api/", "v2")
+    api = get_test_galaxy_api("https://galaxy.distronode.khulnasoft.com/api/", "v2")
     with tempfile.NamedTemporaryFile(prefix=u'ÅÑŚÌβŁÈ') as temp_file:
         temp_file.write(b"\x00")
         temp_file.flush()
@@ -378,9 +380,9 @@ def test_publish_collection_not_a_tarball():
 
 def test_publish_collection_unsupported_version():
     expected = "Galaxy action publish_collection requires API versions 'v2, v3' but only 'v1' are available on test " \
-               "https://galaxy.distronode.github.io/api/"
+               "https://galaxy.distronode.khulnasoft.com/api/"
 
-    api = get_test_galaxy_api("https://galaxy.distronode.github.io/api/", "v1")
+    api = get_test_galaxy_api("https://galaxy.distronode.khulnasoft.com/api/", "v1")
     with pytest.raises(DistronodeError, match=expected):
         api.publish_collection("path")
 
@@ -390,7 +392,7 @@ def test_publish_collection_unsupported_version():
     ('v3', 'artifacts/collections'),
 ])
 def test_publish_collection(api_version, collection_url, collection_artifact, monkeypatch):
-    api = get_test_galaxy_api("https://galaxy.distronode.github.io/api/", api_version)
+    api = get_test_galaxy_api("https://galaxy.distronode.khulnasoft.com/api/", api_version)
 
     mock_call = MagicMock()
     mock_call.return_value = {'task': 'http://task.url/'}
@@ -399,7 +401,7 @@ def test_publish_collection(api_version, collection_url, collection_artifact, mo
     actual = api.publish_collection(collection_artifact)
     assert actual == 'http://task.url/'
     assert mock_call.call_count == 1
-    assert mock_call.mock_calls[0][1][0] == 'https://galaxy.distronode.github.io/api/%s/%s/' % (api_version, collection_url)
+    assert mock_call.mock_calls[0][1][0] == 'https://galaxy.distronode.khulnasoft.com/api/%s/%s/' % (api_version, collection_url)
     assert mock_call.mock_calls[0][2]['headers']['Content-length'] == len(mock_call.mock_calls[0][2]['args'])
     assert mock_call.mock_calls[0][2]['headers']['Content-type'].startswith(
         'multipart/form-data; boundary=')
@@ -1114,7 +1116,7 @@ def test_get_role_versions_pagination(monkeypatch, responses):
 
 def test_missing_cache_dir(cache_dir):
     os.rmdir(cache_dir)
-    GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', no_cache=False)
+    GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', no_cache=False)
 
     assert os.path.isdir(cache_dir)
     assert stat.S_IMODE(os.stat(cache_dir).st_mode) == 0o700
@@ -1133,7 +1135,7 @@ def test_existing_cache(cache_dir):
         fd.write(cache_file_contents)
         os.chmod(cache_file, 0o655)
 
-    GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', no_cache=False)
+    GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', no_cache=False)
 
     assert os.path.isdir(cache_dir)
     with open(cache_file) as fd:
@@ -1156,7 +1158,7 @@ def test_cache_invalid_cache_content(content, cache_dir):
         fd.write(content)
         os.chmod(cache_file, 0o664)
 
-    GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', no_cache=False)
+    GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', no_cache=False)
 
     with open(cache_file) as fd:
         actual_cache = fd.read()
@@ -1294,7 +1296,7 @@ def test_world_writable_cache(cache_dir, monkeypatch):
         fd.write('{"version": 2}')
         os.chmod(cache_file, 0o666)
 
-    api = GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', no_cache=False)
+    api = GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', no_cache=False)
     assert api._cache is None
 
     with open(cache_file) as fd:
@@ -1312,7 +1314,7 @@ def test_no_cache(cache_dir):
     with open(cache_file, mode='w') as fd:
         fd.write('random')
 
-    api = GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/')
+    api = GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/')
     assert api._cache is None
 
     with open(cache_file) as fd:
@@ -1325,7 +1327,7 @@ def test_clear_cache_with_no_cache(cache_dir):
     with open(cache_file, mode='w') as fd:
         fd.write('{"version": 1, "key": "value"}')
 
-    GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', clear_response_cache=True)
+    GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', clear_response_cache=True)
     assert not os.path.exists(cache_file)
 
 
@@ -1334,7 +1336,7 @@ def test_clear_cache(cache_dir):
     with open(cache_file, mode='w') as fd:
         fd.write('{"version": 1, "key": "value"}')
 
-    GalaxyAPI(None, "test", 'https://galaxy.distronode.github.io/', clear_response_cache=True, no_cache=False)
+    GalaxyAPI(None, "test", 'https://galaxy.distronode.khulnasoft.com/', clear_response_cache=True, no_cache=False)
 
     with open(cache_file) as fd:
         actual_cache = fd.read()

@@ -25,7 +25,7 @@
 
 """Utilities for writing code that runs on Python 2 and 3"""
 
-from __future__ import annotations
+from __future__ import absolute_import
 
 import functools
 import itertools

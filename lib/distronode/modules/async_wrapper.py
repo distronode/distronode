@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2012, Michael DeHaan <michael.dehaan@gmail.com>, and others
+# Copyright: (c) 2012, KhulnaSoft Ltd <info@khulnasoft.com>, and others
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 import errno
@@ -75,7 +76,7 @@ def daemonize_self():
 
 
 # NB: this function copied from module_utils/json_utils.py. Ensure any changes are propagated there.
-# FUTURE: DistronodeModule-ify this module so it's Distroallz-compatible and can use the module_utils copy of this function.
+# FUTURE: DistronodeModule-ify this module so it's Ansiballz-compatible and can use the module_utils copy of this function.
 def _filter_non_json_lines(data):
     '''
     Used to filter unrelated output around module JSON output, like messages from

@@ -11,7 +11,7 @@ However, we're absolutely always up for discussion.
 Because this project is very active, we're unlikely to see comments made on closed tickets and we lock them after some time.
 If you or anyone else has any further questions, please let us know by using any of the communication methods listed in the page below:
 
-* https://distronode.github.io/docs/latest/community/communication.html
+* https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html
 
 In the future, sometimes starting a discussion on the development list prior to implementing a feature can make getting things included a little easier, but it's not always necessary.
 

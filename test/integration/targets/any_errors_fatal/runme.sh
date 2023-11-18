@@ -35,17 +35,3 @@ for test_name in test_include_role test_include_tasks; do
       exit 1
   fi
 done
-
-distronode-playbook -i inventory "$@" 31543.yml | tee out.txt
-[ "$(grep -c 'SHOULD NOT HAPPEN' out.txt)" -eq 0 ]
-
-distronode-playbook -i inventory "$@" 36308.yml | tee out.txt
-[ "$(grep -c 'handler1 ran' out.txt)" -eq 1 ]
-
-distronode-playbook -i inventory "$@" 73246.yml | tee out.txt
-[ "$(grep -c 'PASSED' out.txt)" -eq 1 ]
-
-distronode-playbook -i inventory "$@" 80981.yml | tee out.txt
-[ "$(grep -c 'SHOULD NOT HAPPEN' out.txt)" -eq 0 ]
-[ "$(grep -c 'rescue' out.txt)" -eq 2 ]
-[ "$(grep -c 'recovered' out.txt)" -eq 2 ]

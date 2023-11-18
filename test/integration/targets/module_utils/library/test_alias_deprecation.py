@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 from distronode.module_utils.basic import DistronodeModule
 # overridden

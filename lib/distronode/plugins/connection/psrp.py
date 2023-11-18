@@ -1,7 +1,8 @@
 # Copyright (c) 2018 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (annotations, absolute_import, division, print_function)
+__metaclass__ = type
 
 DOCUMENTATION = """
 author: Distronode Core Team
@@ -443,7 +444,7 @@ class Connection(ConnectionBase):
             pwsh_in_data = to_text(in_data, errors="surrogate_or_strict", nonstring="passthru")
 
             if pwsh_in_data and isinstance(pwsh_in_data, str) and pwsh_in_data.startswith("#!"):
-                # DISTROALLZ wrapper, we need to get the interpreter and execute
+                # ANSIBALLZ wrapper, we need to get the interpreter and execute
                 # that as the script - note this won't work as basic.py relies
                 # on packages not available on Windows, once fixed we can enable
                 # this path

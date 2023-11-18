@@ -1,4 +1,0 @@
-minor_changes:
-  - >-
-    distronode-galaxy - Started normalizing build directory with a trailing separator when building collections, internally.
-    (https://github.com/distronode/distronode/pull/81619).

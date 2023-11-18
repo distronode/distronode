@@ -1,10 +1,11 @@
 # (c) 2012, Daniel Hokka Zakrisson <daniel@hozac.com>
-# (c) 2012-2014, Michael DeHaan <michael.dehaan@gmail.com> and others
-# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2012-2014, KhulnaSoft Ltd <info@khulnasoft.com> and others
+# (c) 2017, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 # (c) 2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import glob
 import os
@@ -14,7 +15,6 @@ import sys
 import warnings
 
 from collections import defaultdict, namedtuple
-from importlib import import_module
 from traceback import format_exc
 
 import distronode.module_utils.compat.typing as t
@@ -26,6 +26,7 @@ from distronode import __version__ as distronode_version
 from distronode import constants as C
 from distronode.errors import DistronodeError, DistronodePluginCircularRedirect, DistronodePluginRemovedError, DistronodeCollectionUnsupportedVersionError
 from distronode.module_utils.common.text.converters import to_bytes, to_text, to_native
+from distronode.module_utils.compat.importlib import import_module
 from distronode.module_utils.six import string_types
 from distronode.parsing.utils.yaml import from_yaml
 from distronode.parsing.yaml.loader import DistronodeLoader
@@ -1005,32 +1006,23 @@ class PluginLoader:
 
         loaded_modules = set()
         for path in all_matches:
-
             name = os.path.splitext(path)[0]
             basename = os.path.basename(name)
-            is_j2 = isinstance(self, Jinja2Loader)
 
-            if is_j2:
-                ref_name = path
-            else:
-                ref_name = basename
-
-            if not is_j2 and basename in _PLUGIN_FILTERS[self.package]:
-                # j2 plugins get processed in own class, here they would just be container files
+            if basename in _PLUGIN_FILTERS[self.package]:
                 display.debug("'%s' skipped due to a defined plugin filter" % basename)
                 continue
 
             if basename == '__init__' or (basename == 'base' and self.package == 'distronode.plugins.cache'):
                 # cache has legacy 'base.py' file, which is wrapper for __init__.py
-                display.debug("'%s' skipped due to reserved name" % name)
+                display.debug("'%s' skipped due to reserved name" % basename)
                 continue
 
-            if dedupe and ref_name in loaded_modules:
-                # for j2 this is 'same file', other plugins it is basename
-                display.debug("'%s' skipped as duplicate" % ref_name)
+            if dedupe and basename in loaded_modules:
+                display.debug("'%s' skipped as duplicate" % basename)
                 continue
 
-            loaded_modules.add(ref_name)
+            loaded_modules.add(basename)
 
             if path_only:
                 yield path
@@ -1212,22 +1204,24 @@ class Jinja2Loader(PluginLoader):
             # check deprecations
             deprecation_entry = routing_entry.get('deprecation')
             if deprecation_entry:
-                warning_text = deprecation_entry.get('warning_text') or ''
+                warning_text = deprecation_entry.get('warning_text')
                 removal_date = deprecation_entry.get('removal_date')
                 removal_version = deprecation_entry.get('removal_version')
 
-                warning_text = f'{self.type.title()} "{key}" has been deprecated.{" " if warning_text else ""}{warning_text}'
+                if not warning_text:
+                    warning_text = '{0} "{1}" is deprecated'.format(self.type, key)
 
                 display.deprecated(warning_text, version=removal_version, date=removal_date, collection_name=acr.collection)
 
             # check removal
             tombstone_entry = routing_entry.get('tombstone')
             if tombstone_entry:
-                warning_text = tombstone_entry.get('warning_text') or ''
+                warning_text = tombstone_entry.get('warning_text')
                 removal_date = tombstone_entry.get('removal_date')
                 removal_version = tombstone_entry.get('removal_version')
 
-                warning_text = f'{self.type.title()} "{key}" has been removed.{" " if warning_text else ""}{warning_text}'
+                if not warning_text:
+                    warning_text = '{0} "{1}" has been removed'.format(self.type, key)
 
                 exc_msg = display.get_deprecation_message(warning_text, version=removal_version, date=removal_date,
                                                           collection_name=acr.collection, removed=True)
@@ -1277,7 +1271,7 @@ class Jinja2Loader(PluginLoader):
                     fq_name = '.'.join((parent_prefix, func_name))
                     src_name = f"distronode_collections.{acr.collection}.plugins.{self.type}.{acr.subdirs}.{func_name}"
                     # TODO: load  anyways into CACHE so we only match each at end of loop
-                    #       the files themselves should already be cached by base class caching of modules(python)
+                    #       the files themseves should already be cached by base class caching of modules(python)
                     if key in (func_name, fq_name):
                         plugin = self._plugin_wrapper_type(func)
                         if plugin:
@@ -1426,7 +1420,7 @@ def _load_plugin_filter():
             display.warning(u'The plugin filter file, {0} does not exist.'
                             u' Skipping.'.format(filter_cfg))
 
-    # Special case: the stat module as Distronode can run very few things if stat is rejected
+    # Specialcase the stat module as Distronode can run very few things if stat is rejected
     if 'stat' in filters['distronode.modules']:
         raise DistronodeError('The stat module was specified in the module reject list file, {0}, but'
                            ' Distronode will not function without the stat module.  Please remove stat'

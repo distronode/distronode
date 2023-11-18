@@ -16,7 +16,8 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 #
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import re
 
@@ -84,7 +85,7 @@ class TerminalBase(ABC):
 
         This method is called right after the invoke_shell() is called from
         the Paramiko SSHClient instance.  It provides an opportunity to setup
-        terminal parameters such as disabling paging for instance.
+        terminal parameters such as disbling paging for instance.
         """
         pass
 

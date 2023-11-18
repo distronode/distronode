@@ -2,7 +2,9 @@
 # Copyright (c) 2015-2017 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import json
 import sys
@@ -100,7 +102,9 @@ class TestDistronodeModuleExitJson:
         with pytest.raises(TypeError) as ctx:
             am.fail_json()
 
-        if sys.version_info >= (3, 10):
+        if sys.version_info < (3,):
+            error_msg = "fail_json() takes exactly 2 arguments (1 given)"
+        elif sys.version_info >= (3, 10):
             error_msg = "DistronodeModule.fail_json() missing 1 required positional argument: 'msg'"
         else:
             error_msg = "fail_json() missing 1 required positional argument: 'msg'"

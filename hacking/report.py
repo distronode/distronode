@@ -2,7 +2,8 @@
 # PYTHON_ARGCOMPLETE_OK
 """A tool to aggregate data about Distronode source and testing into a sqlite DB for reporting."""
 
-from __future__ import annotations
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import argparse
 import json

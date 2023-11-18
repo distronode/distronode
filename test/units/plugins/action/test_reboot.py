@@ -1,8 +1,6 @@
 # Copyright (c) 2022 Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 """Tests for the reboot action plugin."""
-from __future__ import annotations
-
 import os
 
 import pytest

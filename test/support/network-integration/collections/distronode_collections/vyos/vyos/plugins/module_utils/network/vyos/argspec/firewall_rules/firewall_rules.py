@@ -25,7 +25,9 @@
 The arg spec for the vyos_firewall_rules module
 """
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+
+__metaclass__ = type
 
 
 class Firewall_rulesArgs(object):  # pylint: disable=R0903

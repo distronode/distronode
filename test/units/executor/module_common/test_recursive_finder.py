@@ -1,4 +1,4 @@
-# (c) 2017, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2017, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import os
 import pytest
@@ -31,7 +33,7 @@ from distronode.plugins.loader import init_plugin_loader
 
 # These are the modules that are brought in by module_utils/basic.py  This may need to be updated
 # when basic.py gains new imports
-# We will remove these when we modify DistrOallZ to store its args in a separate file instead of in
+# We will remove these when we modify AnsiBallZ to store its args in a separate file instead of in
 # basic.py
 
 MODULE_UTILS_BASIC_FILES = frozenset(('distronode/__init__.py',
@@ -40,6 +42,7 @@ MODULE_UTILS_BASIC_FILES = frozenset(('distronode/__init__.py',
                                       'distronode/module_utils/basic.py',
                                       'distronode/module_utils/six/__init__.py',
                                       'distronode/module_utils/_text.py',
+                                      'distronode/module_utils/common/_json_compat.py',
                                       'distronode/module_utils/common/collections.py',
                                       'distronode/module_utils/common/parameters.py',
                                       'distronode/module_utils/common/warnings.py',
@@ -56,6 +59,8 @@ MODULE_UTILS_BASIC_FILES = frozenset(('distronode/__init__.py',
                                       'distronode/module_utils/common/_utils.py',
                                       'distronode/module_utils/common/arg_spec.py',
                                       'distronode/module_utils/compat/__init__.py',
+                                      'distronode/module_utils/compat/_selectors2.py',
+                                      'distronode/module_utils/compat/selectors.py',
                                       'distronode/module_utils/compat/selinux.py',
                                       'distronode/module_utils/distro/__init__.py',
                                       'distronode/module_utils/distro/_distro.py',

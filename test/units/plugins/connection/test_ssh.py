@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# (c) 2015, Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2015, Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # This file is part of Distronode
 #
@@ -16,10 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 from io import StringIO
-from selectors import SelectorKey, EVENT_READ
 import pytest
 
 
@@ -27,6 +28,7 @@ from distronode.errors import DistronodeAuthenticationFailure
 from units.compat import unittest
 from unittest.mock import patch, MagicMock, PropertyMock
 from distronode.errors import DistronodeError, DistronodeConnectionFailure, DistronodeFileNotFound
+from distronode.module_utils.compat.selectors import SelectorKey, EVENT_READ
 from distronode.module_utils.six.moves import shlex_quote
 from distronode.module_utils.common.text.converters import to_bytes
 from distronode.playbook.play_context import PlayContext
@@ -389,7 +391,7 @@ def mock_run_env(request, mocker):
     request.cls.mock_popen = mock_popen
 
     request.cls.mock_selector = MockSelector()
-    mocker.patch('selectors.DefaultSelector', lambda: request.cls.mock_selector)
+    mocker.patch('distronode.module_utils.compat.selectors.DefaultSelector', lambda: request.cls.mock_selector)
 
     request.cls.mock_openpty = mocker.patch('pty.openpty')
 

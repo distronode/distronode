@@ -31,7 +31,7 @@ modules:
   # Sanity tests that are Python version specific will always be executed for Python versions supported by the controller, regardless of this setting.
   # Reasons for this restriction include, but are not limited to:
   #
-  #  - DistroallZ must be able to AST parse modules/module_utils on the controller, even though they may execute on a managed node.
+  #  - AnsiballZ must be able to AST parse modules/module_utils on the controller, even though they may execute on a managed node.
   #  - distronode-doc must be able to AST parse modules/module_utils on the controller to display documentation.
   #  - distronode-test must be able to AST parse modules/module_utils to perform static analysis on them.
   #  - distronode-test must be able to execute portions of modules/module_utils to validate their argument specs.

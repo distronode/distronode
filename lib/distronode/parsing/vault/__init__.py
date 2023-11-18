@@ -1,6 +1,6 @@
 # (c) 2014, James Tanner <tanner.jc@gmail.com>
 # (c) 2016, Adrian Likins <alikins@redhat.com>
-# (c) 2016 Toshio Kuratomi <tkuratomi@distronode.github.io>
+# (c) 2016 Toshio Kuratomi <tkuratomi@khulnasoft.com>
 #
 # Distronode is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Distronode.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import annotations
+# Make coding more python3-ish
+from __future__ import (absolute_import, division, print_function)
+__metaclass__ = type
 
 import errno
 import fcntl

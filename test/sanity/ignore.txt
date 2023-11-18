@@ -49,14 +49,19 @@ lib/distronode/modules/uri.py validate-modules:doc-required-mismatch
 lib/distronode/modules/user.py validate-modules:doc-default-does-not-match-spec
 lib/distronode/modules/user.py validate-modules:use-run-command-not-popen
 lib/distronode/modules/yum.py validate-modules:parameter-invalid
-lib/distronode/module_utils/basic.py no-get-exception  # only referenced in deprecation code
 lib/distronode/module_utils/basic.py pylint:unused-import  # deferring resolution to allow enabling the rule now
+lib/distronode/module_utils/compat/_selectors2.py future-import-boilerplate # ignore bundled
+lib/distronode/module_utils/compat/_selectors2.py metaclass-boilerplate # ignore bundled
+lib/distronode/module_utils/compat/selinux.py import-2.7!skip # pass/fail depends on presence of libselinux.so
+lib/distronode/module_utils/compat/selinux.py import-3.6!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.7!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.8!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.9!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.10!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.11!skip # pass/fail depends on presence of libselinux.so
 lib/distronode/module_utils/compat/selinux.py import-3.12!skip # pass/fail depends on presence of libselinux.so
+lib/distronode/module_utils/distro/_distro.py future-import-boilerplate # ignore bundled
+lib/distronode/module_utils/distro/_distro.py metaclass-boilerplate # ignore bundled
 lib/distronode/module_utils/distro/_distro.py no-assert
 lib/distronode/module_utils/distro/_distro.py pep8!skip # bundled code we don't want to modify
 lib/distronode/module_utils/distro/_distro.py pylint:undefined-variable # ignore bundled
@@ -73,6 +78,8 @@ lib/distronode/module_utils/powershell/Distronode.ModuleUtils.Legacy.psm1 pslint
 lib/distronode/module_utils/powershell/Distronode.ModuleUtils.LinkUtil.psm1 pslint:PSUseApprovedVerbs
 lib/distronode/module_utils/pycompat24.py no-get-exception
 lib/distronode/module_utils/six/__init__.py empty-init # breaks namespacing, bundled, do not override
+lib/distronode/module_utils/six/__init__.py future-import-boilerplate # ignore bundled
+lib/distronode/module_utils/six/__init__.py metaclass-boilerplate # ignore bundled
 lib/distronode/module_utils/six/__init__.py no-basestring
 lib/distronode/module_utils/six/__init__.py no-dict-iteritems
 lib/distronode/module_utils/six/__init__.py no-dict-iterkeys
@@ -119,6 +126,7 @@ test/integration/targets/module_precedence/lib_with_extension/a.ini shebang
 test/integration/targets/module_precedence/lib_with_extension/ping.ini shebang
 test/integration/targets/module_precedence/roles_with_extension/foo/library/a.ini shebang
 test/integration/targets/module_precedence/roles_with_extension/foo/library/ping.ini shebang
+test/integration/targets/module_utils/library/test.py future-import-boilerplate # allow testing of Python 2.x implicit relative imports
 test/integration/targets/old_style_modules_posix/library/helloworld.sh shebang
 test/integration/targets/template/files/encoding_1252_utf-8.expected no-smart-quotes
 test/integration/targets/template/files/encoding_1252_windows-1252.expected no-smart-quotes
@@ -136,6 +144,7 @@ test/integration/targets/win_script/files/test_script_removes_file.ps1 pslint:PS
 test/integration/targets/win_script/files/test_script_with_args.ps1 pslint:PSAvoidUsingWriteHost # Keep
 test/integration/targets/win_script/files/test_script_with_splatting.ps1 pslint:PSAvoidUsingWriteHost # Keep
 test/lib/distronode_test/_data/requirements/sanity.pslint.ps1 pslint:PSCustomUseLiteralPath # Uses wildcards on purpose
+test/support/network-integration/collections/distronode_collections/distronode/netcommon/plugins/module_utils/compat/ipaddress.py no-unicode-literals
 test/support/network-integration/collections/distronode_collections/cisco/ios/plugins/cliconf/ios.py pylint:arguments-renamed
 test/support/network-integration/collections/distronode_collections/vyos/vyos/plugins/cliconf/vyos.py pylint:arguments-renamed
 test/support/windows-integration/collections/distronode_collections/distronode/windows/plugins/module_utils/WebRequest.psm1 pslint!skip
@@ -170,7 +179,6 @@ test/units/utils/collection_loader/fixtures/collections_masked/distronode_collec
 test/units/utils/collection_loader/fixtures/collections_masked/distronode_collections/testns/__init__.py empty-init  # testing that collections don't need inits
 test/units/utils/collection_loader/fixtures/collections_masked/distronode_collections/testns/testcoll/__init__.py empty-init  # testing that collections don't need inits
 test/units/utils/collection_loader/test_collection_loader.py pylint:undefined-variable  # magic runtime local var splatting
-test/units/utils/collection_loader/fixtures/collections/distronode_collections/testns/testcoll/plugins/module_utils/my_util.py boilerplate  # test requires missing boilerplate
 .github/CONTRIBUTING.md pymarkdown:line-length
 hacking/backport/README.md pymarkdown:no-bare-urls
 hacking/ticket_stubs/bug_internal_api.md pymarkdown:no-bare-urls
@@ -194,4 +202,3 @@ README.md pymarkdown:line-length
 test/integration/targets/distronode-vault/invalid_format/README.md pymarkdown:no-bare-urls
 test/support/README.md pymarkdown:no-bare-urls
 test/units/cli/test_data/role_skeleton/README.md pymarkdown:line-length
-lib/distronode/utils/encrypt.py pylint:distronode-deprecated-version  # 2.17 deprecation

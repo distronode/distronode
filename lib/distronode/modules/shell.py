@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2018, Distronode Project
+# Copyright: (c) 2023, Distronode Project
 # GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
 
 # There is no actual shell module source, when you use 'shell' in distronode,
 # it runs the 'command' module with special arguments and it behaves differently.
 # See the command source and the comment "#USE_SHELL".
 
-from __future__ import annotations
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 
 DOCUMENTATION = r'''
@@ -98,7 +99,7 @@ seealso:
 - module: distronode.windows.win_shell
 author:
     - Distronode Core Team
-    - Michael DeHaan
+    - KhulnaSoft Ltd
 '''
 
 EXAMPLES = r'''
