@@ -78,9 +78,7 @@ The [Distronode Roadmap page](https://distronode.khulnasoft.com/docs/distronode/
 ## Authors
 
 Distronode was created by [KhulnaSoft Ltd](https://github.com/khulnasoft)
-and has contributions from over 5000 users (and growing). Thanks everyone!
 
-[Distronode](https://www.distronode.khulnasoft.com) is sponsored by [Red Hat, Inc.](https://www.redhat.com)
 
 ## License
 
