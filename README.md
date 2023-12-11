@@ -1,7 +1,6 @@
 [![PyPI version](https://img.shields.io/pypi/v/distronode-core.svg)](https://pypi.org/project/distronode-core)
 [![Docs badge](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/)
 [![Chat badge](https://img.shields.io/badge/chat-IRC-brightgreen.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html)
-[![Build Status](https://dev.azure.com/distronode/distronode/_apis/build/status/CI?branchName=devel)](https://dev.azure.com/distronode/distronode/_build/latest?definitionId=20&branchName=devel)
 [![Distronode Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-Distronode-silver.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/code_of_conduct.html)
 [![Distronode mailing lists](https://img.shields.io/badge/mailing%20lists-Distronode-orange.svg)](https://distronode.khulnasoft.com/docs/distronode/latest/community/communication.html#mailing-list-information)
 [![Repository License](https://img.shields.io/badge/license-GPL%20v3.0-brightgreen.svg)](COPYING)
